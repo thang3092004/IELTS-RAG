@@ -1,8 +1,13 @@
-from typing import Any, Optional
+"""
+Shared formatting helpers that convert raw VDB/graph results into typed EvidenceItems.
+`_score_from_result` is the single source of truth — do NOT duplicate in text_tools.py / vision_tools.py.
+"""
+from typing import Any
 from ..debate.evidence_types import EvidenceItem
 
 
 def _score_from_result(result: dict) -> float:
+    """Normalise VDB result scores to [0, 1]."""
     if "similarity" in result:
         return float(result.get("similarity", 0.0))
     if "distance" in result:

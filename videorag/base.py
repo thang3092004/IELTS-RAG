@@ -8,15 +8,19 @@ from ._utils import EmbeddingFunc
 
 @dataclass
 class QueryParam:
-    mode: Literal["local", "global", "naive", "ielts_rag"] = "global"
+    mode: Literal["local", "global", "naive", "videorag", "videorag_multiple_choice", "ielts_rag"] = "global"
     only_need_context: bool = False
     response_type: str = "Multiple Paragraphs"
     level: int = 2
     top_k: int = 20
     # naive search
-    naive_max_token_for_text_unit = 12000
+    naive_max_token_for_text_unit: int = 12000
     # videorag search
-    only_need_context: bool = False
+    wo_reference: bool = True
+    # ielts_rag controls
+    ielts_top_k: int = 10          # top-k for initial dual retrieval
+    max_rounds: int = 2            # number of debate rounds (defend + critique cycles)
+    return_detailed: bool = False  # Set to True to get the full IELTS-RAG metadata dict
 
 
 TextChunkSchema = TypedDict(

@@ -308,6 +308,9 @@ class VideoRAG:
     async def aquery(self, query: str, param: QueryParam = QueryParam()):
         if param.mode == "ielts_rag":
             response = await ielts_rag_answer(self, query, param)
+            # For backward compatibility with official eval scripts, return string by default
+            if isinstance(response, dict) and not param.return_detailed:
+                return response.get("answer", "")
         elif param.mode == "videorag":
             response = await videorag_query(
                 query,

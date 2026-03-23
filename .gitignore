@@ -30,3 +30,6 @@ faster-distil-whisper-large-v3/
 
 # Bỏ qua môi trường ảo
 .venv/
+
+# Environment variables
+.env
