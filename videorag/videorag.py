@@ -25,7 +25,7 @@ from ._op import (
     videorag_query,
     videorag_query_multiple_choice,
 )
-from .pipeline.iterative_ev_rag import iterative_ev_answer
+from .pipeline.ielts_rag import ielts_rag_answer
 from ._storage import (
     JsonKVStorage,
     NanoVectorDBStorage,
@@ -306,8 +306,8 @@ class VideoRAG:
         return loop.run_until_complete(self.aquery(query, param))
 
     async def aquery(self, query: str, param: QueryParam = QueryParam()):
-        if param.mode == "iter_ev_rag":
-            response = await iterative_ev_answer(self, query, param)
+        if param.mode == "ielts_rag":
+            response = await ielts_rag_answer(self, query, param)
         elif param.mode == "videorag":
             response = await videorag_query(
                 query,

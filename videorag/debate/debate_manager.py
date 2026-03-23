@@ -7,15 +7,20 @@ from ..agents.agents_prompts import (
     CRITIQUE_PROMPT,
     JUDGE_PROMPT,
 )
+from ..agents.roles import ROLE_CONFIGS
 from ..debate.state import DebateConfig, DebateState
 from ..debate.evidence_types import EvidenceItem
 
 
-async def _chat(llm_client, model: str, messages: list[dict], tools=None, tool_choice: str | None = None):
+async def _chat(llm_client, model: str, messages: list[dict], tools=None, tool_choice: str | None = None, temperature: float | None = None, max_tokens: int | None = None):
     kwargs = {"model": model, "messages": messages}
     if tools:
         kwargs["tools"] = tools
         kwargs["tool_choice"] = tool_choice or "auto"
+    if temperature is not None:
+        kwargs["temperature"] = temperature
+    if max_tokens is not None:
+        kwargs["max_tokens"] = max_tokens
     return await llm_client.chat.completions.create(**kwargs)
 
 
@@ -43,13 +48,20 @@ def _compact_transcript(transcript: list[dict], limit: int = 40, max_chars: int 
     return compact
 
 
-async def generator_make_hypotheses(query: str, evidence: List[EvidenceItem], llm_client, cfg: DebateConfig):
+async def generator_make_hypotheses(query: str, evidence: List[EvidenceItem], llm_client, cfg: DebateConfig, role_cfgs=ROLE_CONFIGS):
     ctx = _format_evidence(evidence)
     messages = [
         {"role": "system", "content": GENERATOR_PROMPT},
         {"role": "user", "content": f"Query: {query}\nEvidence:\n{ctx}"},
     ]
-    resp = await _chat(llm_client, cfg.model, messages)
+    gen_cfg = role_cfgs.get("generator", None)
+    resp = await _chat(
+        llm_client,
+        gen_cfg.model if gen_cfg else cfg.model,
+        messages,
+        temperature=getattr(gen_cfg, "temperature", None),
+        max_tokens=getattr(gen_cfg, "max_tokens", None),
+    )
     content = resp.choices[0].message.content or ""
     # naive split; expects H1/H2/H3 labeling
     hyps = []
@@ -66,16 +78,26 @@ async def run_debate(
     tools: list[dict],
     dispatch_tool: Callable[[str, dict, list[EvidenceItem]], Any],
     cfg: DebateConfig,
+    role_cfgs=ROLE_CONFIGS,
 ):
     state = DebateState(query=query, evidence=list(initial_evidence))
 
-    hypotheses = await generator_make_hypotheses(query, state.evidence, llm_client, cfg)
+    hypotheses = await generator_make_hypotheses(query, state.evidence, llm_client, cfg, role_cfgs=role_cfgs)
 
     # shared context
     state.transcript.append({"role": "system", "content": _format_evidence(state.evidence)})
 
-    async def step(user_msg: dict):
-        resp = await _chat(llm_client, cfg.model, state.transcript + [user_msg], tools=tools, tool_choice="auto")
+    async def step(user_msg: dict, role_key: str):
+        r_cfg = role_cfgs.get(role_key, None)
+        resp = await _chat(
+            llm_client,
+            r_cfg.model if r_cfg else cfg.model,
+            state.transcript + [user_msg],
+            tools=tools,
+            tool_choice="auto",
+            temperature=getattr(r_cfg, "temperature", None),
+            max_tokens=getattr(r_cfg, "max_tokens", None),
+        )
         msg = resp.choices[0].message
         state.transcript.append({"role": "assistant", "content": msg.content, "tool_calls": msg.tool_calls})
         if msg.tool_calls:
@@ -100,10 +122,10 @@ async def run_debate(
         for prompt in defender_prompts:
             more = True
             while more:
-                more = await step({"role": "user", "content": prompt})
+                more = await step({"role": "user", "content": prompt}, role_key="defender")
         more = True
         while more:
-            more = await step({"role": "user", "content": CRITIQUE_PROMPT})
+                more = await step({"role": "user", "content": CRITIQUE_PROMPT}, role_key="critique")
 
     judge_ctx = _format_evidence(state.evidence, limit=24)
     compact_transcript = _compact_transcript(state.transcript, limit=40, max_chars=480)
@@ -111,6 +133,17 @@ async def run_debate(
         {"role": "system", "content": JUDGE_PROMPT},
         {"role": "user", "content": f"Query: {query}\nTranscript: {compact_transcript}\nEvidence:\n{judge_ctx}"},
     ]
-    judge_resp = await _chat(llm_client, cfg.model, judge_messages)
-    final_answer = judge_resp.choices[0].message.content or ""
-    return final_answer, state
+    judge_cfg = role_cfgs.get("judge", None)
+    judge_resp = await _chat(
+        llm_client,
+        judge_cfg.model if judge_cfg else cfg.model,
+        judge_messages,
+        temperature=getattr(judge_cfg, "temperature", None),
+        max_tokens=getattr(judge_cfg, "max_tokens", None),
+    )
+    raw_answer = judge_resp.choices[0].message.content or ""
+    try:
+        parsed = json.loads(raw_answer)
+    except Exception:
+        parsed = {"answer": raw_answer, "rationale": raw_answer, "citations": []}
+    return parsed, state

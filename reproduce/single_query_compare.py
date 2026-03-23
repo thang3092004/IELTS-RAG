@@ -38,7 +38,7 @@ def main():
     parser.add_argument("--baseline", type=Path, required=True, help="Path to baseline answer markdown/text")
     parser.add_argument("--working-dir", type=Path, required=True, help="Existing working_dir containing storages")
     parser.add_argument("--dataset-path", type=Path, default=Path("longervideos/dataset.json"), help="Path to dataset.json")
-    parser.add_argument("--mode", type=str, default="iter_ev_rag", help="Query mode (iter_ev_rag | videorag | videorag_multiple_choice)")
+    parser.add_argument("--mode", type=str, default="ielts_rag", help="Query mode (ielts_rag | videorag | videorag_multiple_choice)")
     parser.add_argument("--top-k", type=int, default=20, help="top_k for retrieval")
     args = parser.parse_args()
 

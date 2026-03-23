@@ -8,7 +8,7 @@ from ._utils import EmbeddingFunc
 
 @dataclass
 class QueryParam:
-    mode: Literal["local", "global", "naive"] = "global"
+    mode: Literal["local", "global", "naive", "ielts_rag"] = "global"
     only_need_context: bool = False
     response_type: str = "Multiple Paragraphs"
     level: int = 2

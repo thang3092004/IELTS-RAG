@@ -8,6 +8,7 @@ from ..tools.schemas import ALL_TOOLS
 from ..debate.debate_manager import run_debate
 from ..debate.state import DebateConfig
 from ..debate.evidence_types import EvidenceItem
+from ..agents.roles import ROLE_CONFIGS
 from .._llm import get_openai_async_client_instance
 
 
@@ -22,13 +23,9 @@ def _dedup_evidence(items: list[EvidenceItem]) -> list[EvidenceItem]:
     return deduped
 
 
-async def iterative_ev_answer(vrag, query: str, param) -> str:
-    """Entry point for Iterative Evidence-Verification RAG.
+async def ielts_rag_answer(vrag, query: str, param) -> dict:
+    """Iterative Evidence-Verification RAG tailored for IELTS-style Q&A."""
 
-    vrag: VideoRAG instance
-    query: user query
-    param: QueryParam
-    """
     stores: dict[str, Any] = {
         "chunks_vdb": getattr(vrag, "chunks_vdb", None),
         "text_chunks": getattr(vrag, "text_chunks", None),
@@ -40,20 +37,17 @@ async def iterative_ev_answer(vrag, query: str, param) -> str:
 
     top_k = getattr(param, "top_k", 6) if param else 6
 
-    init_ev = []
+    init_ev: list[EvidenceItem] = []
     init_ev += await search_text_evidence(query, stores, top_k=top_k, entity_boost=True)
     init_ev += await search_visual_segment(query, stores, top_k=min(4, top_k))
     init_ev = _dedup_evidence(init_ev)
 
-    # choose model from vrag.llm if available
     model_name = getattr(getattr(vrag, "llm", None), "best_model_name", "gpt-4o-mini")
     debate_cfg = DebateConfig(model=model_name, max_rounds=2, tool_top_k=top_k)
 
-    # Reuse global OpenAI async client (env must be set by caller)
     try:
         llm_client: AsyncOpenAI = get_openai_async_client_instance()
     except TypeError:
-        # fallback if signature differs in custom wrapper
         llm_client = AsyncOpenAI()
 
     async def dispatch_tool(name: str, args: dict, evidence_pool: list[EvidenceItem]):
@@ -72,6 +66,13 @@ async def iterative_ev_answer(vrag, query: str, param) -> str:
         tools=ALL_TOOLS,
         dispatch_tool=dispatch_tool,
         cfg=debate_cfg,
+        role_cfgs=ROLE_CONFIGS,
     )
-    # Optionally persist transcript or evidence
-    return final_answer
+
+    return {
+        "answer": final_answer.get("answer") if isinstance(final_answer, dict) else str(final_answer),
+        "rationale": final_answer.get("rationale") if isinstance(final_answer, dict) else "",
+        "citations": final_answer.get("citations") if isinstance(final_answer, dict) else [],
+        "transcript": state.transcript,
+        "evidence": [ev.__dict__ for ev in state.evidence],
+    }

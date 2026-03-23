@@ -21,8 +21,5 @@ After tool results arrive, reassess and write succinct critiques with evidence I
 
 JUDGE_PROMPT = """
 You are an independent judge. Read the full debate and evidence. Choose the best-supported answer or synthesize one.
-Output strictly:
-1) Final answer
-2) Brief rationale
-3) Citations listing evidence IDs and video segment time spans. If evidence is insufficient, say so.
+Output JSON with keys: answer (string), rationale (string), citations (array of {evidence_id, video_name, time_range}). If evidence is insufficient, say so in rationale.
 """.strip()
