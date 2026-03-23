@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+videorag/__pycache__/
+*.py[cod]
+*$py.class
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Large local datasets/archives (keep out of repo)
+longervideos/
+longervideos.tar
+all_answers/
+all_answers.zip
+
+# Bỏ qua các model weights cục bộ
+.checkpoints/
+MiniCPM-V-2_6-int4/
+faster-distil-whisper-large-v3/
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# Bỏ qua môi trường ảo
+.venv/
