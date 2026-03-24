@@ -32,6 +32,23 @@ from ._videoutil import (
     retrieved_segment_caption,
 )
 
+def clean_toxic_json_chars(text: str) -> str:
+    """Clean all characters that can break JSON or OpenAI API processing.
+    Includes control characters, surrogates, and normalization.
+    """
+    if not isinstance(text, str):
+        return text
+    # Remove control characters except \n, \r, \t
+    import re
+    text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]", "", text)
+    # Remove surrogates
+    text = text.encode("utf-8", "ignore").decode("utf-8")
+    # Normalize to NFC
+    import unicodedata
+    text = unicodedata.normalize("NFC", text)
+    return text
+
+
 def chunking_by_token_size(
     tokens_list: list[list[int]],
     doc_keys,
@@ -382,13 +399,22 @@ async def extract_entities(
         nonlocal already_processed, already_entities, already_relations
         chunk_key = chunk_key_dp[0]
         chunk_dp = chunk_key_dp[1]
-        content = chunk_dp["content"]
+        content = clean_toxic_json_chars(chunk_dp["content"])
         hint_prompt = entity_extract_prompt.format(**context_base, input_text=content)
-        final_result = await use_llm_func(hint_prompt)
+        try:
+            final_result = await use_llm_func(hint_prompt)
+        except Exception as e:
+            logger.error(f"Failed to extract entities for chunk {chunk_key}. Error: {e}")
+            # Log the problematic content for debugging
+            with open("failed_payloads.txt", "a", encoding="utf-8") as f:
+                f.write(f"--- Chunk: {chunk_key} ---\n{content}\n")
+            return {}, {}
 
-        history = pack_user_ass_to_openai_messages(hint_prompt, final_result)
+
+        history = pack_user_ass_to_openai_messages(hint_prompt, clean_toxic_json_chars(final_result))
         for now_glean_index in range(entity_extract_max_gleaning):
             glean_result = await use_llm_func(continue_prompt, history_messages=history)
+            glean_result = clean_toxic_json_chars(glean_result)
 
             history += pack_user_ass_to_openai_messages(continue_prompt, glean_result)
             final_result += glean_result

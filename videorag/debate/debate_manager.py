@@ -14,15 +14,12 @@ import asyncio
 import logging
 from typing import List, Callable, Any
 
-from ..agents.agents_prompts import (
-    GENERATOR_PROMPT,
-    DEFENDER_PROMPT,
-    CRITIQUE_PROMPT,
-    JUDGE_PROMPT,
-)
+from ..agents import agents_prompts
 from ..agents.roles import ROLE_CONFIGS, RoleConfig
 from ..debate.state import DebateConfig, DebateState
 from ..debate.evidence_types import EvidenceItem
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from openai import RateLimitError, APIConnectionError, BadRequestError
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +28,35 @@ logger = logging.getLogger(__name__)
 # Low-level LLM call
 # ---------------------------------------------------------------------------
 
+def clean_toxic_json_chars(obj: Any) -> Any:
+    """Recursively clean strings within any object hierarchy to remove JSON-breaking characters and surrogates."""
+    if isinstance(obj, str):
+        import re, unicodedata
+        # Remove control characters except \n, \r, \t
+        text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]", "", obj)
+        # Fix surrogates and normalize
+        text = text.encode("utf-8", "ignore").decode("utf-8")
+        return unicodedata.normalize("NFC", text)
+    elif isinstance(obj, list):
+        return [clean_toxic_json_chars(i) for i in obj]
+    elif isinstance(obj, dict):
+        return {k: clean_toxic_json_chars(v) for k, v in obj.items()}
+    # Handle OpenAI types like ChatCompletionMessageToolCall by converting to dict if needed?
+    # Actually, the most robust way is to use getattr if it's an object
+    elif hasattr(obj, "__dict__") or hasattr(obj, "model_dump"):
+        try:
+            # Pydantic or NamedTuple / Simple Namespace
+            d = obj.model_dump() if hasattr(obj, "model_dump") else vars(obj)
+            return clean_toxic_json_chars(d)
+        except:
+            return obj
+    return obj
+
+@retry(
+    stop=stop_after_attempt(12),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+)
 async def _chat(
     llm_client,
     model: str,
@@ -40,7 +66,10 @@ async def _chat(
     temperature: float | None = None,
     max_tokens: int | None = None,
 ):
-    kwargs: dict[str, Any] = {"model": model, "messages": messages}
+    # CRITICAL: Clean everything twice. Standardize to pure serializable dicts.
+    safe_messages = clean_toxic_json_chars(messages)
+    
+    kwargs: dict[str, Any] = {"model": model, "messages": safe_messages}
     if tools:
         kwargs["tools"] = tools
         kwargs["tool_choice"] = tool_choice or "auto"
@@ -48,6 +77,7 @@ async def _chat(
         kwargs["temperature"] = temperature
     if max_tokens is not None:
         kwargs["max_tokens"] = max_tokens
+    
     return await llm_client.chat.completions.create(**kwargs)
 
 
@@ -113,7 +143,7 @@ async def _generate_hypotheses(
     r_cfg: RoleConfig = role_cfgs.get("generator", RoleConfig(model=cfg.model))
     ctx = _format_evidence(evidence)
     messages = [
-        {"role": "system", "content": GENERATOR_PROMPT},
+        {"role": "system", "content": agents_prompts.GENERATOR_PROMPT_OPEN},
         {"role": "user", "content": f"Query: {query}\n\nEvidence Pool:\n{ctx}"},
     ]
     resp = await _chat(
@@ -148,6 +178,7 @@ async def _defend_hypothesis(
     dispatch_tool: Callable,
     cfg: DebateConfig,
     role_cfgs: dict = ROLE_CONFIGS,
+    is_mcq: bool = False,
 ) -> str:
     """
     Defends one hypothesis in isolation. Has its own local message history.
@@ -155,9 +186,12 @@ async def _defend_hypothesis(
     Returns a defence summary string to be added to the shared transcript.
     """
     r_cfg: RoleConfig = role_cfgs.get("defender", RoleConfig(model=cfg.model))
-    system_prompt = DEFENDER_PROMPT.format(
+    prompt_tpl = agents_prompts.DEFENDER_PROMPT_MCQ if is_mcq else agents_prompts.DEFENDER_PROMPT_OPEN
+    system_prompt = prompt_tpl.format(
         hypothesis_claim=hypothesis.get("claim", ""),
         hypothesis_reasoning=hypothesis.get("reasoning", ""),
+        assigned_option=hypothesis.get("claim", ""),  # for MCQ
+        query=query                                 # for MCQ
     )
     # Local message history (never shared with parallel defenders)
     local_msgs: list[dict] = [
@@ -170,7 +204,7 @@ async def _defend_hypothesis(
     ]
 
     # Tool-call loop
-    max_calls = 5
+    max_calls = 12
     calls_made = 0
     while calls_made < max_calls:
         resp = await _chat(
@@ -225,22 +259,25 @@ async def _run_critique(
     dispatch_tool: Callable,
     cfg: DebateConfig,
     role_cfgs: dict = ROLE_CONFIGS,
+    is_mcq: bool = False,
 ) -> str:
     r_cfg: RoleConfig = role_cfgs.get("critique", RoleConfig(model=cfg.model))
     hyp_summary = "\n".join(
         f"{h.get('id')}: {h.get('claim')} — Defence: {s[:200]}"
         for h, s in zip(hypotheses, defender_summaries)
     )
+    prompt_base = agents_prompts.CRITIQUE_PROMPT_MCQ if is_mcq else agents_prompts.CRITIQUE_PROMPT_OPEN
     local_msgs: list[dict] = [
-        {"role": "system", "content": CRITIQUE_PROMPT},
+        {"role": "system", "content": prompt_base},
         {"role": "user", "content": (
             f"Query: {query}\n\n"
             f"Hypotheses & Defences:\n{hyp_summary}\n\n"
-            f"Current evidence pool:\n{_format_evidence(state.evidence, limit=20)}"
+            f"Current evidence pool:\n{_format_evidence(state.evidence, limit=20)}\n"
+            f"{'Note: Challenge the options for this MCQ.' if is_mcq else ''}"
         )},
     ]
 
-    max_calls = 5
+    max_calls = 12
     calls_made = 0
     while calls_made < max_calls:
         resp = await _chat(
@@ -289,11 +326,13 @@ async def _run_judge(
     llm_client,
     cfg: DebateConfig,
     role_cfgs: dict = ROLE_CONFIGS,
+    is_mcq: bool = False,
 ) -> dict:
     r_cfg: RoleConfig = role_cfgs.get("judge", RoleConfig(model=cfg.model))
     compact_transcript = _compact_transcript(state.transcript, limit=50, max_chars=600)
+    prompt_base = agents_prompts.JUDGE_PROMPT_MCQ if is_mcq else agents_prompts.JUDGE_PROMPT_OPEN
     judge_msgs = [
-        {"role": "system", "content": JUDGE_PROMPT},
+        {"role": "system", "content": prompt_base},
         {"role": "user", "content": (
             f"Query: {query}\n\n"
             f"Debate Transcript:\n{json.dumps(compact_transcript, ensure_ascii=False)}\n\n"
@@ -324,6 +363,8 @@ async def run_debate(
     dispatch_tool: Callable[[str, dict, list[EvidenceItem]], Any],
     cfg: DebateConfig,
     role_cfgs: dict = ROLE_CONFIGS,
+    is_mcq: bool = False,
+    forced_hypotheses: list[dict] | None = None,
 ) -> tuple[dict, DebateState]:
     """
     Run the full IELTS-RAG debate pipeline.
@@ -334,11 +375,15 @@ async def run_debate(
     """
     state = DebateState(query=query, evidence=list(initial_evidence))
 
-    # --- Stage 2: Generate hypotheses ---
-    hypotheses = await _generate_hypotheses(query, state.evidence, llm_client, cfg, role_cfgs)
+    # --- Stage 2: Generate or use forced hypotheses ---
+    if is_mcq and forced_hypotheses:
+        hypotheses = forced_hypotheses
+    else:
+        hypotheses = await _generate_hypotheses(query, state.evidence, llm_client, cfg, role_cfgs)
+    
     state.transcript.append({
         "role": "system",
-        "content": f"[Generator] Proposed {len(hypotheses)} hypotheses:\n" +
+        "content": f"[Generator/MCQ] Using {len(hypotheses)} candidates:\n" +
                    "\n".join(f"  {h.get('id')}: {h.get('claim')}" for h in hypotheses),
     })
 
@@ -348,7 +393,7 @@ async def run_debate(
 
         # Run all defenders CONCURRENTLY — each coroutine has its own local message history
         defender_summaries: list[str] = await asyncio.gather(*[
-            _defend_hypothesis(h, query, state, llm_client, tools, dispatch_tool, cfg, role_cfgs)
+            _defend_hypothesis(h, query, state, llm_client, tools, dispatch_tool, cfg, role_cfgs, is_mcq)
             for h in hypotheses
         ])
 
@@ -356,21 +401,21 @@ async def run_debate(
         for h, summary in zip(hypotheses, defender_summaries):
             state.transcript.append({
                 "role": "assistant",
-                "content": f"[Defender {h.get('id')}] {summary}",
+                "content": f"[{'Advocate' if is_mcq else 'Defender'} {h.get('id')}] {summary}",
             })
 
         # Run critique
         critique_summary = await _run_critique(
             query, hypotheses, state, defender_summaries,
-            llm_client, tools, dispatch_tool, cfg, role_cfgs
+            llm_client, tools, dispatch_tool, cfg, role_cfgs, is_mcq
         )
         state.transcript.append({
             "role": "assistant",
-            "content": f"[Critique Round {round_num + 1}] {critique_summary}",
+            "content": f"[{'Prosecutor' if is_mcq else 'Critique'} Round {round_num + 1}] {critique_summary}",
         })
 
     # --- Stage 4: Judge ---
-    verdict = await _run_judge(query, state, llm_client, cfg, role_cfgs)
+    verdict = await _run_judge(query, state, llm_client, cfg, role_cfgs, is_mcq)
 
     # --- Citation validation ---
     raw_citations = verdict.get("citations", [])

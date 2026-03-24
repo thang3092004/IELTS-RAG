@@ -25,7 +25,7 @@ parser = argparse.ArgumentParser(description="IELTS-RAG on LongerVideos benchmar
 parser.add_argument('--collection', type=str, default=None, help="Collection subfolder e.g. '4-rag-lecture'. Required unless --mode all.")
 parser.add_argument('--cuda', type=str, default='0')
 parser.add_argument('--mode', choices=['ingest', 'query', 'all'], default='query')
-parser.add_argument('--max-rounds', type=int, default=1, help="Number of debate rounds (1 is fast; 2 for higher quality)")
+parser.add_argument('--max-rounds', type=int, default=2, help="Number of debate rounds (1 is fast; 2 for higher quality)")
 parser.add_argument('--top-k', type=int, default=8, help="Top-K evidence items per retrieval")
 args = parser.parse_args()
 
@@ -80,9 +80,9 @@ def run_ingest(collection: str):
         return
 
     video_files = sorted(os.listdir(video_base_path))
-    video_paths = [os.path.join(video_base_path, f) for f in video_files if f.endswith('.mp4')]
+    video_paths = [os.path.join(video_base_path, f) for f in video_files if f.lower().endswith(('.mp4', '.mkv', '.webm'))]
     if not video_paths:
-        print(f"[WARNING] No .mp4 files in {video_base_path}")
+        print(f"[WARNING] No video files found in {video_base_path}")
         return
 
     print(f"[INGEST] Found {len(video_paths)} video(s)")
@@ -145,7 +145,10 @@ def run_query(collection: str):
         print(f"  -> {str(response)[:120]}...")
 
         with open(out_path, 'w', encoding='utf-8') as f:
-            f.write(str(response))
+            if isinstance(response, dict):
+                f.write(response.get("answer", ""))
+            else:
+                f.write(str(response))
         print(f"  Saved: {out_path}")
 
     print(f"\n[QUERY] Done. Answers saved to: {answer_folder}")

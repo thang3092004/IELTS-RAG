@@ -1,6 +1,6 @@
 import numpy as np
 
-from openai import AsyncOpenAI, AsyncAzureOpenAI, APIConnectionError, RateLimitError
+from openai import AsyncOpenAI, BadRequestError, AsyncAzureOpenAI, APIConnectionError, RateLimitError
 from ollama import AsyncClient
 from dataclasses import asdict, dataclass, field
 
@@ -84,9 +84,9 @@ class LLMConfig:
 
 ##### OpenAI Configuration
 @retry(
-    stop=stop_after_attempt(5),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    stop=stop_after_attempt(12),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def openai_complete_if_cache(
     model, prompt, system_prompt=None, history_messages=[], **kwargs
@@ -143,9 +143,9 @@ async def gpt_4o_mini_complete(
     )
 
 @retry(
-    stop=stop_after_attempt(5),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    stop=stop_after_attempt(12),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def openai_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     openai_async_client = get_openai_async_client_instance()
@@ -199,8 +199,8 @@ openai_4o_mini_config = LLMConfig(
 ###### Azure OpenAI Configuration
 @retry(
     stop=stop_after_attempt(3),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def azure_openai_complete_if_cache(
     deployment_name, prompt, system_prompt=None, history_messages=[], **kwargs
@@ -266,8 +266,8 @@ async def azure_gpt_4o_mini_complete(
 
 @retry(
     stop=stop_after_attempt(3),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def azure_openai_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     azure_openai_client = get_azure_openai_async_client_instance()
@@ -359,9 +359,9 @@ async def ollama_mini_complete(model_name, prompt, system_prompt=None, history_m
     )
 
 @retry(
-    stop=stop_after_attempt(5),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    stop=stop_after_attempt(12),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def ollama_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     # Initialize the Ollama client
@@ -397,9 +397,9 @@ ollama_config = LLMConfig(
 )
 ###### DeepSeek Configuration
 @retry(
-    stop=stop_after_attempt(5),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    stop=stop_after_attempt(12),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def deepseek_complete_if_cache(
     model, prompt, system_prompt=None, history_messages=[], **kwargs
@@ -460,9 +460,9 @@ async def deepseek_complete(model_name, prompt, system_prompt=None, history_mess
     )
 
 @retry(
-    stop=stop_after_attempt(5),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
+    stop=stop_after_attempt(12),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
 )
 async def bge_m3_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     # 使用硅基流动的BAAI/bge-m3嵌入模型

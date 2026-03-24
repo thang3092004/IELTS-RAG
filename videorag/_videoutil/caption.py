@@ -16,7 +16,7 @@ def encode_video(video, frame_times):
     
 def segment_caption(video_name, video_path, segment_index2name, transcripts, segment_times_info, caption_result, error_queue):
     try:
-        model = AutoModel.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True)
+        model = AutoModel.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True, torch_dtype=torch.bfloat16, device_map="cuda")
         tokenizer = AutoTokenizer.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True)
         model.eval()
         
@@ -30,13 +30,13 @@ def segment_caption(video_name, video_path, segment_index2name, transcripts, seg
                 params = {}
                 params["use_image_id"] = False
                 params["max_slice_nums"] = 2
-                segment_caption = model.chat(
+                caption_text = model.chat(
                     image=None,
                     msgs=msgs,
                     tokenizer=tokenizer,
                     **params
                 )
-                caption_result[index] = segment_caption.replace("\n", "").replace("<|endoftext|>", "")
+                caption_result[index] = caption_text.replace("\n", "").replace("<|endoftext|>", "")
                 torch.cuda.empty_cache()
     except Exception as e:
         error_queue.put(f"Error in segment_caption:\n {str(e)}")

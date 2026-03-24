@@ -9,6 +9,7 @@ from datetime import datetime
 from functools import partial
 from typing import Callable, Dict, List, Optional, Type, Union, cast
 from transformers import AutoModel, AutoTokenizer
+import torch
 import tiktoken
 
 
@@ -122,7 +123,7 @@ class VideoRAG:
     def load_caption_model(self, debug=False):
         # caption model
         if not debug:
-            self.caption_model = AutoModel.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True)
+            self.caption_model = AutoModel.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True, torch_dtype=torch.bfloat16, device_map="cuda")
             self.caption_tokenizer = AutoTokenizer.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True)
             self.caption_model.eval()
         else:
@@ -205,72 +206,133 @@ class VideoRAG:
         for video_path in video_path_list:
             # Step0: check the existence
             video_name = os.path.basename(video_path).split('.')[0]
-            if video_name in self.video_segments._data:
-                logger.info(f"Find the video named {os.path.basename(video_path)} in storage and skip it.")
+            existing_data = self.video_segments._data.get(video_name, {})
+            
+            # check the completeness
+            all_done = False
+            if existing_data:
+                all_done = all(v.get("content") is not None and "Caption:\nNone" not in v.get("content") for v in existing_data.values())
+            
+            if all_done:
+                logger.info(f"Find the fully processed video named {os.path.basename(video_path)} in storage and skip it.")
                 continue
+            
             loop.run_until_complete(self.video_path_db.upsert(
                 {video_name: video_path}
             ))
             
-            # Step1: split the videos
-            segment_index2name, segment_times_info = split_video(
-                video_path, 
-                self.working_dir, 
-                self.video_segment_length,
-                self.rough_num_frames_per_segment,
-                self.audio_output_format,
-            )
+            # Check if visual features already exist in VDB
+            has_features = False
+            try:
+                # NanoVectorDB stores data in .data (list) and mapping in ._map
+                if f"{video_name}_0" in self.video_segment_feature_vdb._client._map:
+                    has_features = True
+            except (AttributeError, KeyError):
+                pass
+
+            # Step1: split the videos (SKIP if has_features and has_captions)
+            # We still need segment_index2name and segment_times_info for subsequent steps
+            # if we are skipping, we reconstruct them from existing_data
+            if has_features and existing_data:
+                logger.info(f"Find visual features for {video_name} in storage. Skipping Step 1-6.")
+                segment_index2name = {index: f"dummy_{index}" for index in existing_data.keys()}
+                segment_times_info = {index: v.get("time") for index, v in existing_data.items()}
+            else:
+                segment_index2name, segment_times_info = split_video(
+                    video_path, 
+                    self.working_dir, 
+                    self.video_segment_length,
+                    self.rough_num_frames_per_segment,
+                    self.audio_output_format,
+                )
+
             
-            # Step2: obtain transcript with whisper
-            transcripts = speech_to_text(
-                video_name, 
-                self.working_dir, 
-                segment_index2name,
-                self.audio_output_format
-            )
+            # Step2: obtain transcript with whisper (skip if already exists in existing_data)
+            has_transcripts = existing_data and all(v.get("transcript") is not None for v in existing_data.values())
+            if not has_transcripts:
+                transcripts = speech_to_text(
+                    video_name, 
+                    self.working_dir, 
+                    segment_index2name,
+                    self.audio_output_format
+                )
+                # save temporary information for whisper
+                partial_segments = merge_segment_information(
+                    segment_index2name,
+                    segment_times_info,
+                    transcripts,
+                    {index: "None" for index in segment_index2name}, # Temporary NO caption
+                )
+                loop.run_until_complete(self.video_segments.upsert({video_name: partial_segments}))
+                loop.run_until_complete(self._save_video_segments())
+            else:
+                logger.info(f"Find transcripts for {video_name} in storage and skip whisper.")
+                transcripts = {index: v.get("transcript") for index, v in existing_data.items()}
             
             # Step3: saving video segments **as well as** obtain caption with vision language model
             manager = multiprocessing.Manager()
             captions = manager.dict()
             error_queue = manager.Queue()
             
-            process_saving_video_segments = multiprocessing.Process(
-                target=saving_video_segments,
-                args=(
-                    video_name,
-                    video_path,
-                    self.working_dir,
-                    segment_index2name,
-                    segment_times_info,
-                    error_queue,
-                    self.video_output_format,
+            has_captions = existing_data and all(v.get("content") is not None and "Caption:\nNone" not in v.get("content") for v in existing_data.values())
+            
+            if not has_captions:
+                process_saving_video_segments = multiprocessing.Process(
+                    target=saving_video_segments,
+                    args=(
+                        video_name,
+                        video_path,
+                        self.working_dir,
+                        segment_index2name,
+                        segment_times_info,
+                        error_queue,
+                        self.video_output_format,
+                    )
                 )
-            )
-            
-            process_segment_caption = multiprocessing.Process(
-                target=segment_caption,
-                args=(
-                    video_name,
-                    video_path,
-                    segment_index2name,
-                    transcripts,
-                    segment_times_info,
-                    captions,
-                    error_queue,
+                
+                process_segment_caption = multiprocessing.Process(
+                    target=segment_caption,
+                    args=(
+                        video_name,
+                        video_path,
+                        segment_index2name,
+                        transcripts,
+                        segment_times_info,
+                        captions,
+                        error_queue,
+                    )
                 )
-            )
-            
-            process_saving_video_segments.start()
-            process_segment_caption.start()
-            process_saving_video_segments.join()
-            process_segment_caption.join()
-            
-            # if raise error in this two, stop the processing
-            while not error_queue.empty():
-                error_message = error_queue.get()
-                with open('error_log_videorag.txt', 'a', encoding='utf-8') as log_file:
-                    log_file.write(f"Video Name:{video_name} Error processing:\n{error_message}\n\n")
-                raise RuntimeError(error_message)
+                
+                process_saving_video_segments.start()
+                process_segment_caption.start()
+                
+                # Monitor processes
+                import time
+                while process_saving_video_segments.is_alive() and process_segment_caption.is_alive():
+                    time.sleep(1)
+                
+                # if one died, check for error and terminate other
+                if not process_segment_caption.is_alive() and process_segment_caption.exitcode != 0:
+                    process_saving_video_segments.terminate()
+                if not process_saving_video_segments.is_alive() and process_saving_video_segments.exitcode != 0:
+                    process_segment_caption.terminate()
+
+                process_saving_video_segments.join()
+                process_segment_caption.join()
+                
+                # if raise error in this two, stop the processing
+                error_messages = []
+                while not error_queue.empty():
+                    error_messages.append(error_queue.get())
+                
+                if error_messages:
+                    for error_message in error_messages:
+                        with open('error_log_videorag.txt', 'a', encoding='utf-8') as log_file:
+                            log_file.write(f"Video Name:{video_name} Error processing:\n{error_message}\n\n")
+                    raise RuntimeError("\n".join(error_messages))
+            else:
+                logger.info(f"Find captions for {video_name} in storage and skip vlm.")
+                captions = {index: v.get("content").split("Caption:\n")[1].split("\nTranscript:")[0] for index, v in existing_data.items()}
             
             # Step4: insert video segments information
             segments_information = merge_segment_information(
@@ -285,11 +347,15 @@ class VideoRAG:
             ))
             
             # Step5: encode video segment features
-            loop.run_until_complete(self.video_segment_feature_vdb.upsert(
-                video_name,
-                segment_index2name,
-                self.video_output_format,
-            ))
+            if not has_features:
+                loop.run_until_complete(self.video_segment_feature_vdb.upsert(
+                    video_name,
+                    segment_index2name,
+                    self.video_output_format,
+                ))
+            else:
+                logger.info(f"Visual features for {video_name} already exist. Skipping encoding.")
+
             
             # Step6: delete the cache file
             video_segment_cache_path = os.path.join(self.working_dir, '_cache', video_name)

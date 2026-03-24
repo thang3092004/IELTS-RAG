@@ -14,18 +14,30 @@ COLLECTIONS=(
     "17-decision-making-science"
 )
 
+# Step 0: Environment Setup
+if [ -d ".venv" ]; then
+    echo "-> Activating virtual environment..."
+    source .venv/bin/activate
+fi
+
+if [ -f ".env" ]; then
+    echo "-> Loading environment variables from .env..."
+    export $(cat .env | grep -v '^#' | xargs)
+fi
+
 # Step 1 & 2: Ingest and Query each collection sequentially
 for col in "${COLLECTIONS[@]}"; do
     echo "---------------------------------------------------"
     echo "Processing Collection: $col"
     echo "---------------------------------------------------"
     
-    echo "-> [Step 1] INGEST (Extracting features & caching)..."
+    echo "-> [Step 1] INGEST (Checking status or extracting features)..."
     python ielts_rag_longervideos.py --collection "$col" --mode ingest --cuda 0
     
-    echo "-> [Step 2] QUERY (Generating IELTS-RAG answers)..."
+    echo "-> [Step 2] QUERY (Checking status or generating answers)..."
     python ielts_rag_longervideos.py --collection "$col" --mode query --cuda 0
 done
+
 
 # Step 3: Evaluation Upload
 echo "==================================================="

@@ -2,6 +2,7 @@ import asyncio
 import os
 import torch
 from dataclasses import dataclass
+from typing import Optional
 import numpy as np
 from nano_vectordb import NanoVectorDB
 from tqdm import tqdm
@@ -125,7 +126,7 @@ class NanoVectorDBVideoSegmentStorage(BaseVectorStorage):
         results = self._client.upsert(datas=list_data)
         return results
     
-    async def query(self, query: str):
+    async def query(self, query: str, top_k: Optional[int] = None):
         embedder = imagebind_model.imagebind_huge(pretrained=True).cuda()
         embedder.eval()
         
@@ -133,13 +134,14 @@ class NanoVectorDBVideoSegmentStorage(BaseVectorStorage):
         embedding = embedding[0]
         results = self._client.query(
             query=embedding,
-            top_k=self.top_k,
+            top_k=top_k if top_k is not None else self.top_k,
             better_than_threshold=-1,
         )
         results = [
             {**dp, "id": dp["__id__"], "distance": dp["__metrics__"]} for dp in results
         ]
         return results
+
     
     async def index_done_callback(self):
         self._client.save()

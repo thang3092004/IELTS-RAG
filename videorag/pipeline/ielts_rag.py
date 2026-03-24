@@ -11,8 +11,9 @@ Improvements over previous version:
 - returns richer output: confidence, rounds_run, tool_calls_made
 """
 import asyncio
+import re
 from dataclasses import asdict
-from typing import Any
+from typing import Any, List
 
 from openai import AsyncOpenAI
 
@@ -25,6 +26,21 @@ from ..debate.evidence_types import EvidenceItem
 from ..agents.roles import ROLE_CONFIGS
 from .._llm import get_openai_async_client_instance
 from .._utils import logger
+
+
+def _extract_mcq_options(query: str) -> List[dict]:
+    """Helper to extract options from queries like '(A) apple (B) banana'."""
+    options = []
+    # Matches patterns like (A) text or A) text
+    pattern = r'(?:\(?([A-D])[\)\.])\s*([^\(\n]+)'
+    matches = re.findall(pattern, query)
+    for label, text in matches:
+        options.append({
+            "id": f"Option {label}",
+            "claim": f"{label}) {text.strip()}",
+            "reasoning": f"Official option {label} from the multiple-choice query."
+        })
+    return options
 
 
 def _dedup_evidence(items: list[EvidenceItem]) -> list[EvidenceItem]:
@@ -115,8 +131,14 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
         logger.warning(f"[ielts_rag] Unknown tool requested: {name!r}")
         return {"error": f"unknown tool: {name}"}
 
+    # --- Detect MCQ ---
+    mcq_options = _extract_mcq_options(query)
+    is_mcq = len(mcq_options) > 0
+    if is_mcq:
+        logger.info(f"[ielts_rag] MCQ detected with {len(mcq_options)} options")
+
     # --- Stage 2-4: Multi-agent debate ---
-    logger.info(f"[ielts_rag] Starting debate: max_rounds={max_rounds}, model={model_name}")
+    logger.info(f"[ielts_rag] Starting debate: max_rounds={max_rounds}, model={model_name}, mode={'MCQ' if is_mcq else 'Open'}")
     verdict, state = await run_debate(
         query=query,
         initial_evidence=init_evidence,
@@ -125,6 +147,8 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
         dispatch_tool=dispatch_tool,
         cfg=debate_cfg,
         role_cfgs=ROLE_CONFIGS,
+        is_mcq=is_mcq,
+        forced_hypotheses=mcq_options if is_mcq else None
     )
     logger.info(f"[ielts_rag] Debate complete — "
                 f"rounds={state.rounds_run}, tool_calls={state.tool_calls_made}, "
