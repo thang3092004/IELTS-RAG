@@ -1,0 +1,7 @@
+AutoGen agents can be customized and allow for human participation in a number of ways. 
+
+*   **Developers can customize agents by defining their roles and giving them system messages that influence their behavior**.  For example, a developer could create a data analyst team with a data engineer agent that generates SQL queries, a senior data analyst agent that runs the queries and generates responses, and a product manager agent that validates the responses.
+*   **AutoGen allows for human participation by enabling developers to configure agents to allow or disable human input**.  This means that humans can take over at any point in the workflow or only when prompted.  Humans can also provide feedback to agents, which can be used to improve the agent's performance.
+*   **AutoGen agents can also be customized by giving them access to tools**. This allows agents to perform actions such as executing code, running predefined functions, or accessing external data sources.  For example, an agent could be given access to a tool that allows it to search Wikipedia for information. 
+
+**AutoGen's flexibility in customization and human participation makes it a powerful tool for developing a wide range of applications**.

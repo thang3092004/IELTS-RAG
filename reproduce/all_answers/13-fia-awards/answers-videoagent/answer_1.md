@@ -1,0 +1,1 @@
+Nasser Al-Attiyah's driving style is shaped by his rally raid and cross-country experience, emphasizing adaptability and endurance, while Sébastien Loeb's style, influenced by his WRC background, focuses on precision and speed.

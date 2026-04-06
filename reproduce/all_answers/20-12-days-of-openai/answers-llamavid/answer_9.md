@@ -1,0 +1,7 @@
+The 'Remix' and 'Recut' editing tools within Sora are two creative tools that allow users to modify their videos in new ways. The 'Remix' tool allows users to describe changes to their video, while the 'Recut' tool allows users to build new scenes from existing video clips. 
+
+'Remix' is an advanced editing tool within Sora that allows users to describe changes to their video. It can take a user's video and modify it in many ways, such as adding new actions, adjusting camera angles, and more. For example, a user could describe that a crane should dip its head into the water and pick out a fish. Then it would generate a new video that follows that new action.
+
+'Recut' is a more basic editing tool that allows users to build new scenes from existing video clips. For example, a user could describe that a crane should be shown standing at the beginning and then dipping its head into the water to pick out a fish. Then it would generate a new video that follows that new action. 
+
+So in summary, the 'Remix' and 'Recut' tools allow users to build new video content from existing clips, while the 'Remix' tool allows users to modify their existing video in new ways. Both are powerful tools that allow users to create and modify their own videos.

@@ -1,0 +1,1 @@
+The purpose of using a 'seed' value for caching in AutoGen is to ensure that the generated content is consistent across different instances of the application. The 'seed' value serves as a starting point for generating content, and any changes made to the content will be reflected in all instances, ensuring that the content is always up-to-date and consistent.

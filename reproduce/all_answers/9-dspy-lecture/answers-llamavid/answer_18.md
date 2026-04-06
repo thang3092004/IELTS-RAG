@@ -1,0 +1,5 @@
+Traditional vector embedding techniques used in RAG systems have several limitations for retrieving new research data. First, they are based on the assumption that the data points have a similar vector representation. However, in RAG systems, the data points have a different vector representation based on their different domains. This can lead to poor performance in retrieving relevant data. Second, vector embeddings are only able to capture a small amount of information about the data points. They do not have the flexibility to fully capture the relationships between data points. This limits the effectiveness of the retrieved data. Finally, vector embeddings are only able to capture the information in the vector space. They do not have the ability to fully capture the semantic relationships between data points, which is important for understanding the context and meaning of the data.
+
+---Supporting evidence---
+
+The limitations of vector embeddings in RAG systems are discussed in the video.

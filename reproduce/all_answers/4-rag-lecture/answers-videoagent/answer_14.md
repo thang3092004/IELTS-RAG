@@ -1,0 +1,1 @@
+To build a Multi-modal RAG System, you need to collect and preprocess multi-modal data, extract features using pre-trained models, implement an efficient retrieval system, design a model architecture that handles multiple modalities, train and fine-tune the model, evaluate its performance, and deploy it in a scalable environment.

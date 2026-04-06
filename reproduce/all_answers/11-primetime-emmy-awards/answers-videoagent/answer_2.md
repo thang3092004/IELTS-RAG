@@ -1,0 +1,1 @@
+Local news journalists face challenges such as staying up-to-date with the latest news and trends, adapting to changing technology, and navigating an increasingly competitive media landscape.

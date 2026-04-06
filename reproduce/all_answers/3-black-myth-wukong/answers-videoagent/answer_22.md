@@ -1,0 +1,1 @@
+I am unable to determine what is unique about the staff the player receives as a reward in the 'Valley of Ecstasy' based on the available information.

@@ -1,0 +1,1 @@
+The People's Liberation Monument in Chongqing is a landmark originally built to commemorate the victory in the Second Sino-Japanese War. It was later renamed to honor the Chinese Communist Party's victory in the Chinese Civil War.

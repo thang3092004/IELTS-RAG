@@ -1,0 +1,1 @@
+Darwin's bark spiders construct their webs by using their silk to create large, orb-shaped webs, often spanning across bodies of water. What makes their silk special is its exceptional toughness and elasticity, which is considered one of the strongest natural materials known.

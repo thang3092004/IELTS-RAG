@@ -1,0 +1,1 @@
+Freshly molted crabs typically determine the optimal timing for their mass molting event based on environmental cues such as temperature, tides, and the lunar cycle. These factors help ensure that the crabs are less vulnerable to predators during the molting process.

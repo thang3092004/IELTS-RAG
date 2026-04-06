@@ -1,0 +1,1 @@
+The WBY voice assistant leverages function calling by executing commands through a terminal interface, as demonstrated in the video where a person is seen typing commands into a terminal.

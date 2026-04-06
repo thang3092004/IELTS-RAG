@@ -1,0 +1,1 @@
+The video mentions a "Trade Nation" feature that provides a significant advantage, but it does not specify what this feature is or how it works.

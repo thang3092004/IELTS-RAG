@@ -1,0 +1,1 @@
+The question about comparing Jeff Bezos's leadership styles at Amazon and Blue Origin is not related to the video content or the tools provided. This requires external knowledge about his leadership at these companies.

@@ -1,0 +1,1 @@
+Circular harmonics aid in fresco reconstruction by providing a mathematical model that considers the dimensions, materials, and techniques used by the artist, allowing for a detailed and accurate representation of the fresco.

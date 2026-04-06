@@ -1,0 +1,1 @@
+The NCMA was concerned about the accuracy of the reconstruction of the Gisi Altarpiece and the potential for errors to be made.

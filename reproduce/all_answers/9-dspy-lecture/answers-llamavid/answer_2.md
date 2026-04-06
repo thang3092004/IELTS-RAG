@@ -1,0 +1,5 @@
+Existing RAG systems' information retrieval is limited in terms of its ability to provide complex, multi-hop answers that go beyond the information directly provided in the input text. However, innovative approaches have been proposed to address these shortcomings. For example, the DSPY system uses a self-training approach where the system is trained on a small amount of data to provide complex answers. The system is also trained to generate additional data that is relevant to the input, which is then used to improve its performance.
+
+In addition, the DSPY system uses a graph neural network to analyze the input text and find additional relevant information. This graph neural network is trained on a small amount of data and is able to generate a large amount of additional relevant information that is then used to improve the system's performance.
+
+These innovative approaches aim to provide answers that go beyond just the information directly provided in the input text, by utilizing the additional relevant information that is found in the input text. This is achieved through techniques like the graph neural network and the self-training approach.

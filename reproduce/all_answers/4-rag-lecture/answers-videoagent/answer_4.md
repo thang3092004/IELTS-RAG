@@ -1,0 +1,7 @@
+Traditional RAG involves a model that retrieves relevant information from a large corpus and then generates a response based on the retrieved information. It typically involves two main components: a retriever and a generator. The retriever searches for relevant documents or passages, and the generator uses this information to produce a coherent and contextually appropriate response.
+
+
+Agentic RAG, on the other hand, introduces the concept of agents that can perform specific tasks or actions. These agents can interact with different tools or systems to gather information, perform computations, or execute tasks that go beyond simple retrieval and generation. The role of agents in Agentic RAG is to enhance the system's capabilities by allowing it to perform complex operations, access external data sources, and make decisions based on the context and requirements of the task.
+
+
+The core difference between traditional RAG and Agentic RAG is the introduction of agents in Agentic RAG. While traditional RAG focuses on retrieving and generating information, Agentic RAG involves agents that can perform specific tasks, interact with tools, and make decisions, thereby enhancing the system's capabilities beyond simple retrieval and generation.

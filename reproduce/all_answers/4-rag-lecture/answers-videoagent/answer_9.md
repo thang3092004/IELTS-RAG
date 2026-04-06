@@ -1,0 +1,1 @@
+I am unable to answer the question about how ColPali improves PDF processing using the provided tools, as they are designed for video analysis.

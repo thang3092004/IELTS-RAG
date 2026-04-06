@@ -1,0 +1,1 @@
+Unfortunately, I was unable to find any segments in the video where developers discuss accessibility features in the design philosophy of modern games.

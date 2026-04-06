@@ -1,0 +1,1 @@
+The video segments do not provide specific information on how Saint-Gobain addresses CO2 emissions in building materials. It is possible that the video discusses this topic in a more general context or that the relevant information is not captured in the segments I reviewed.

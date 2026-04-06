@@ -1,0 +1,1 @@
+The specific mathematical tool used in the reconstruction of the Padua frescoes, based on predictable transformation under rotation, might be related to group theory or symmetry analysis.

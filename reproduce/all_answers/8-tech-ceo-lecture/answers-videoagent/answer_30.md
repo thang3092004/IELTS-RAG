@@ -1,0 +1,1 @@
+Exponent addresses the challenge of studying injury tolerance in spines with pre-existing degenerative conditions by using a combination of in vitro and in vivo methods. In vitro methods involve studying the spinal cord in a laboratory setting, while in vivo methods involve studying the spinal cord in a living organism.

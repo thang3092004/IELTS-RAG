@@ -1,0 +1,1 @@
+The purpose of the 'Keeper Shrines' is to collect the relics of Sun Wukong, the Monkey King, and then to return them to the Celestial Court. The relics contain the power of Sun Wukong and are necessary for Sun Wukong's rebirth and to stop the Yellow-Browed Demon from returning.

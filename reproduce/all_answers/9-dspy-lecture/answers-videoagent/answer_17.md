@@ -1,0 +1,1 @@
+The video does not contain explicit information about the "infer-retrieve-rank system" or "DSPy," and I am unable to outline the system based on the available content.

@@ -1,0 +1,1 @@
+Retrieving a large number of text passages is crucial for accurate RAG performance because it increases the chances of finding relevant information, especially in specialized domains or when dealing with new knowledge. This helps in covering more aspects of a topic, reducing the risk of missing critical information, and improving the quality of the generated responses.

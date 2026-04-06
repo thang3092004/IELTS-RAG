@@ -1,0 +1,1 @@
+The player acquires new spells by completing quests and defeating enemies.

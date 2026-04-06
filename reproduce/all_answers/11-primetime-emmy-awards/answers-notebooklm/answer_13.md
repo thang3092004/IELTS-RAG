@@ -1,0 +1,5 @@
+John Vande Wege and his team encountered several challenges while covering food distributions during the pandemic.
+
+*   **Tens of thousands of people lined up at the food distribution events, highlighting the scale of need during the pandemic.** The sheer number of people needing food assistance made the task of filming and documenting the events logistically challenging.
+ *   **People were scared to go outside and hesitant to allow filming in their homes due to COVID-19.** The pandemic created a climate of fear and uncertainty, making it difficult for Vande Wege's team to gain access and trust from the people they wanted to interview.
+ *   **Filming repetitive events, like people putting oranges into trunks, posed a creative challenge.** The team had to find innovative ways to document the same types of scenes repeatedly without making the footage feel monotonous.

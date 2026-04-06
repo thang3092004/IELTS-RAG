@@ -1,0 +1,1 @@
+I am unable to find specific information about John Yokim's early experiences with computers at the University of Pittsburgh in the provided video segments.

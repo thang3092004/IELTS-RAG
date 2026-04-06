@@ -1,0 +1,1 @@
+The video portrays the relationship between urban and rural life in China by showcasing a variety of settings, including urban streets, supermarkets, and rural mountains and natural landscapes. This suggests a diverse representation of life in China, highlighting both urban and rural environments.

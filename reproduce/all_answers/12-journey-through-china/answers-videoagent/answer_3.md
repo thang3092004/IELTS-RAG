@@ -1,0 +1,1 @@
+The vloggers' experience in Chengdu involved exploring urban settings like parks, restaurants, and markets, with a focus on social interactions. In contrast, their experience in Xinjiang was more observational, involving walking along roads and interacting with people, with a focus on the surroundings.

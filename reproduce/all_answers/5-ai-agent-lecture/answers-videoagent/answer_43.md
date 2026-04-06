@@ -1,0 +1,1 @@
+The video does not provide specific information on how Ollama facilitates local LLM usage in Graph RAG. The terms "Ollama" and "Graph RAG" appear in various segments, but without additional context, their significance cannot be determined.

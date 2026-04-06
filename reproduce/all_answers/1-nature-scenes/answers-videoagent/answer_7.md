@@ -1,0 +1,1 @@
+During their annual migration on Christmas Island, red crabs face challenges such as crossing roads and human infrastructure, which can lead to high mortality rates. They also have to navigate through various terrains and avoid predators. Additionally, environmental changes and human activities can impact their migration routes and success.

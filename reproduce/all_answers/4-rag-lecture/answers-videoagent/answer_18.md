@@ -1,0 +1,1 @@
+I cannot determine the relationships between ColPali and LocalGPT-Vision based on the available information.

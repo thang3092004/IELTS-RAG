@@ -1,0 +1,1 @@
+The video does not contain specific segments detailing the process of making 'nang', including its ingredients, tools, and cooking techniques.

@@ -1,0 +1,5 @@
+The sources describe a visit to the Bezeklik Thousand Buddha Caves, the most important Buddhist shrine in Turpan. It is a cave monastery located in a desert area with an oasis. No photos or touching are allowed inside the caves.
+
+ The caves themselves are not described in detail, but some information is given about their historical and cultural context. They are said to have been built on top of hills where people used to ride camels. The surrounding desert landscape is also mentioned as being very hot, reaching temperatures of up to 60 degrees Celsius.
+
+ While the sources do not provide a comprehensive explanation of the historical and cultural significance of the Bezeklik Thousand Buddha Caves, they suggest that the site is an important religious and historical landmark in Turpan. The fact that no photos or touching are allowed inside the caves suggests that they are considered sacred and are being preserved for future generations.

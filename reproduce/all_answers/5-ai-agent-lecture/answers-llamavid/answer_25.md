@@ -1,0 +1,1 @@
+The video shows that the models are unable to identify humans in images.

@@ -1,0 +1,1 @@
+In the context of trading fees, "dumb donation" refers to the fees that traders pay to their brokers for using their trading platform. These fees are often hidden in the fine print of trading contracts and can be quite high.

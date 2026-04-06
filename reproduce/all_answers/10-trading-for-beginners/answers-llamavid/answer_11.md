@@ -1,0 +1,1 @@
+A doji candle is a candlestick that has a small body and a long wick, forming a "V" shape. It is significant because it is often seen as a reversal pattern, indicating a potential change in the market's direction. Traders use it as a signal to enter or exit trades based on the reversal.

@@ -1,0 +1,1 @@
+The video data and object memory do not contain specific information about the 'Tiger-Snake' enemies in Chapter 5, so I am unable to provide their strengths and weaknesses.

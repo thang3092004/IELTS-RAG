@@ -1,0 +1,5 @@
+The integration of electric cars into the FIA World Rallycross Championship presented a significant challenge in the 2024 season, as it created a “**Battle of Technologies**” between internal combustion engine cars and fully electric machinery. This clash of technologies heightened the excitement and competitiveness of the season.
+
+**Johan Kristofferson, the 2024 World Rallycross Champion**, chose to drive an internal combustion engine car and acknowledged that competing against a different technology was a “**huge challenge**”. Despite this, he embraced the challenge, describing it as "**really fun**".  His victory, along with his team's third consecutive team championship win, demonstrated the enduring power and competitiveness of internal combustion engines in the face of new electric technology.
+
+The presence of electric cars in the championship added a new layer of complexity and intrigue, forcing drivers and teams to adapt and innovate to stay competitive. This technological diversity undoubtedly contributed to the overall excitement and engagement of the 2024 season.

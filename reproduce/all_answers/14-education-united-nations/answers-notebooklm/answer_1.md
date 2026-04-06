@@ -1,0 +1,7 @@
+The sources highlight the following specific global figures on children's education:
+
+*   **222 million** children and youth are not receiving a quality education. Of these, **78.2 million** children and youth in conflict zones do not attend school, and **143.8 million** attend school but are unable to achieve minimum competencies in math and reading. 
+*   Before the COVID-19 pandemic, **57% of children aged 10 could not understand a simple written text**. This number has **risen to 70% since the pandemic**, and has **reached 89% in sub-Saharan Africa**.
+*   **Half of the world’s 100 million refugees and displaced persons are children.**
+
+These figures represent a global education crisis that requires immediate action. The COVID-19 pandemic has had a devastating impact on learning worldwide and has set back progress on the Sustainable Development Goal 4 (SDG4), which aims to ensure inclusive and equitable quality education for all. However, the education crisis existed before the pandemic, as illustrated by the fact that 75 million children and youth were estimated to need humanitarian assistance in 2017. Conflict, climate change, and forced displacement continue to be major barriers to education, and the need for funding is increasing.

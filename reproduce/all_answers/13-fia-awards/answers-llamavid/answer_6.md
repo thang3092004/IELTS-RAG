@@ -1,0 +1,7 @@
+The 2024 FIA season has seen a significant push for diversity and inclusivity in the sport. This is evident in the introduction of new categories at the awards ceremony, such as the Rookie of the Year award for the first time, and the Innovation Medal for a driver who has revolutionized the sport. The FIA has also been actively promoting the grassroots of motorsport by providing affordable cars and equipment to young racers around the world, with the goal of making motorsport more accessible.
+
+At the awards ceremony, the presence of female drivers and a diverse group of winners is a testament to the FIA's commitment to inclusivity. The winners of the Rookie of the Year award include a woman and a driver from the African continent, which reflects the FIA's goal of promoting motorsport to a broader audience.
+
+In addition, the ceremony itself has been held in Rwanda, a country with a rich history of inclusivity and diversity. Rwanda has a long tradition of welcoming visitors and has been a hub for humanitarian work, making it an appropriate venue for the FIA to celebrate its 120th anniversary.
+
+In summary, the FIA's approach to diversity and inclusivity has been reflected in the 2024 season through initiatives like the Rookie of the Year award, the Innovation Medal, and the choice of Rwanda as the venue for the ceremony. The ceremony itself has also been a testament to the FIA's commitment to making motorsport more inclusive and diverse.

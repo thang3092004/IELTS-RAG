@@ -1,0 +1,10 @@
+Saint-Gobain reorganized to address sustainability challenges by **shifting from a product line-based organization to a country-based organization**. This allowed country CEOs to have access to all of the company's building materials, enabling them to provide complete solutions for things like facades and acoustic performance. This reorganization was a **massive shift for the 357-year-old company, but it has enabled them to more effectively address challenges related to CO2 emissions, natural resource preservation, and the growing population in developing countries**. 
+
+In addition to this organizational change, Saint-Gobain has implemented a number of other initiatives to promote sustainability, including:
+
+* **Measuring the impact of their solutions:** Saint-Gobain measures the impact of its solutions to demonstrate their effectiveness. For example, they have measured the correlation between the acoustics of a classroom and teacher absenteeism, showing that good acoustics can improve the working environment for teachers and the learning environment for children. 
+* **Minimizing their carbon footprint:** Saint-Gobain has committed to being carbon neutral by 2050. They have already reduced their total CO2 emissions by 27% and the carbon intensity of their turnover by 42%. 
+* **Imposing an internal carbon price:** Since 2016, Saint-Gobain has imposed an internal carbon price on all capital expenditures and R&D projects, which helps to ensure that they are taking carbon emissions into account in their decision-making.
+* **Promoting circular economy:** Saint-Gobain is increasingly using recycled materials in its products. For example, their glass wool insulation products in Europe contain 70% recycled materials. 
+
+These efforts are all part of Saint-Gobain's strategy to be a leader in light and sustainable construction. Their goal is to **maximize the impact of their solutions in buildings while minimizing their own carbon footprint**. 

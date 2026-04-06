@@ -1,0 +1,7 @@
+Toyota Gazoo Racing had a fantastic 2024 season, winning both the FIA World Rally Raid Championship and the FIA World Endurance Championship. Several factors contributed to their success.
+
+In the World Rally Raid Championship, their team principal James Barclay said the team's success was due to their "consistent performance, passion and commitment". The team had a strong lineup of drivers like Oliver Solberg, Kris Meeke and Elfyn Evans, and their cars were well-prepared and reliable. The team also had a great support crew and technical staff who worked tirelessly behind the scenes to get the cars ready for each race.
+
+In the World Endurance Championship, the team's success was due to a combination of factors. They had a strong lineup of drivers like Kamui Kobayashi, André Lotterer and Nick Tilgmann, and their cars were also well-prepared and reliable. The team had a great strategy and tactics from their team principal James Barclay, which helped them win races. The drivers also worked closely together as a team, with Kobayashi and Lotterer helping each other out.
+
+In summary, both the team's lineup of talented drivers and cars, as well as their technical and strategic support, played key roles in their success.

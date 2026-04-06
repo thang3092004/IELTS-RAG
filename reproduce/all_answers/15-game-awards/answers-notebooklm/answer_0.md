@@ -1,0 +1,3 @@
+Hideo Kojima believes the Game Awards has evolved from an industry-specific event to one with greater reach and broader appeal. 
+
+When the event began in 2014, it focused primarily on celebrating the achievements of those involved in the gaming industry. But it has since grown to include professionals from around the world, as well as individuals from other industries like film, music, television, and anime. Kojima states that The Game Awards now focuses on  **"deeper connections with the players,"**  serving as  **"a bridge not just within the gaming industry but also between gaming and other digital entertainment"** . He believes that this broader appeal will only become more significant in the future.

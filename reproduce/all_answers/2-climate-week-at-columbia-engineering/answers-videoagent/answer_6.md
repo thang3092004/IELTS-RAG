@@ -1,0 +1,1 @@
+The Software Carbon Intensity (SCI) standard applies to AI by providing a framework to measure and reduce the carbon emissions associated with AI models and systems. It involves evaluating energy consumption during training and deployment, and optimizing algorithms and infrastructure to minimize carbon emissions, thereby promoting more sustainable AI practices.

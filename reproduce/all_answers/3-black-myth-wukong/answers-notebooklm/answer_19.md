@@ -1,0 +1,1 @@
+A sparkly, golden dust, referred to as "pixie dust" in the source, guides the player through the environment. One source noted that the presence of this "pixie dust" means a shrine is nearby.

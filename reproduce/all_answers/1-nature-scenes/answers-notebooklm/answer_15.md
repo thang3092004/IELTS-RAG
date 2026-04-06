@@ -1,0 +1,1 @@
+The sources describe the man-of-war fish as living among the tentacles of the Portuguese man-of-war, feeding by nibbling on the tentacles. While the fish has some resistance to the stings of the tentacles, it must still be careful. The source doesn't elaborate further on the nature of this relationship, so it's unclear whether it benefits the man-of-war in any way.

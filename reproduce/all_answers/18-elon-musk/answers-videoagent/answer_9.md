@@ -1,0 +1,1 @@
+The video does not provide explicit information about Neuralink's focus in the first several years. Generally, Neuralink's initial focus has been on developing brain-machine interfaces to help people with neurological disorders and explore human enhancement.

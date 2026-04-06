@@ -1,0 +1,1 @@
+The instructor suggests that it takes at least 100 trades to become consistent in trading. He also emphasizes the importance of having a positive attitude and being patient.

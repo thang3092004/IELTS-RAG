@@ -1,0 +1,1 @@
+The video segment does not provide specific information about Bezos's decision regarding the Washington Post's endorsements. The segment involves a discussion about a book, which may not be directly related to the topic of endorsements.

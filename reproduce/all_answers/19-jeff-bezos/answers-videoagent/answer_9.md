@@ -1,0 +1,1 @@
+This question is not related to the video content or the tools available for video analysis. It requires knowledge of Bezos's public statements or writings on regulation and innovation, which are not accessible through the current tools.

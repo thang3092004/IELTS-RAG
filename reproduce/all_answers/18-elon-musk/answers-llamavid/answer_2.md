@@ -1,0 +1,7 @@
+Elon Musk uses a metaphorical 'tech tree' to describe the different stages of Neuralink's development. The tree has two main branches: the hardware and the software stack. The hardware consists of the physical neural link implant and the electronic components that communicate with it. The software stack consists of the neural decoder, neural mapping algorithms, and the neural algorithms that enable the decoder to translate brain signals into computer commands. 
+
+The hardware is the foundation that provides the basic capabilities of the neural link. The neural decoder is responsible for converting the neural signals into computer commands. The neural mapping algorithms are used to map the neural signals onto a high-dimensional space where the neural algorithms can operate. The neural algorithms then translate the neural signals into computer commands that can be executed by the computer.
+
+The software stack is the 'intelligence' that enables the hardware to operate. The neural mapping algorithms are used to map the neural signals onto a high-dimensional space that the neural algorithms can operate in. The neural algorithms then translate the neural signals into commands that can be executed by the computer.
+
+In summary, the hardware provides the basic capabilities, while the software stack provides the intelligence that enables the hardware to operate. The neural link is a complex system with both hardware and software components working together.

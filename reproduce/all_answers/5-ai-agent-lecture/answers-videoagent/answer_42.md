@@ -1,0 +1,1 @@
+LLMs are limited in reasoning tasks as they cannot perform tasks requiring human-like intelligence, creativity, or critical thinking. They can only process information based on the data they have been trained on.

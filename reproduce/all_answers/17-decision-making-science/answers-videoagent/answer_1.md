@@ -1,0 +1,1 @@
+In the 20th century, a "powerful" company was defined by its size, market share, and control over resources, often in manufacturing and heavy industries. In the 21st century, the definition has shifted to companies that leverage technology, data, and innovation, particularly in the tech sector.

@@ -1,0 +1,1 @@
+A "silly donation" is when a trader loses money in the market because they don't know what they are doing. In other words, it's **losing money from trading without a proven system.**  It can be avoided by taking the time to test a system and implement it slowly.

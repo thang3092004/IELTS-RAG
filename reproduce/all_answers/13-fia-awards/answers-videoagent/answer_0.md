@@ -1,0 +1,1 @@
+The video does not provide explicit information about how technological advancements impacted the racing season.

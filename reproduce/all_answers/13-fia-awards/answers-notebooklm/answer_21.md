@@ -1,0 +1,7 @@
+The 2024 Formula 1 season saw intense rivalries, particularly between Max Verstappen and Lando Norris, which significantly heightened the excitement and drama of the races. The season started with Verstappen dominating, reminiscent of his 2023 performance. However, other teams, notably McLaren, improved, leading to close battles and a shift in the championship momentum.
+
+The rivalry between Verstappen and Norris became a focal point, adding an extra layer of tension. Their on-track battles were aggressive, with incidents like Verstappen forcing Norris off track, resulting in penalties and heated exchanges. This rivalry, filled with dramatic moments and controversial incidents, captivated fans, making the season one of the most exciting in recent memory. 
+
+The commentary highlighted the intensity of their rivalry: "**Max versus Lando… they made contact… he had no intent to make a corner… Max barges his rival off the road… extraordinary this guy is dangerous**". 
+
+This rivalry, along with the resurgence of teams like Ferrari and Mercedes, contributed to a thrilling season that went down to the wire. The close competition, unexpected wins, and dramatic clashes between drivers kept fans on the edge of their seats, showcasing the unpredictable and captivating nature of Formula 1 racing when rivalries are at their peak.

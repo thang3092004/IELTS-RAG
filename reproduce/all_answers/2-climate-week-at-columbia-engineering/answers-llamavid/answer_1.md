@@ -1,0 +1,16 @@
+The fusion research community's focus shifted from the "triple product" approach to a more incremental, engineering-focused approach in the late 1990s/early 20000s. The triple product approach was a concept that proposed using a fusion reactor to produce electricity, helium, and tritium. However, the engineering challenges proved to be much greater than anticipated. The concept was considered a "holy grail" and many companies invested billions of dollars in the pursuit of fusion energy. However, the reactor designs were complex and the physics risks were high. 
+
+As researchers gained more engineering experience and knowledge, the focus shifted to developing more practical fusion reactors that could be built and operated on a smaller scale. This involved developing the technologies needed for a "construction-ready" design. The early companies focused on the "holy grail" and were unable to overcome the engineering challenges.
+
+The fusion community's approach changed from a conceptual, theoretical perspective to a more practical, engineering-focused one. The engineering challenges were much greater than anticipated and the physics risks were high. The focus shifted to developing practical fusion reactors that could be built and operated on a smaller scale. This involved developing the technologies needed for a "construction-ready" design.
+
+---Supporting evidence---
+The fusion research community's focus shifted from a conceptual, theoretical perspective to a more practical, engineering-focused one. The engineering challenges were much greater than anticipated. The concept was considered a "holy grail" and many companies invested billions of dollars in the pursuit of fusion energy. However, the reactor designs were complex and the physics risks were high. The concept was considered a "holy grail" and many companies invested billions of dollars in the pursuit of fusion energy.
+
+As researchers gained more engineering experience and knowledge, the focus shifted to developing practical fusion reactors that could be built and operated on a smaller scale. This involved developing the technologies needed for a "construction-ready" design. The early companies focused on the "holy grail" and were unable to overcome the engineering challenges.
+
+---Additional Supporting Evidence---
+
+The fusion community's focus changed from a conceptual, theoretical perspective to a more practical, engineering-focused one. The engineering challenges were much greater than anticipated and the physics risks were high. The focus shifted to developing practical fusion reactors that could be built and operated on a smaller scale. This involved developing the technologies needed for a "construction-ready" design. The early companies focused on the "holy grail" and were unable to overcome the engineering challenges.
+
+The fusion research community's approach changed from a conceptual, theoretical perspective to a more practical, engineering-focused one. The engineering challenges were much greater than anticipated and the physics risks were high. The focus shifted to developing practical fusion reactors that could be built and operated on a smaller scale. This involved developing the technologies needed for a "construction-ready" design.

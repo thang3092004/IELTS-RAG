@@ -1,0 +1,1 @@
+The video does not seem to explicitly cover the topic of "proprietary data and APIs impact on GPT replicability" in a way that can be directly identified through the available tools.

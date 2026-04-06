@@ -1,0 +1,1 @@
+The vloggers described the atmosphere of Urumqi's Grand Bazaar as lively and bustling, with a vibrant energy and interactions between vendors and customers.

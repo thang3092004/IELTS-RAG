@@ -1,0 +1,1 @@
+AI agents are used in financial analysis to analyze large amounts of data, provide insights into market trends and investment opportunities, identify patterns and anomalies in financial data, and provide recommendations for investment decisions.

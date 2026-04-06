@@ -1,0 +1,1 @@
+The partnership between Jaguar and TCS racing contributed to their success in the 2024 Formula E World Championship by allowing Jaguar to leverage TCS racing's expertise, technology, and resources. This collaboration enabled Jaguar to optimize their cars' performance, resulting in a winning performance in the championship.

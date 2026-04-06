@@ -1,0 +1,7 @@
+The vloggers' experience in Turpan differed from their expectations in several ways. They were surprised to find that the desert landscape was not as hot as they had imagined. In fact, they found that the temperature was much cooler than they expected, with the highest temperature being around 50 degrees Celsius. They were also surprised by the coolness of the sand dunes and the lack of strong winds. This was a pleasant experience for them compared to their initial expectations.
+
+The vloggers also found that the desert landscape was not as barren as they had imagined. They saw many small towns and villages carved into the hillsides. They were surprised to find that the desert was home to many Uyghur people and not just a desert with nothing but sand. 
+
+Additionally, the vloggers were surprised by the beauty and variety of the fruits and vegetables grown in Turpan. They tasted many types of fruits and vegetables that they had never seen before. The fruits and vegetables were fresh and delicious, and the variety surprised them.
+
+In summary, the vloggers' experience in Turpan was quite different from their initial expectations. The cooler temperature, the hillsides filled with small towns and villages, and the variety of fruits and vegetables grown in Turpan all exceeded their initial assumptions.

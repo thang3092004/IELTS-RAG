@@ -1,0 +1,1 @@
+The video segments and tools did not provide specific information about Bezos's belief in the importance of developing the next generation of leaders. The segments mostly involve gestures and interactions without specifying the topic of conversation.

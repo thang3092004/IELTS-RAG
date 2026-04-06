@@ -1,0 +1,1 @@
+DSPy addresses the limitations of LangChain prompt templates by offering a more comprehensive and versatile solution for generating text, including features like multilingual support, customizable templates, and the ability to use or create prompts.

@@ -1,0 +1,6 @@
+The vloggers stayed at an all-inclusive spa in Chengdu called Phu Phang, which was described as "top notch" and "luxurious". It cost 42 USD per person for 18 hours of access. They were assigned a pod with a locker and a sleeping pod, and were given a cute outfit to change into. They had access to a buffet of snacks and drinks, and were provided with blankets and pillows to relax on. They were also given a basket of snacks and a basket of cookies. The spa had a variety of amenities like a sauna, steam room, and foot massage, and they had the option to book massages and spa treatments. 
+
+In comparison, the vloggers had other accommodations in China that were more affordable and simpler. They stayed at a budget guesthouse in Xinjiang, a homestay in Yili, and a hostel in Guangzhou. The guesthouse and homestay had a simple breakfast of bread and fruits, while the hostel had a more Western-style breakfast. The hostel also had a kitchen and a shared dining area. The guesthouse had a more relaxed and casual atmosphere, while the homestay and hostel had a more structured and formal feel.
+
+---Answer---
+The vloggers' experiences at the all-inclusive spa in Chengdu were more luxurious and high-end compared to their other accommodations in China. The spa had a variety of amenities, while their other accommodations were more affordable and simpler.

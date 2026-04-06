@@ -1,0 +1,1 @@
+Mistral AI's agent builder simplifies agent creation by providing a visual interface that allows users to easily drag and drop components to create an agent, making it more intuitive and user-friendly, even for those who are not experienced with programming or coding.

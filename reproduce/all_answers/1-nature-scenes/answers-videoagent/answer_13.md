@@ -1,0 +1,1 @@
+The silk of Darwin's bark spider is unique because it is one of the toughest biological materials known, being more than ten times tougher than Kevlar. This property allows the spider to build large webs that can span rivers and capture prey flying over water, which is a unique web-building strategy.

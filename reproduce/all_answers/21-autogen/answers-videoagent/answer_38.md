@@ -1,0 +1,1 @@
+Prompt engineering techniques can be adapted for use in a multi-agent system like AutoGen by designing role-specific prompts, facilitating inter-agent communication, maintaining contextual awareness, implementing dynamic prompting, and creating feedback loops for continuous improvement.

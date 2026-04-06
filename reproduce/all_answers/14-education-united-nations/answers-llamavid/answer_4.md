@@ -1,0 +1,1 @@
+The goals of the Transforming Education Summit are to achieve gender parity in education, ensure quality and relevant education for all, and empower learners through innovation, inclusivity, and education.

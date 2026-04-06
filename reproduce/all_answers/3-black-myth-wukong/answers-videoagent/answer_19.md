@@ -1,0 +1,1 @@
+The visually distinctive elements that guide the player through the environments are "traffic light," "stop sign," and "parking meter."

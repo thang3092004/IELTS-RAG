@@ -1,0 +1,7 @@
+Michelle Mouton's reflections on her experiences as a rally driver in the 1980s demonstrate the importance of safety standards in motorsports. In the 1980s, she raced in rally events with no electronic aids or safety features, relying on her skill and the support of her co-driver. She recounts that she had to rely on her own judgment and instincts to drive the cars, and it was a very difficult job. However, she also mentions that the cars were not as powerful or as fast as modern rally cars, making it easier to handle. 
+
+Michelle highlights that safety standards have evolved significantly over the years. She notes that the cars she raced in the 1980s were much simpler and had fewer safety features compared to modern rally cars. They lacked things like traction control, ABS brakes, and other electronic aids. This meant that she had to rely more on her skill and the support of her co-driver to navigate the cars.
+
+Michelle also mentions that safety has become an increasing priority in motorsports. She says that safety has become the most important aspect of the sport, and that the cars are now much safer and more powerful. The evolution of safety standards has allowed rally cars to become faster and more powerful, but the emphasis on safety has not been lost.
+
+In summary, Michelle's reflections on her 1980s rally experiences demonstrate the importance of safety standards in motorsports. While cars have become more powerful, safety has remained a priority, and the evolution of safety features has allowed rally cars to become faster and more powerful.

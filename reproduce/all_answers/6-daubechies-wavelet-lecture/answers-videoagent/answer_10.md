@@ -1,0 +1,1 @@
+The product ωτ = 2π in time-frequency analysis signifies a complete cycle or period of a sinusoidal function, indicating that the signal has completed one full oscillation. This is important for understanding signal behavior and decomposition into frequency components.

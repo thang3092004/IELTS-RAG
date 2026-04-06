@@ -1,0 +1,1 @@
+The 'Opus' model is used to analyze financial data to generate a report. The model takes the data as input and generates a report based on the data it has been trained on. The report includes information about the user's recent emails, calendar events, and contact details.

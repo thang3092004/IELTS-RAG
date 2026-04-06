@@ -1,0 +1,1 @@
+The video mentions that ChatGPT's search function has been updated with new features, but it does not specify what those features are.

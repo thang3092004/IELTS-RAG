@@ -13,11 +13,11 @@ ehthumbs.db
 Thumbs.db
 Desktop.ini
 
-# Large local datasets/archives (keep out of repo)
-longervideos/
-longervideos.tar
-all_answers/
-all_answers.zip
+# Ignore video files
+*.mp4
+*.mkv
+*.webm
+*.avi
 
 # Bỏ qua các model weights cục bộ
 .checkpoints/

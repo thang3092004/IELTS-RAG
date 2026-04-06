@@ -1,0 +1,11 @@
+Ingrid Daubechies articulated several motivations for collaborating with art historians and conservators:
+
+* **Intellectual Curiosity and a Desire to Help:** Daubechies' interest in these collaborations stemmed from her inherent curiosity and a belief in the applicability of mathematical tools to solve problems in diverse fields. She described her tendency to engage with scientists and engineers across various disciplines and to explore the potential of mathematics in addressing their challenges. This approach led her to collaborate with art historians and conservators, who presented unique and intellectually stimulating problems.
+
+* **The Allure of Challenging Mathematical Problems:** The specific challenges posed by art conservation and art history, such as image analysis, pattern recognition, and 3D modeling, appealed to Daubechies as a mathematician. She found these problems to be intellectually engaging and provided opportunities to develop and refine sophisticated mathematical techniques.
+
+* **Appreciating Art's Cultural Significance:** Beyond the mathematical aspects, Daubechies expressed a genuine appreciation for art and its significance within society. She recognized the importance of preserving art for its historical and cultural value and saw her work as a way to contribute to the understanding and conservation of these valuable artifacts.
+
+* **Expanding the Reach and Impact of Mathematics:** Daubechies viewed her collaborations as a way to demonstrate the versatility and real-world applications of mathematics, particularly in domains not traditionally associated with the field. She aimed to highlight the potential of mathematics to make meaningful contributions to art history and conservation, thereby promoting broader awareness and appreciation for the discipline.
+
+* **The Serendipitous Nature of Discoveries:** Daubechies acknowledged that many of her collaborations arose from unexpected encounters and conversations with art historians and conservators. These chance interactions often sparked new ideas and led to innovative projects, demonstrating the value of interdisciplinary dialogue and open-mindedness to unexpected avenues of research.

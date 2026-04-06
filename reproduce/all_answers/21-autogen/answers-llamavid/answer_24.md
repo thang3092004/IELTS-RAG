@@ -1,0 +1,9 @@
+AutoGen is a framework that allows developers to build and deploy agent teams consisting of multiple AI models working together. These teams can be used for a wide range of applications, from generating code to answering complex questions. By utilizing a multi-agent approach, AutoGen can be used to tackle complex tasks that a single AI model could not handle alone. This is because the different AI models have specialized roles and skills, allowing them to complement each other and achieve better results. For example, one model can be an assistant that provides guidance, another can be an analyst that analyzes results, and a third can be a data retriever that fetches data. 
+
+In real-world use cases, AutoGen has been used to build applications such as an AI-powered flight booking system, a personal assistant that can generate code, and a personal project manager that can help with project planning. The ability of AutoGen to build and deploy agent teams of AI models has enabled developers to leverage AI's power in new and creative ways.
+
+---Answer---
+
+AutoGen allows developers to build and deploy agent teams of multiple AI models working together. These teams can be used for a wide range of applications. The different AI models have specialized roles and skills, allowing them to complement each other and achieve better results. For example, one model can provide guidance, another can analyze results, and a third can fetch data. This multi-agent approach enables developers to tackle complex tasks that a single AI model could not handle alone.
+
+AutoGen is an open-source project by Microsoft that aims to make it easy for developers to build and deploy agent teams of AI models.

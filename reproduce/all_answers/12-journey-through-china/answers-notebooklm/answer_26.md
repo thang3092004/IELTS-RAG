@@ -1,0 +1,1 @@
+The vloggers in the source do not explicitly discuss the importance of preserving cultural heritage. However, they do highlight how the city of Chongqing worked to preserve the old architecture of the Shaha Lane area while also revitalizing it. They also mention how the government worked with designers and artists to accomplish this goal.

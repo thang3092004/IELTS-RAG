@@ -1,0 +1,1 @@
+The video does not provide explicit information about the role of the Organization of Islamic States (OIC) in promoting education.

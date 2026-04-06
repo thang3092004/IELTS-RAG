@@ -1,0 +1,1 @@
+Exponent utilizes different types of evidence, such as photographs, medical records, and witness statements, along with their expertise in biomechanics and engineering, to reconstruct the mechanism of an injury. They analyze this evidence to determine the cause of the injury.

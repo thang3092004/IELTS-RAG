@@ -1,0 +1,7 @@
+A fusion pilot plant is an experimental facility that demonstrates the feasibility of fusion energy as a practical energy source. The timeline for a fusion pilot plant has evolved over the years from an ideal timeline of a few years to a realistic timeline of a decade or more. 
+
+Initially, the fusion industry aimed for a pilot plant to be operational by the mid-2010s. However, the first experimental fusion pilot plant, ITER, was delayed from its original target of 2007 to 2015 due to technical challenges and cost overruns. ITER's performance was also disappointing, with a power output of only 36 MW.
+
+In recent years, the timeline for a pilot plant has moved back to a decade or more. Companies like TAE Technologies and Helion Energy are working on a design for a pilot plant that could be operational in the 2020s. However, there are still significant technical and financial challenges to overcome before a pilot plant could be built.
+
+In summary, while the ideal timeline for a fusion pilot plant was once a few years, the realistic timeline has moved back to a decade or more due to technical and financial challenges. The fusion industry is still working to overcome these obstacles to make fusion energy a practical energy source.

@@ -1,0 +1,1 @@
+The process of using an image as the starting point for video generation in Sora involves capturing images or videos, scrolling through a phone, and using a computer, suggesting a workflow of capturing and possibly editing or viewing media. However, specific details about the process in Sora are not clear from the available information.

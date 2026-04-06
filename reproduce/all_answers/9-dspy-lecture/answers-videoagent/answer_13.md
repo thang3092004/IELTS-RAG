@@ -1,0 +1,1 @@
+DSP leverages in-context learning by using the LLM's existing knowledge to generate new content without retraining the LLM, allowing it to continue learning and improving its performance over time.

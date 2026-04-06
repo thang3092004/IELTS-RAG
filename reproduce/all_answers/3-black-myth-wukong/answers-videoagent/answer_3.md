@@ -1,0 +1,1 @@
+The game uses visual storytelling to convey themes of exploration, connection with nature, and the impact of technology on human experiences. Through actions like adjusting cameras and interacting with the environment, the game emphasizes perspective, observation, and the journey of the camera wearer.

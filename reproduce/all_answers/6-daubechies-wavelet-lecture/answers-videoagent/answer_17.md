@@ -1,0 +1,1 @@
+Daubechies describes time-frequency patterns indicative of singularities in a signal as resulting from a time-frequency analysis that decomposes the signal into its frequency components. These patterns are characterized by their amplitude and phase, indicating the presence of singularities.

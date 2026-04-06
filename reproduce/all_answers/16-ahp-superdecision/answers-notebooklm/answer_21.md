@@ -1,0 +1,9 @@
+The "inconsistency report" feature in SuperDecisions can be used to identify and rectify inconsistencies in pairwise comparison judgments by highlighting judgments that contribute the most to the inconsistency and offering suggestions for improving consistency. Here's how it works:
+
+* **Identifying Inconsistent Judgments:** After entering pairwise comparisons, SuperDecisions calculates the consistency ratio (CR).  A CR value less than 0.1 is considered acceptable. If the CR exceeds 0.1, it indicates inconsistency in the judgments. To identify the judgments contributing to the inconsistency, you can generate an inconsistency report. This report provides a list of judgments that are most inconsistent, highlighting the judgments that need revision.
+
+* **Rectifying Inconsistencies:**  The inconsistency report not only identifies problematic judgments but also suggests alternative values for those judgments to improve the consistency ratio. For example, the report might indicate that a particular judgment should be changed from "3" to "0.847" to reduce the inconsistency.  You can then revise the judgments based on the suggestions, aiming to bring the CR value below the acceptable threshold of 0.1. However, it's important to consider the AHP scale, where 9 is the highest value, and adjustments should be made within this scale.  
+
+* **Example:** In one of the sources, a user encounters an inconsistency ratio above 0.1 while comparing alternatives.  The inconsistency report suggests that a judgment with a value of "9" should ideally be "35".  Since the AHP scale only goes up to 9, the user opts for the second suggestion, changing a judgment of "7" to "2", which significantly improves the consistency ratio.
+
+The "inconsistency report" feature acts as a valuable tool for ensuring the reliability and validity of AHP models by guiding users to make more consistent judgments.

@@ -1,0 +1,1 @@
+Prompt caching is limited in terms of performance and scalability, making it unsuitable for large-scale applications or high-traffic websites. In such cases, traditional RAG caching is still a better option.

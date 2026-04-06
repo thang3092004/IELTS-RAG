@@ -1,0 +1,1 @@
+Injury tolerance refers to the ability of the human body to withstand physical forces without injury. Methods to understand human tolerance limits include biomechanical testing, epidemiological studies, finite element analysis, animal studies, volunteer studies, and anthropometric data collection.

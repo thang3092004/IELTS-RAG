@@ -1,0 +1,1 @@
+The primary goal of the open-source project DEVIKA is to develop a language model that can be used to build and train custom language models for various applications.

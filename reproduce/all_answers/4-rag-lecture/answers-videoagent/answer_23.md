@@ -1,0 +1,1 @@
+Gemini Flash's multi-modal capabilities in handling PDFs include processing text-based content such as lists of numbers and programming code, visual content like flowcharts, and tabular content in Google Sheets. This demonstrates its ability to interpret and manage various types of content within PDFs.

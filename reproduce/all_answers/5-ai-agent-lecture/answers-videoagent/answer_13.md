@@ -1,0 +1,1 @@
+I am unable to provide a comparison of different AI agent frameworks as the tools available are designed for video analysis, not for providing information on AI agent frameworks.

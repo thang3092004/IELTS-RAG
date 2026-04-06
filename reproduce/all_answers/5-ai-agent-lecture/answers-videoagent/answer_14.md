@@ -1,0 +1,1 @@
+The video discusses custom GPTs used for video game tutorials, video game reviews, and video game walkthroughs.

@@ -1,0 +1,1 @@
+The '$100 Delta decision rule' is a decision-making tool that involves allocating a hypothetical $100 across different options to reflect their relative importance or preference. It simplifies decision-making by clarifying priorities, providing a quantitative comparison, facilitating discussion, and breaking down complex decisions into simpler parts.

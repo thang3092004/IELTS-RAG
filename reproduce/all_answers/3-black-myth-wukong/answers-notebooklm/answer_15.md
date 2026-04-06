@@ -1,0 +1,9 @@
+In Chapter 5 of *Black Myth: Wukong*, the player encounters various challenges when fighting enemies in the game's cave environments.
+
+The player encounters enemies that inflict burn damage. The player states that, "now we're dealing with bats here, possibly," and mentions, "we got frost damage in this world". In addition to bats, the player fights "beetles" and spiders that can inflict poison. The player is challenged by the "camera [going] all weird" when fighting the flying, poison-inflicting enemies.
+
+The player is also challenged by the **lack of resources in the cave environments**. They note that, "some of these enemies would you know just drop some health when you kill them," and observe that, "there's so many spots where you could have placed a medicine or a pill or I don’t know, something, something good, yet you chose to tease me, you bastard!".
+
+In addition to resource scarcity and challenging enemy types, the player is challenged by the **verticality of the cave environments**. The player states, "this chapter actually reminds me a whole lot of the *Elden Ring* DLC because that DLC was so heavy on like verticality like everything was up and down and up and down and this, in a way, this has a lot of that".
+
+The player also mentions that, "a lot of people say, ‘Man, this game is all just boss fights. It’s only boss fights, there’s no–’ There is a story here, man, you just have to pay attention". The player notes that they missed many of the Chapter 2 bosses because they, "didn’t realize how many other side bosses there were," and were instead focused on the main story.

@@ -1,0 +1,1 @@
+I'm sorry, but the data provided does not include specific information regarding the time-frequency patterns described by Daubechies as indicative of singularities in a signal. I cannot generate a response without that information.

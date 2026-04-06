@@ -1,0 +1,9 @@
+Exponent, a scientific and engineering consulting firm, uses a multidisciplinary approach to reconstruct the mechanism of an injury. This approach involves analyzing various types of evidence to understand how an injury occurred, including:
+
+* **Medical records**, such as descriptions of injuries, imaging studies, and details about the nature of the trauma, provide crucial information about the specific forces and motions involved in the injury. For example, the presence of a spiral fracture in a bone suggests a twisting force, while a torn ligament indicates tension. 
+* **Physical evidence** from the injury site, such as abrasions, bruises, and fracture patterns, offers valuable clues about the direction and magnitude of forces involved. For instance, the location and shape of a bruise can reveal the point of impact and the type of object that caused it. 
+* **Accident data**, including information about the speed of vehicles involved in a crash, the use of safety restraints, and the resulting injuries, helps researchers identify correlations and potential causal factors related to injury risk. 
+* **Instrumented testing**, using tools like anthropomorphic test devices (crash test dummies) and sensors embedded in helmets, provides quantitative data about the forces, accelerations, and other mechanical parameters experienced during an injury event. 
+* **Computational models**, such as multibody or finite element models, can simulate the dynamics of an injury event and predict the stresses and strains experienced by tissues. These models can help researchers understand the biomechanical factors that contribute to injury and evaluate the effectiveness of safety interventions. 
+
+By combining these different types of evidence, Exponent can develop a comprehensive understanding of the mechanism of an injury and provide insights that can be used to prevent similar injuries in the future.

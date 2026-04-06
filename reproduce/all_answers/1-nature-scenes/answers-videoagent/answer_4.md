@@ -1,0 +1,1 @@
+Humboldt penguins in Peru face challenges such as navigating rocky terrain and avoiding predators when trying to reach the sea for food. They overcome these challenges by using their agility and group behavior to navigate the environment and protect themselves from threats.

@@ -1,0 +1,1 @@
+In chimpanzee groups, leadership and strategy are typically more fluid and based on individual initiative and environmental cues rather than a designated leader dictating strategy.

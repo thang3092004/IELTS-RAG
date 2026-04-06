@@ -1,0 +1,1 @@
+I am unable to determine the factors that ultimately determined the outcome of a dramatic encounter between a group of wolves and muskox due to a lack of relevant information in the available data.

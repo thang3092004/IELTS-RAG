@@ -1,0 +1,1 @@
+The sources provided do not contain information about the ecological and evolutionary factors that have driven the development of the killer whale's beaching behavior. Therefore, this question cannot be answered from the given sources. 

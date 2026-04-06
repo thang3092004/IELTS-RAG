@@ -1,0 +1,1 @@
+Red-legged seriema birds avoid predators like the jaguar and the harpy eagle through vigilance, alarm calls, and their ability to run quickly. They stay in open areas to spot predators early and use loud calls to alert others of danger.

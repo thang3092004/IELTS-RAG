@@ -1,0 +1,1 @@
+The available data does not provide enough specific details to compare the vloggers' experiences at the all-inclusive spa in Chengdu with their other accommodations in China. The captions retrieved mostly describe interactions and movements without specific details about the accommodations themselves.

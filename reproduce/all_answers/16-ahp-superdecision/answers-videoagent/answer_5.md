@@ -1,0 +1,1 @@
+To improve the inconsistency ratio in Super Decisions software, review and adjust pairwise comparisons for logical consistency, use software feedback to correct inconsistencies, simplify the decision model, and ensure informed judgments.

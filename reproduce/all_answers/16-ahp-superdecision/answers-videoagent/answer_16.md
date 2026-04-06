@@ -1,0 +1,1 @@
+The process of synthesizing an AHP model in SuperDecisions involves creating a table of decision criteria, followed by a table of decision weights, and then creating a decision matrix to synthesize the AHP model.
