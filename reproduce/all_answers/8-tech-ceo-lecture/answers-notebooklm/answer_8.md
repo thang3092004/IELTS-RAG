@@ -1,0 +1,15 @@
+Saint-Gobain has implemented several low-carbon initiatives, including:
+
+*   **Reorganizing the company by country to provide end-to-end solutions rather than just products.** This organizational shift allows Saint-Gobain to tackle CO2, natural resource, and social challenges comprehensively in each country by offering a full range of building materials and expertise. 
+*   **Promoting energy efficiency and retrofitting existing buildings.** They offer up to 30 products for energy efficiency renovations. As an example, the company offers single-family home renovations in France that can reduce energy bills by 70%.
+*   **Advocating for and implementing light construction in new buildings.** This method uses pillars for load-bearing elements rather than traditional brick and concrete walls. Light construction can save at least 50% of the materials’ weight, thus reducing embodied CO2 emissions.
+*   **Launching low-carbon products like the first-ever low-carbon glass.**  Saint-Gobain achieved zero-carbon production of flat glass in France and subsequently launched a low-carbon glass offer that reduces CO2 emissions in glass production by 40%. This was achieved by increasing recycled glass content, utilizing biogas, and modifying production processes.
+*   **Establishing the first zero-carbon plasterboard plant.** The first plant opened in Norway, leveraging hydropower for electricity.  The second plant is planned for Quebec, Canada, also utilizing hydropower. They also offer a low-carbon plasterboard product in the market.
+*   **Measuring the impact of their solutions.**  Saint-Gobain measures the impact of acoustic renovation in schools, demonstrating a correlation between improved classroom acoustics and reduced teacher absenteeism.
+*   **Committing to carbon neutrality by 2050.**
+*   **Implementing an internal carbon price since 2016.** This internal carbon price is factored into every capital expenditure and R&D project to incentivize efforts to minimize the company's carbon footprint.
+*   **Working on circular economy initiatives, such as recycling materials in their production processes.** In Europe, their glass wool insulation product incorporates 70% recycled materials. They have also introduced a plasterboard containing 50% recycled materials.
+*   **Pioneering innovative practices like using hydrogen in a glass furnace.** They achieved a world premiere in Germany in May 2022 by running a glass furnace on hydrogen. 
+*   **Using alternative energy sources like rice husk for energy in India.** Their newest gypsum plasterboard plant in India is situated in a rice-growing region. The facility converts rice husk into briquettes, providing 100% of the plant’s energy through this biomass source.
+
+Over the past five years, Saint-Gobain has reduced its total scope one and two CO2 emissions by 27%. Their carbon intensity per euro of turnover has decreased by 42% during the same period.

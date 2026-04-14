@@ -1,0 +1,1 @@
+The process of using the 'Storyboard' feature to direct a multi-action video involves capturing content, such as taking photos and videos, and then reviewing and organizing this content on devices like tablets and computers. This may include scrolling through images and videos, reading notes, and possibly editing or arranging the content to create a cohesive video narrative.

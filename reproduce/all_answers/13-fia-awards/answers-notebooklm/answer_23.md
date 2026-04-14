@@ -1,0 +1,3 @@
+The sources provided don't offer any specific details about the FIA Drivers' Commission's advocacy efforts for driver interests and safety. However, the sources do mention that the FIA Drivers' Commission votes for the Rookie of the Year award, highlighting the commission's involvement in recognizing and supporting emerging talent.
+
+For a comprehensive understanding of the FIA Drivers' Commission's role in advocating for drivers, you may want to consult the FIA's official website or other reliable motorsport publications.

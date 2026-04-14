@@ -1,0 +1,1 @@
+Users can access bots running in specific roles by using the command `!role <role>`. For example, to access the bot running in the role of a moderator, users can use the command `!role moderator`.

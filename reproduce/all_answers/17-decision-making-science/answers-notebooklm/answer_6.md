@@ -1,0 +1,7 @@
+The concept of “disrupting the economics of an attack” helps organizations prioritize security investments by understanding what is **cheapest and easiest for attackers to exploit**. Organizations can then prioritize investments in controls that **discourage the use of low-effort attacks** and force attackers to spend more time and money to be successful. For example, if attackers find it cheap and easy to use stolen credentials purchased from dark markets, the organization can focus on strengthening their defenses against credential theft, such as multi-factor authentication and passwordless solutions. By making these low-effort attacks more costly and time-consuming, attackers may move on to easier targets.  
+
+This approach works well for financially motivated attackers, like cybercriminals who are seeking a return on their investment. However, this may not be effective for other types of attackers, like:
+* **Hacktivists:** These attackers are motivated by a belief or ideology. 
+* **Nation-state actors:** These attackers have virtually unlimited budgets, time, and technical expertise. 
+
+For these types of attacks, organizations need to focus on securing sensitive information and implementing layers of controls that make it extremely difficult for attacks to succeed.

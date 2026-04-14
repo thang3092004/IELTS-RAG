@@ -1,0 +1,1 @@
+The video segments do not provide sufficient information to compare the vloggers' experiences with street food in different parts of China or to observe regional variations.

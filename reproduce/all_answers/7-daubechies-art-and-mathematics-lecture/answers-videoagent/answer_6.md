@@ -1,0 +1,1 @@
+The video does not provide specific information on how mathematics aided in reconstructing the Padua frescoes. It is possible that mathematical techniques such as geometric analysis, perspective correction, or digital modeling were used in the reconstruction process, but this is not explicitly mentioned in the available segments.

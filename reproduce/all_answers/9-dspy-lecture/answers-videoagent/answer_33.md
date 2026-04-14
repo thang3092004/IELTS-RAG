@@ -1,0 +1,1 @@
+The video segments analyzed did not provide information about DSPy or its approach to eliminating the reliance on hard-coded prompt templates in RAG systems. It is possible that the video does not contain explicit information on this topic, or it is not captured in the segments I have reviewed.

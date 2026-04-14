@@ -1,0 +1,12 @@
+The concept of 'late chunking', as presented in the sources, revolutionizes traditional RAG systems by reversing the order of chunking and embedding processes. In traditional RAG systems, documents are first divided into smaller chunks, and then embeddings are computed for each chunk. This approach, however, can lead to a loss of contextual information, as each chunk is treated independently.
+
+**Late chunking addresses this issue by computing embeddings for the entire document first, and then performing the chunking process later**. This ensures that each token embedding contains contextual information from the entire document, resulting in richer and more informative chunk embeddings.
+
+Here's how late chunking challenges traditional notions of chunking in RAG:
+
+* **Context Preservation**: Traditional chunking often results in the loss of contextual information, particularly when dealing with concepts that span multiple chunks. **Late chunking preserves the context by embedding the entire document first, allowing each token embedding to capture the overall meaning of the document**.
+* **Chunking Strategy Independence**: While traditional RAG systems heavily rely on the chosen chunking strategy, **late chunking appears to be less sensitive to the specific method used for dividing the document**. This is because the initial embedding process considers the entire document, ensuring contextual information is captured regardless of chunk boundaries.
+* **Improved Retrieval Accuracy**: By preserving contextual information, late chunking leads to more accurate retrieval results. **Embeddings generated through late chunking are better at capturing the semantic relationships between chunks, leading to improved similarity scores and more relevant retrievals.**
+* **Efficient Storage**: Despite the initial embedding of the entire document, late chunking maintains storage efficiency comparable to traditional methods. This is because, in the final step, mean pooling is applied to the token embeddings within each chunk, resulting in a single vector representation for each chunk, similar to traditional approaches.
+
+Late chunking, particularly when combined with long-context embedding models, presents a significant advancement in RAG systems. It offers a compelling solution to the limitations of traditional chunking methods, leading to enhanced contextual understanding, improved retrieval accuracy, and efficient storage.

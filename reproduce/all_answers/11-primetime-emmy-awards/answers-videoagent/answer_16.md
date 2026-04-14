@@ -1,0 +1,1 @@
+The acceptance speech on behalf of the writing team for "Last Week Tonight" likely highlights the crucial role of various departments in television production by expressing gratitude and acknowledging the collaborative efforts of the production team, including writers, producers, directors, and technical staff, who contribute to the success of the show.

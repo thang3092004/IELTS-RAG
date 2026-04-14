@@ -1,0 +1,5 @@
+Extreme multi-label classification (XMC) is a type of machine learning that allows for classification of an object into multiple classes simultaneously. This is useful in a variety of applications where objects can belong to multiple categories at the same time. For example, in the field of astrobiology, an object can be classified as both a planet and a star. In the field of biophysics, an object can be classified as both a protein and an organism. 
+
+An example of XMC in action is in the field of astrobiology. A researcher can query their system to find out the characteristics of an astrophile. The system will then retrieve data from multiple sources and generate a response that provides information about astrophiles, including their formation, composition, and environment. This demonstrates how XMC can be applied to complex real-world problems.
+
+In summary, XMC is a powerful machine learning technique that allows for classification of objects into multiple classes at the same time, enabling the generation of more comprehensive responses.

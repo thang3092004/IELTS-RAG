@@ -1,0 +1,5 @@
+Daubechies discusses the use of multi-tapering with Hermite functions in the context of the synchrosqueezing transform. She provides an example to illustrate the improvement achieved by this technique. In the example, she considers a signal x(t) with a window function w(t) = 0.001 t^2(t-0.01) + 0.001 t^3(t-0.1). 
+
+Daubechies notes that if one uses a single tapering with Hermite functions, the resulting transform will have a non-zero window function w' (t) = 0.001 t^2(t-0.01) + 0.001 t^3(t-0.1). 
+
+However, by using multi-tapering with Hermite functions, the resulting transform w' (t) = 0.01 t^2(t-0.01) + 0.01 t^3(t-0.1) + 0.01 t^3(t-0.1) is zero.01 t^2(t-0.01) + 0.01 t^3(t-0.1) + 0.01 t^3(t-0.1), which is exactly the same as the original transform w(t). This demonstrates the improvement achieved by using multi-tapering with Hermite functions.

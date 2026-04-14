@@ -1,0 +1,1 @@
+The sources do not provide information about how the partnership between Jaguar and TCS racing contributed to their Formula E success in 2024. However, the sources do note that Jaguar TCS racing won the Formula E team championship in 2024, with driver Nick Cassidy finishing in third place and Mitch Evans finishing as the championship runner-up.

@@ -1,0 +1,5 @@
+OpenAI views video as a significant area for development for several key reasons:
+
+*   **It aligns with OpenAI's mission to create AI tools that empower creativity.** Video is a powerful medium for creative expression, and Sora enables users to co-create with AI in new and interesting ways. Early testers of Sora demonstrated this co-creative dynamic, pointing to the potential of AI-powered creative tools.
+*   **OpenAI wants to expand AI capabilities beyond text-based interactions.**  They believe that limiting AI systems primarily to text would be a missed opportunity. Building AI systems capable of understanding and generating video will fundamentally change the way humans interact with computers.
+*   **Video is crucial for advancing towards Artificial General Intelligence (AGI).** Video presents a complex environment where AI can learn about the real world and its physics. This learning process is vital to OpenAI's roadmap for developing AGI, as video provides a rich and dynamic context for AI to develop a deeper understanding of the world.

@@ -1,0 +1,1 @@
+The parameter Ωτ in windowed Fourier transforms represents the frequency variable, allowing for the analysis of frequency components within each window, providing a time-frequency representation of the signal.

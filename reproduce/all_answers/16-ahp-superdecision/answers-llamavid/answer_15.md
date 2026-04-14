@@ -1,0 +1,7 @@
+The consistency ratio (CR) is an important metric in Analytic Hierarchy Process (AHP) that measures the consistency between the relative weights of criteria and alternatives. It is calculated as the ratio of the sum of the weights of the criteria to the sum of the weights of the alternatives. A high CR indicates that the criteria and alternatives are being compared consistently. 
+
+In SuperDecisions, the consistency ratio is addressed through the process of sensitivity analysis. This involves analyzing how the weights of the criteria and alternatives change when the weights of the criteria are adjusted. This can reveal which criteria are most important for determining the priorities of the alternatives.
+
+The sensitivity analysis can also be performed graphically by plotting the weights as points on a graph. The points are plotted according to their weights, and the graph shows how the weights change as the weights of the criteria are adjusted. The consistency ratio can then be calculated by taking the ratio of the sum of the weights of the weights of the criteria to the sum of the weights of the alternatives.
+
+In summary, the consistency ratio is an important metric in AHP that is used to assess the consistency between the criteria and alternatives. SuperDecisions provides tools to perform sensitivity analysis to address the consistency ratio, which is significant in AHP decision making.

@@ -1,0 +1,13 @@
+Here are some strategies for mitigating the failure of AI systems in causal reasoning tasks, based on the provided sources:
+
+*   **Provide explicit reasoning pathways**: If an LLM lacks the inherent knowledge to perform causal reasoning on a specific task, providing step-by-step instructions or hints can guide it toward the correct solution. This is similar to the common practice of telling an LLM to "think step by step" or to assume a specific role, such as a "logical genius". 
+*   **Break down complex queries into simpler ones**: By simplifying the task, the LLM can focus on individual components and gradually build a comprehensive understanding. This can involve pre-processing the user prompt with a smaller LLM to generate more machine-readable queries.
+*   **Employ techniques like DSP, RAG, or riff graph**: These methodologies can be used to generate optimized system prompts that enhance an LLM’s ability to perform causal reasoning. Specifically, the Demonstrate, Search, and Predict (DSP) framework can be used to develop a system prompt that addresses the specific limitations of an LLM and guides it toward successful task completion. 
+*   **Explore probability-based solutions**: Generate multiple explanations for a given event and then select the most plausible one based on probability or the frequency of similar conclusions.
+*   **Incorporate instruction tuning**: Train the LLM on a variety of causal reasoning tasks, providing it with clear examples of cause-and-effect relationships.
+*   **Focus on temporal reasoning**: Guide the LLM to analyze events in chronological order, highlighting the contribution of each event to the final outcome. 
+*   **Develop hybrid models**: Combine LLMs with other reasoning systems, such as generative graph models, to leverage the strengths of each approach.
+*   **Use a retrieval evaluator**: Incorporate an AI system within the RAG system that acts as a gatekeeper, evaluating the relevance of retrieved information before passing it to the LLM. This can help prevent the LLM from being misled by irrelevant or misleading information. 
+*   **Incorporate a graph neural network (GNN)**: Enhance RAG systems by integrating GNNs to improve the understanding of relationships between different pieces of information. A GNN can analyze the connections between retrieved documents, potentially identifying hidden patterns or correlations that would be missed by traditional retrieval methods.
+
+The sources emphasize the importance of understanding the limitations of current AI systems and the need to develop new strategies and architectures to address the challenges of causal reasoning.

@@ -1,0 +1,1 @@
+Saint-Gobain's commitment regarding carbon neutrality is highlighted in the video by showing a graph of the company's carbon emissions, indicating a commitment to reducing emissions to achieve carbon neutrality.

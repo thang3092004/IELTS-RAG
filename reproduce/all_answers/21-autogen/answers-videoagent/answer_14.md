@@ -1,0 +1,1 @@
+In the context of an AutoGen workflow, a data schema in Neon is created using the Neon language, which is designed for data analysis and visualization. The schema defines the structure of the data, including columns, data types, and relationships. Once defined, it is used to create tables, views, and other data structures in Neon.

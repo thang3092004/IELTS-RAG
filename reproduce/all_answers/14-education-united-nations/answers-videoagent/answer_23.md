@@ -1,0 +1,1 @@
+Education Cannot Wait bridges the gap between humanitarian aid and development assistance by providing quality education to children and youth affected by crises and conflicts. The organization collaborates with governments, partners, and communities to ensure access to safe, quality, and inclusive education for these children and youth.

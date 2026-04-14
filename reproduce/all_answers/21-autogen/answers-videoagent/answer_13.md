@@ -1,0 +1,1 @@
+The video does not provide specific information about the utilization of the Amadeus flight server in an AutoGen workflow. The question may require a conceptual or technical explanation not covered in the video.

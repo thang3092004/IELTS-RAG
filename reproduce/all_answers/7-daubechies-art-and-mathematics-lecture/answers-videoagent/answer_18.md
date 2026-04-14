@@ -1,0 +1,1 @@
+Ingrid Daubechies's work on wavelets has influenced art conservators and historians by providing tools to enhance and restore artworks, revealing hidden details, and offering insights into artists' techniques and materials.

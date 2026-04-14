@@ -1,0 +1,1 @@
+The FIA Formula 2 Championship serves as a crucial stepping stone for aspiring Formula 1 drivers by providing a competitive platform to showcase their talent, gain experience in racecraft, and handle the pressures of high-stakes competition. Champions like Gabriele Bortoleto benefit from this environment, which prepares them for the challenges of Formula 1.

@@ -1,0 +1,11 @@
+DSPy signatures differ from traditional hard-coded prompts in several key ways:
+
+* **Signatures are abstract representations of a desired text transformation.** They describe the task in a concise and declarative way, without specifying the exact wording or structure of the prompt. This makes them more flexible and adaptable than hard-coded prompts, which are often tied to a specific domain or task. For example, a signature might be "question to answer" or "long document to summary", without specifying the exact wording of the question or the length of the summary.
+
+* **Signatures can be compiled into self-improving and pipeline-adaptive prompts.** This means that the system can automatically learn the best way to prompt the language model, based on the specific task and data. This is done by bootstrapping useful demonstration examples for each signature. The system can also automatically fine-tune the entire LLM system, further improving performance.
+
+* **Signatures allow for greater flexibility and modularity.** Because they are abstract representations, signatures can be used to implement a wide range of tasks. They can also be easily combined to create more complex pipelines. This makes DSPy more powerful and versatile than traditional prompt engineering methods. Hard-coded prompts, on the other hand, are typically more rigid and difficult to adapt to new tasks.
+
+* **Signatures facilitate optimization.** DSPy uses teleprompters, which are optimizers that take a program, training dataset, and a quality metric, and return an optimized program. Teleprompters can be used to optimize the prompts for any pipeline, including those that use signatures. This means that the system can automatically learn the best way to prompt the language model for a given task, leading to improved performance.
+
+In contrast, traditional hard-coded prompts are static and do not allow for this type of optimization. They are also often highly specific to a particular domain or task, making them less reusable.

@@ -1,0 +1,1 @@
+In many games, "Keeper Shrines" are often used as save points, places to restore health or mana, or locations to receive quests or blessings. They can also serve as fast travel points or areas to unlock new abilities. The specific purpose can vary depending on the game.

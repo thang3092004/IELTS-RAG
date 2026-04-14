@@ -1,0 +1,1 @@
+I cannot determine if the announcement of "The Witcher 4" confirms or refutes previous leaks and rumors regarding the game's development and protagonist based on the available video data.

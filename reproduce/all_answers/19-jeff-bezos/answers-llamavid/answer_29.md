@@ -1,0 +1,7 @@
+Bezos's approach to problem-solving involves a process of "wandering" where he doesn't have a clear plan or direction but instead wanders through different ideas and perspectives. He describes this as a way of looking at problems in a "nonlinear" manner. 
+
+For example, when Bezos was working on the problem of how to make a large rocket engine for Blue Origin's New Glenn, he said he didn't know where he was going but he just started "wandering" around the different components and materials involved. He would brainstorm new ideas and then immediately come up with objections and critiques to those ideas. He said "I don't know where I'm going but I just start wandering around and then look at things". This wandering process allowed Bezos to come up with new insights and creative solutions to the problem.
+
+Bezos has also described how wandering around ideas helps him avoid getting stuck in a "straight line" thinking. He said "I don't think good ideas come fully formed". By wandering through different perspectives and objections, he can avoid getting stuck in a "straight line" way of thinking and instead find innovative solutions. 
+
+So in summary, Bezos's approach to problem-solving involves a wandering process where he doesn't have a clear direction but instead explores different ideas and perspectives. This wandering allows him to come up with innovative solutions by avoiding getting stuck in a "straight line" way of thinking.

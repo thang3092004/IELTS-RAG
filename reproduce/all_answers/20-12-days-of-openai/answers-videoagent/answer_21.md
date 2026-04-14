@@ -1,0 +1,1 @@
+The video segments involve the camera wearer reading through various documents and notes, which might be related to research or development activities. However, there is no specific mention of how Thompson Reuters utilized reinforcement fine-tuning to enhance their Co-Counsel AI tool in the available segments.

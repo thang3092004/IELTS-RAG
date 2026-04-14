@@ -1,0 +1,1 @@
+The video does not provide specific information about the FIA's approach to diversity and inclusivity in motorsports for the 2024 season and awards ceremony. It is possible that the video does not cover this topic directly, or the relevant segments were not identified.

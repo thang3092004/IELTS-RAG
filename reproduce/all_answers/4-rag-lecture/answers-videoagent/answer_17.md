@@ -1,0 +1,1 @@
+Prompt caching is typically used to improve the efficiency and speed of processing repeated or similar requests in systems that rely on prompts, such as AI models or chatbots. It is beneficial when there are frequent, repetitive queries that can be answered using previously computed results, thus reducing the need for redundant processing and saving computational resources.

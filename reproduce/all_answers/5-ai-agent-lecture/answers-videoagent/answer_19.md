@@ -1,0 +1,1 @@
+The question about limitations in current agentic frameworks is conceptual and not related to the video content, so it cannot be answered using the available tools.

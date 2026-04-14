@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Sensitive data
+.env
+
+# Large files and backups
+*.tar.gz
+*.zip
+eval_log.txt
+eval_pid.txt
+
+# Large data/workdirs (Giữ lại dataset.json nhưng bỏ workdir tạm)
+longervideos/ielts-rag-workdir/
+_cache/
+
+# Git
+.git/

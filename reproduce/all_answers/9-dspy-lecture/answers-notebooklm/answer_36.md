@@ -1,0 +1,18 @@
+The sources highlight a key reason certain LLMs fail to accurately process text containing embedded tasks within longer documents: **They haven't been trained on datasets that include tasks embedded within the body of a document.** As a result, they may not recognize or process these tasks correctly.  The sources also show that:
+
+*   LLMs are trained on datasets with specific patterns of causal reasoning, such as patterns 1 to 111 in GPT-4 Omni. If a prompt falls outside these patterns, the LLM might fail to solve it. 
+*   **Current RAG systems primarily retrieve short text segments, limiting their ability to understand the overall document context.**  This means that **when a task is embedded within a longer document, the LLM may fail to extract the relevant information because it is focused on processing short segments rather than understanding the document as a whole**.
+* **Breaking down a complex query into multiple simple queries might not always be the optimal way to find the answer.**  The relationships and connections between different parts of a document might be lost when the text is divided into smaller chunks.
+
+One experiment discussed in the sources illustrates this issue. Two LLMs, Model A (GPT-4) and Model B (also GPT-4), were given a prompt with an embedded task. The prompt included text with a nonsensical physics sentence, followed by the task "answer the following question: what does error field create?".  The answer was provided in the sentence immediately preceding the task. Both LLMs responded with "text read and completed", indicating they ignored the embedded task and the relevant information.
+
+This experiment involved inserting two identical paragraphs containing the task and the relevant information within a longer document.  **Both models ignored both paragraphs, demonstrating that they were not equipped to handle tasks embedded within the body of the text. **
+
+The sources explore several potential solutions to this problem, including:
+
+* **Optimizing system prompts to help the LLM succeed.** This could involve providing a more detailed reasoning pathway or breaking down the task into simpler sub-queries.
+* **Using techniques like probability solutions or instruction tuning.** A probability solution would involve generating multiple explanations and choosing the most plausible one, while instruction tuning would provide examples of causal reasoning to guide the LLM.
+* **Employing temporal reasoning to guide the LLM through a step-by-step analysis of the events leading to a particular solution.** 
+* **Developing hybrid models that combine LLMs with other approaches, such as graph neural networks.**
+
+One promising approach highlighted in the sources is **the development of a "Raptor" system by Stanford University**.   **Raptor aims to address the limitations of traditional RAG systems by creating a tree-structured representation of the retrieved text**. This tree structure allows the LLM to query information at different levels of detail, potentially leading to a more holistic understanding of the document context.  **For multi-hop questioning, Stanford suggests using a "collapsed tree retrieval" method, where the multi-layered tree structure is condensed into a single layer.** This approach could potentially enable LLMs to effectively process complex queries that require navigating through multiple layers of information.

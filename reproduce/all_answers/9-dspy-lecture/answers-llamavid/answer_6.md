@@ -1,0 +1,5 @@
+DSPy improves incontext learning in LLMs by utilizing a three stage approach. First, it demonstrates the LLM by generating a question and answer, and then it searches for relevant data to augment the LLM's knowledge. This data is then used to fine-tune the LLM's knowledge and improve its ability to answer complex questions. DSPy's approach of demonstrating, searching for data, and fine-tuning the LLM allows it to provide more accurate and relevant answers, compared to simply generating random answers.
+
+---Supporting evidence---
+
+The video demonstrates the effectiveness of DSPy's approach by showing how it is able to answer complex questions with relevant knowledge from its data augmentation. It shows how DSPy's data augmentation allows it to generate more accurate and relevant answers compared to simply generating random answers.

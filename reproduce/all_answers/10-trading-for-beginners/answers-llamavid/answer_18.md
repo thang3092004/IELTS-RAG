@@ -1,0 +1,7 @@
+In a brokerage, there are two main types of books: a 'B book' and an 'A book'. A book refers to the retail trading desk where individual customers can place trades, while an 'A book' refers to the institutional trading desk where large institutions can place trades. Understanding the distinction between these two books is important for traders to understand the different types of orders and fees they are charged. 
+
+A book is the retail trading desk where individual customers can place trades. The 'B book' is where customers can buy and sell stocks, options, futures, forex, etc. The fees for 'B book' trades are typically higher than 'A book' trades because they are for individual customers. 
+
+An 'A book', on the other hand, refers to the institutional trading desk where large institutions can place trades. Institutional traders can place trades on behalf of their clients. The fees for 'A book' trades are typically lower because they are being charged a lower fee for the institutional trades. 
+
+In summary, the distinction between a 'B book' and an 'A book' in a brokerage's operations is significant for traders to understand the different types of orders and fees they are charged. Understanding this distinction can help traders make informed decisions when placing trades and choosing the right type of book to use.

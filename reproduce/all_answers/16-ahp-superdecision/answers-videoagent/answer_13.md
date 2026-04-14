@@ -1,0 +1,1 @@
+The video does not provide specific information on how to establish connections between different elements in an AHP hierarchy within SuperDecisions. You may need to refer to the software's documentation or tutorials for detailed instructions.

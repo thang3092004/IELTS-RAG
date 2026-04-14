@@ -1,0 +1,1 @@
+The video segments reviewed do not provide specific information about benchmark datasets and metrics for evaluating AI-based climate models. It is possible that the relevant information is not explicitly covered in the video or is located in segments not yet reviewed.

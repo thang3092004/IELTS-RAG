@@ -1,0 +1,1 @@
+The transition from episodic to continuous planning is changing the way organizations use tools like Decision Lens and the AHP by integrating them into a more dynamic, ongoing decision-making process. This allows for more frequent reassessment and adjustment of priorities, leading to more agile and responsive organizational strategies.

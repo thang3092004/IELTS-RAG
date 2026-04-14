@@ -1,0 +1,1 @@
+Daubechies acknowledges that the cepstrum is not suitable for all types of signals and may not be the best choice for certain applications, although it has been successfully used in many applications and is a useful tool for signal processing.

@@ -1,0 +1,9 @@
+Decision Lens software tackles the issue of planning in silos by connecting different aspects of planning across time, functions, and organizational hierarchies. **This integrated approach is vital for organizations like the U.S. Navy, where planning in separate units without coordination can lead to inefficiencies and failure to meet overarching strategic goals.**
+
+Here's why integrated planning is critical, particularly for the U.S. Navy, and how Decision Lens addresses these challenges:
+
+* **Planning Across Time Horizons**: Decision Lens moves beyond static, episodic planning by incorporating a time element, allowing for continuous adaptation and adjustments in response to evolving situations. This is particularly relevant for the U.S. Navy, which needs to adjust strategies in response to unpredictable geopolitical events, as illustrated by the recent events in Ukraine.
+* **Connecting Various Functions**: Decision Lens facilitates planning across different functional departments, preventing siloed decision-making.  For instance, in the U.S. Navy, planning for aircraft carriers requires a unified approach that considers aircraft, ships, power, and base operations, ensuring all elements work together effectively.
+* **Aligning Organizational Hierarchy**: Decision Lens connects planning from the lowest to the highest levels within an organization, ensuring alignment between strategic goals and operational actions. For the U.S. Navy, this means linking high-level strategic objectives, like influence in specific theaters, to practical tasks at the base level, like maintaining operational functionality.
+
+**Essentially, Decision Lens facilitates a holistic and adaptable planning process, moving beyond siloed approaches to ensure organizational alignment and effectiveness in dynamic environments.**

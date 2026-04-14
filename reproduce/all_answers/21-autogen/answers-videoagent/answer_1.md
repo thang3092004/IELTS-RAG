@@ -1,0 +1,1 @@
+The video segments do not provide specific information about AutoGen's key capabilities beyond multi-agent frameworks. Based on general knowledge, AutoGen's capabilities may include advanced AI modeling, integration with various technologies, and enhanced user interaction features.

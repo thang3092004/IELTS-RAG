@@ -1,0 +1,1 @@
+The video does not appear to contain explicit discussions on the challenges faced by young girls in accessing education due to the climate crisis, or such segments are not easily identifiable with the available tools.

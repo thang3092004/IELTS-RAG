@@ -1,0 +1,1 @@
+The video segments do not provide specific details about improvements to ChatGPT's search function. The captions mainly describe interactions with computers and documents, but no specific improvements are mentioned.

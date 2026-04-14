@@ -1,0 +1,11 @@
+## Addressing 'Cradle' Interference in X-ray Imaging
+
+Daubechies's team tackled the significant challenge of 'cradle' interference in X-ray images of panel paintings by employing advanced machine learning algorithms and mathematical techniques. The interference, caused by the wooden cradles that support the artwork, can introduce artifacts that obscure critical details in imaging. To counter this, the team developed a specialized tool named the Virtual Cradle Removal Tool, which was designed to digitally eliminate the visual artifacts introduced by the cradle. Additionally, they utilized software solutions specifically focused on 'cradle' removal, allowing for cleaner analysis of the images obtained through X-ray analysis.
+
+By applying these innovative methods, the team was able to enhance the clarity and quality of X-ray images. Advanced algorithms were employed to effectively distinguish between the painting and its supporting cradle, thus isolating the artwork itself for more accurate examination. This sophistication in image processing aimed not only for technological enhancement but also to improve the understanding of layered compositions and materials used in the paintings.
+
+## Impact on Art Conservation and Analysis
+
+The implications of this work have been profound in the fields of art conservation and analysis. By minimizing cradle interference, it significantly enhanced the ability of conservators and art historians to visualize and analyze historical panel paintings. This advancement has allowed for better assessments of the condition and underlying structures of the artworks, providing deeper insights into the artists' techniques and materials. 
+
+Furthermore, the clearer X-ray images facilitate improved decision-making regarding restoration and conservation practices, thereby preserving the integrity and authenticity of the artworks. The results of this work contribute not only to practical preservation efforts but also enrich academic discourse surrounding art analyses, ultimately reinforcing the role of advanced technology in the field of art preservation.

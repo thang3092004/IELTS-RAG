@@ -1,0 +1,11 @@
+Function calling is a crucial capability in small open-source LLMs when used with AutoGen for a few reasons:
+
+* **It enables LLMs to interact with external tools and data sources, greatly expanding their capabilities beyond simple text generation.** Without function calling, LLMs are limited to the knowledge they were trained on. By incorporating function calling, they can access and use real-time information, APIs, and other external functionalities, making them significantly more versatile and powerful.
+
+* **Function calling allows small open-source LLMs to perform specific tasks that they may not have been explicitly trained for.**  For example, a small LLM might not be inherently capable of creating graphs or fetching data from a specific API. However, by utilizing function calling, they can access and execute predefined functions that handle these tasks, effectively expanding their skillset.
+
+* **Fine-tuning small open-source LLMs on datasets that include function calling examples can significantly improve their ability to use these functions effectively.** This targeted training helps the model understand how to interpret function descriptions, identify required parameters, and correctly execute the functions, leading to better integration with AutoGen's multi-agent workflows.
+
+* **Using function calling can enable more complex and dynamic multi-agent interactions within AutoGen.** Each agent can be assigned specific functions, leading to specialized roles and improved collaboration. For example, one agent can use a function to search and index relevant data, while another agent utilizes a different function to analyze and interpret that data, resulting in a more efficient and powerful workflow.
+
+* **The ability of small open-source LLMs to utilize function calling effectively can bridge the gap between their capabilities and those of larger, closed-source models like ChatGPT.** This enables users to leverage the benefits of open-source models, such as cost-effectiveness and privacy, while still achieving sophisticated functionality and complex task execution through AutoGen.

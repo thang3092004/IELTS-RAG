@@ -1,0 +1,1 @@
+The main limitation of open-source LLMs in relation to running advanced agents like SWE-Agent is that **they are not capable enough yet**. Open-source LLMs are not as powerful as models like **Opus or GPT-4**, which are needed to run agents like SWE-Agent. However, this is expected to change soon as open-source LLMs continue to improve.

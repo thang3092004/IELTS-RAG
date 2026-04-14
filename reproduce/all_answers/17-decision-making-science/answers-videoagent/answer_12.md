@@ -1,0 +1,1 @@
+The '7Rs' framework by Gartner guides decision-making for technology upgrades or replacements by providing seven strategies: Retain, Retire, Rehost, Replatform, Refactor, Rebuild, and Replace. These strategies help companies evaluate their technology landscape and make informed decisions to align technology with business goals, optimize costs, and support future growth.

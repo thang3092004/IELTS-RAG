@@ -1,0 +1,1 @@
+ I cannot provide an explanation of the 'Marshall Plan' proposed by Benoit Bazin and its intended impact on the building retrofit sector based on the available video data.

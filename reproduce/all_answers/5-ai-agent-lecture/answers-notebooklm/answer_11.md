@@ -1,0 +1,5 @@
+The use of **proprietary data and APIs makes GPTs harder to replicate** because competitors would need to develop their own versions of these resources, rather than simply copying instructions.  While it is often possible to use prompt injection to extract the custom instructions used to create GPTs, companies whose GPTs rely on proprietary data and APIs are harder to copy. This is because replicating the behavior of such GPTs requires not only the instructions but also access to the same data and APIs.
+
+For example, **Canva GPT and Invid AI** use their own proprietary APIs and platforms. This means that to replicate their functionality, one would need to not only figure out the prompts used but also build a similar platform and API. This presents a significant barrier to replication.
+
+Some GPTs are successful because they are trained on **proprietary datasets**. The use of such data gives them a unique advantage that is hard to replicate without access to the same data.

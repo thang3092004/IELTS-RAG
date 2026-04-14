@@ -1,0 +1,3 @@
+When converting an Analytic Hierarchy Process (AHP) model to an Analytic Network Process (ANP) model, **connections are added from the alternatives to the criteria**. These connections represent the concept of interdependence in the ANP model, where the importance of the criteria can depend on the alternatives being considered.
+
+For example, in the car selection model, prestige may be more important for a luxury car like an Acura than for an economical car like a Honda Civic. In the ANP model, this interdependence is captured by comparing the criteria with respect to each alternative. This allows for a more nuanced and realistic representation of the decision-making process, where the importance of the criteria is not fixed but can vary depending on the context.

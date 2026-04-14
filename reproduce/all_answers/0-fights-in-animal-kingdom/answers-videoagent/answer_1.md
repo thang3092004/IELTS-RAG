@@ -1,0 +1,1 @@
+The video does not appear to contain information about how chimpanzees communicate and coordinate their roles as drivers, blockers, and ambushers.

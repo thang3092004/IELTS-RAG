@@ -1,0 +1,1 @@
+"Late chunking" is a technique in information retrieval systems where data is divided into chunks at a later stage in the processing pipeline, rather than at the initial stages. This can enhance retrieval system accuracy by allowing more context to be considered before chunking, leading to more meaningful and relevant data segments being created for retrieval.

@@ -1,0 +1,1 @@
+The goals of the Transforming Education Summit include improving access to quality education, integrating technology in learning, promoting lifelong learning opportunities, and ensuring education systems are resilient and adaptable to future challenges.

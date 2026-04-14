@@ -1,0 +1,1 @@
+The video portrays the relationship between tourism and local culture in China through various interactions with people, food vendors, and environments such as parks, streets, and malls. These interactions suggest a blend of tourism and local culture, but the specific portrayal is not explicitly detailed in the captions.

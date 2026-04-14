@@ -1,0 +1,1 @@
+Education Cannot Wait's model facilitates its reach by being scalable and sustainable, leveraging existing resources and partnerships to maximize impact. The organization collaborates with governments, donors, and other stakeholders to prioritize vulnerable children and communities, ensuring access to quality education.

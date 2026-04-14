@@ -1,0 +1,1 @@
+The key components of the Local GPT Vision system are not explicitly detailed in the available video segments. The segments mainly describe actions such as reading articles, looking at screens, and referring to manuals, which suggests that the system may involve components related to information display and processing, such as monitors, computers, and instructional materials.

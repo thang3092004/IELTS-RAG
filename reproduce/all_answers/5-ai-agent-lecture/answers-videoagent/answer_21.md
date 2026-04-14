@@ -1,0 +1,1 @@
+The key differences between Consensus GPT and Scholar GPT are not explicitly mentioned in the video segments. The segments mainly involve reading and looking at screens, suggesting that both might be related to processing or analyzing information, but specific differences are not detailed in the available captions.

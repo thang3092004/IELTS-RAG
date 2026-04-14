@@ -1,0 +1,1 @@
+Strategies for addressing the limitations of LLMs in handling context lengths exceeding 2K tokens include breaking down the text into smaller chunks, using pre-trained language models for specific tasks, and using a combination of LLMs and pre-trained models.

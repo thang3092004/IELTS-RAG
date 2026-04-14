@@ -1,0 +1,5 @@
+John Yokim’s early experiences with computers at the University of Pittsburgh had a significant impact on his career path. As a mathematics student in the 1990s, computers were not yet ubiquitous. Yokim had to go to computer labs on campus to use them. He quickly realized that computers could simplify his mathematics work. This experience led him to pursue a career in computing, with the goal of teaching others how to use computers to improve their lives.
+
+Yokim began his career as a technical trainer, teaching people how to use word processing, spreadsheets, and the internet. This early experience provided him with a foundation in computing and helped him develop his skills in explaining complex technical concepts to a wide audience. Eventually, this path led him to a 20+ year career at Microsoft.
+
+**In essence, Yokim’s early experiences at the University of Pittsburgh instilled in him a passion for computing and a desire to use technology to empower others. These experiences laid the groundwork for his successful career in the technology industry.**

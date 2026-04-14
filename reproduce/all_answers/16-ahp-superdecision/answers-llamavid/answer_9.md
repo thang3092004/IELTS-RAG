@@ -1,0 +1,7 @@
+Performing sensitivity analysis in SuperDecisions involves analyzing how the values of the criteria and alternatives change when the weight of the criteria is increased or decreased. This can reveal which criteria have the most impact on the overall priorities. 
+
+To perform sensitivity analysis in SuperDecisions, you first need to set up a sensitivity analysis model. This involves creating a new SuperDecisions file with the sensitivity analysis model type. Next, you need to enter the weights for each criterion in the criteria section. Then, you need to create a sensitivity analysis matrix by increasing the weights for each criterion. Finally, you can view the sensitivity analysis results by clicking the "sensitivity analysis" button.
+
+The sensitivity analysis results can reveal which criteria have the most impact on the overall priorities. This can help identify the most important criteria to focus on when making decisions.
+
+In summary, performing sensitivity analysis in SuperDecisions involves creating a new SuperDecisions file, setting the weights for each criterion, creating a sensitivity analysis matrix, and viewing the results to identify the most important criteria. This can help identify which criteria should be prioritized when making decisions.

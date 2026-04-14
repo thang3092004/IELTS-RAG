@@ -1,0 +1,11 @@
+Daubechies explains the concept of 'interval statistics' through an analogy with the human auditory system as explained by Israeli scientist, Uri Ordentlich, who worked on hearing, speech compression, and coding. **Ordentlich's work was inspired by the way the human auditory system processes sound, especially its ability to efficiently transmit complex auditory information with a limited bandwidth**.
+
+Daubechies points out that **the human ear acts like a wavelet transform due to the logarithmic arrangement of the basilar membrane in the cochlea**. This membrane resonates with different frequency components of the incoming sound signal, effectively decomposing it into various frequency bands. 
+
+The basilar membrane's vibrations are then detected by hair cells of varying stiffness along its length. These hair cells generate nerve impulses when bent, effectively registering "level crossings" of the vibrating membrane at different amplitudes. **The timing of these level crossings carries information about the frequency content of the signal**. 
+
+Daubechies emphasizes that **transmitting the precise timing of every level crossing across all frequency bands would require a massive bandwidth, exceeding the capacity of the auditory nerve**. To address this limitation, Ordentlich proposed using "interval statistics," which provide a compressed representation of the frequency information. 
+
+**Interval statistics essentially capture the distribution of time intervals between level crossings within specific time windows and across different frequency channels**. By analyzing these intervals, which are inversely related to the instantaneous frequency, one can deduce the dominant oscillation frequencies present in the signal. 
+
+**This approach, Daubechies notes, mirrors the way our auditory system likely summarizes complex frequency information into a manageable form for transmission to the brain**. By focusing on the distribution of intervals rather than the exact timing of each crossing, a significant reduction in data volume is achieved without losing essential frequency information.

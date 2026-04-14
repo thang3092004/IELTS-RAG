@@ -1,0 +1,1 @@
+The video segment does not provide specific information about Bezos's view on the relationship between regulation and innovation. The discussion appears to be related to the environment, but further details are not available.

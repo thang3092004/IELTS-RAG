@@ -1,0 +1,1 @@
+The mathematical structures that often underpin time-frequency representations include Fourier transforms, wavelets, and time-frequency distributions such as the Wigner-Ville distribution.

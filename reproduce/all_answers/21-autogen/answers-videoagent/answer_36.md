@@ -1,0 +1,1 @@
+Function calling capabilities in small open-source LLMs, when used with AutoGen, enhance functionality, modularity, accuracy, integration, customization, and resource optimization, allowing for more efficient and tailored applications.

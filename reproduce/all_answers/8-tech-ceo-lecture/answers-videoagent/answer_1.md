@@ -1,0 +1,1 @@
+he video segments explored do not provide specific information about Saint-Gobain's strategy for reducing their carbon footprint in the production of flat glass. The captions mainly describe actions like looking at screens, documents, and instructional materials, which do not seem directly related to the strategy in question.

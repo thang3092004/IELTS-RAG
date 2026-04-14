@@ -1,0 +1,1 @@
+The video segments do not explicitly mention how symbolic regression is used to improve climate modeling. However, the context of reading and referring to modeling manuals suggests that symbolic regression might be discussed as a technique within these manuals to enhance modeling processes, potentially including climate modeling.

@@ -1,0 +1,1 @@
+The different stances or forms associated with the staff include straight, bent, and crossed positions. These stances can affect the player's combat approach by providing different angles and techniques for attack or defense.

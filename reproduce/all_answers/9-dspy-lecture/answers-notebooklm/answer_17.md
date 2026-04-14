@@ -1,0 +1,16 @@
+The infer-retrieve-rank system is a novel approach to extreme multi-label classification (XMC) that leverages the power of in-context learning and retrieval augmentation. This three-step system, implemented using the DSPy framework, offers a modular and efficient solution for tasks involving vast and dynamic label spaces.
+
+Here is an outline of the infer-retrieve-rank system:
+
+1.  **Infer:** In the first step, a language model, like ChatGPT, processes the input text and generates an initial set of category predictions based on its inherent knowledge and understanding of the context. For example, given a book about solar energy, ChatGPT might predict categories such as "Renewable Energy", "Green Technology", or "Solar Panels". This step relies on in-context learning, where the model makes predictions based on the information provided in the prompt without the need for explicit retraining. 
+2.  **Retrieve:** The second step involves using a retrieval system to gather more detailed information about the predicted categories. This could involve searching through a database, knowledge graph, or vector database. Continuing the solar energy book example, the system would search for information related to each predicted category, such as different types of renewable energy sources, their environmental impacts, or specific details about solar panel technology. This step enhances the accuracy and precision of the classification by grounding the initial predictions in a broader knowledge base. 
+3.  **Rank:** The final step utilizes a more powerful language model, such as GPT-4 Turbo, to re-rank the categories obtained from the retrieval step. The model evaluates the retrieved information and prioritizes the categories based on relevance, accuracy, or other specified criteria. In the solar energy example, GPT-4 might determine that recent information about solar panel efficiency is more relevant than general information about renewable energy, leading to a re-ranking where "Solar Panels" becomes the top category. This step also utilizes in-context learning, allowing the model to adapt its ranking based on the augmented knowledge obtained in the retrieval step.
+
+**Key Advantages:**
+
+*   **Modularity**: The modularity of DSPy allows each step (infer, retrieve, and rank) to be optimized independently, providing flexibility and adaptability to different data sets. 
+*   **Efficiency**: The use of in-context learning and bootstrapping techniques eliminates the need for extensive training data, making the system resource-efficient. 
+*   **Self-Optimizing Prompt Engineering:** DSPy enables automatic optimization of prompts, eliminating the need for manual prompt engineering or the use of pre-defined templates. 
+*   **State-of-the-Art Performance:** This method achieves excellent results on benchmark datasets without relying on fine-tuning or extensive manual prompt engineering. 
+
+The infer-retrieve-rank methodology highlights the potential of combining in-context learning with sophisticated retrieval mechanisms to address complex classification tasks efficiently. By leveraging the strengths of both techniques, this system offers a promising direction for future research in extreme multi-label classification.

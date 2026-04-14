@@ -1,0 +1,5 @@
+Code execution within Canvas is made possible by utilizing the O1 Pro Mode, which allows for more compute and thinking time to tackle complex coding problems. The O1 Pro Mode is designed to handle coding benchmarks and other technical problems. In addition to the O1 Pro Mode, ChatGPT also has a special O3 Mini model that is specifically optimized for coding tasks. This allows for faster and more accurate code generation, enabling developers to quickly implement code changes and improvements.
+
+---Supporting evidence---
+
+The video shows the ChatGPT team testing the performance of the O1 and O3 models on coding benchmarks and coding tasks. The results indicate that the O1 Pro Mode and O3 Mini models are able to outperform the O1 Preview model, demonstrating their capability for code execution within Canvas.

@@ -1,0 +1,7 @@
+The DOE Milestone program is designed to support the growth of a competitive and robust fusion industry in the United States. Based on the NASA COTS program, the Milestone program reduces risk to the government by providing funds only after a company has met specific goals. The program also encourages investment by demonstrating government support.
+
+The Milestone program encourages collaboration between private fusion companies and national laboratories and universities to solve scientific problems.
+
+**Eight companies were selected for the Milestone program.** To receive funding, the companies had to define their own milestones and pre-negotiate reimbursement for costs from the government. **The program requires the companies to produce a construction-ready design for a pilot plant within five years.**
+
+The Milestone program is a cost reimbursement program rather than a grant program, requiring companies to first secure funding to reach milestones. This creates tension between the DOE and investors regarding rights to the technology. The use of government funding also places restrictions on intellectual property rights. However, the program demonstrates a commitment to collaboration between the private companies, the DOE, national laboratories, and academic institutions.

@@ -1,0 +1,7 @@
+The North Carolina Museum of Art (NCMA) expressed several concerns regarding the reconstruction of the Ghissi Altarpiece, particularly focusing on the challenges associated with the unity and authenticity of the artwork. One significant issue they faced was the fragmentation of the altarpiece itself. The panels of the Ghissi Altarpiece were dispersed across multiple art institutions, and this distribution prompted concerns about their potential reunion.
+
+Additionally, NCMA was particularly worried about the missing panel from the altarpiece. The absence of this critical section complicated efforts to exhibit the artwork collectively, as it created a gap in the visual and historical narrative that the altarpiece intended to convey. The museum recognized that even with the remaining segments present, the panel's absence would detract from the overall impact and coherence of the art piece.
+
+There were also implications regarding how the reconstructed elements would visually integrate with the existing panels, particularly since the aesthetic characteristics of newly created parts could differ from the original antique artworks. This raised apprehensions about maintaining historical integrity through the reconstruction process.
+
+These concerns underscore NCMA's dedication to preserving the cultural significance and authenticity of artworks, balancing restoration efforts with the historical context and the need to present a unified representation of the Ghissi Altarpiece.

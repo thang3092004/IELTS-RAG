@@ -1,0 +1,1 @@
+Bezos's decision to endorse the Washington Post's endorsements was motivated by his belief that the Post was losing its importance as a newspaper and needed to transition to a digital format. He saw the Post as an essential component of democracy and wanted to help it transition to a national digital newspaper.

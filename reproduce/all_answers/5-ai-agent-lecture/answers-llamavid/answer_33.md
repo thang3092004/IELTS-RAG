@@ -1,0 +1,1 @@
+The system prompt instructs Claude to avoid using any information about a person that it can only know from the image, which is a common technique used in the haiku game.

@@ -1,0 +1,1 @@
+The system prompt informs Claude 3.5 Sonnet about the different models within the Claude family by discussing the cloud 3 family, mentioning that the cloud 3 haiku model is the most intelligent model. It then discusses the cloud 3 opus model and how it excels at writing, and mentions that the cloud 3.5 sonnet model is the most intelligent model within the cloud 3 family.

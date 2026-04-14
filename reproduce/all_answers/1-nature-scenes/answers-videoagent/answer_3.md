@@ -1,0 +1,1 @@
+Female poison dart frogs lay their eggs on a leaf and guard them until they hatch. After hatching, the tadpoles swim away to find a suitable place to grow.

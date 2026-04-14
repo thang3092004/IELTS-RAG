@@ -1,0 +1,5 @@
+Daubechies analyzes a simulated signal composed of two cosine components with varying instantaneous frequencies using a windowed Fourier transform.  She makes the following observations about the resulting time-frequency representation:
+
+*   **The representation accurately captures the locations of the two components in the time-frequency plane.**
+*   **There is some broadening of the representation, both in time and frequency.** This broadening is due to the width of the window function and because the constituent signals have sudden onsets and stops.
+*   **The phase of the representation displays a striking "zebra pattern".** This pattern arises where the signal components are present, with vertical stripes corresponding to regions where the phase is well-defined. Daubechies suggests that this phase information can be used to reconstruct the signal.

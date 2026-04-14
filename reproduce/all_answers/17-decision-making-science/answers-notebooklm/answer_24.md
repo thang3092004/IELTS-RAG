@@ -1,0 +1,11 @@
+The availability of advanced analytics and decision-making tools like Decision Lens is transforming scouting and player selection in professional sports by allowing teams to **better evaluate data and make more informed decisions**. Decision Lens, a software company based in Washington, D.C., has worked with several professional sports teams, including the Green Bay Packers, Dallas Cowboys, Kansas City Chiefs, Arizona Diamondbacks, Ottawa Senators, and Calgary Flames. These teams have used Decision Lens to help their scouts select players.
+
+One of the key benefits of using Decision Lens is that it helps teams **better define and understand the criteria they are using to evaluate players**. For example, when evaluating wide receivers in the NFL, one of the criteria that scouts often use is "agility." However, this term can be interpreted differently by different scouts. Some scouts might define agility as speed, while others might define it as maneuverability on the field. 
+
+Decision Lens helps teams to **create a common understanding of the criteria they are using** by allowing them to define each criterion in detail and to weight the importance of each criterion. This ensures that all scouts are evaluating players using the same standards.
+
+Another benefit of Decision Lens is that it allows teams to **quickly and easily evaluate large amounts of data**. The software can take a team's hierarchical model and run millions of permutations quickly on different scenarios. This helps teams to identify the players who are the best fit for their needs, even when there is a large pool of potential candidates.
+
+In addition to helping teams make better decisions, Decision Lens can also help to **improve communication and collaboration** between scouts. The software allows scouts to share their evaluations with each other and to discuss their findings. This can help to ensure that everyone is on the same page and that the team is making the best possible decisions.
+
+Overall, the availability of advanced analytics and decision-making tools like Decision Lens is transforming scouting and player selection in professional sports. These tools are helping teams to **make more informed decisions**, to **improve communication and collaboration**, and to **ultimately build better teams**.

@@ -1,0 +1,1 @@
+Bezos envisions a bright future for humanity in space, where we will eventually establish a trillion-person civilization. He also stresses the need to be mindful of the environmental impact of space travel.

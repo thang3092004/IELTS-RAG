@@ -1,0 +1,14 @@
+The Amadeus flight server is used in an AutoGen workflow to find cheap flights. The workflow includes an AutoGen agentic workflow orchestrated through AutoGen, the Amadeus flight server, and a serverless Neon database. The Amadeus flight server contains data on over 400 different airlines, which can be accessed by sending requests to its API and receiving data back. The data from the Amadeus API is then used to run queries against a serverless Neon SQL database. The Neon database is used to store the flight data in a structured way, making it easier for large language models to query.
+
+**Here is how the Amadeus flight server is utilized in the AutoGen workflow:**
+
+*   The user asks the agent a question, such as "Give me the cheapest flights from London to Tokyo on December 23rd, 2024."
+*   A data retriever agent recommends parameters for the API call to the Amadeus server. The data retriever interprets the customer's request and suggests a set of parameters that might return the data necessary to answer the request. For example, if the request is for flights from London to Paris, the data retriever would set the parameters to include the city codes for both cities. This is because the Amadeus server can handle city codes and will return all airports within those city codes.
+*   A user proxy agent takes the parameters from the data retriever and uses them to make the API call to the Amadeus server. The user proxy is the only agent that executes tools in the workflow, such as the `get_flight_data` function, which sends the request to Amadeus.
+*   The Amadeus server returns data to the AutoGen workflow, which is then written to the Neon database by the `get_flight_data` function.
+*   An analyst agent generates a SQL query to find the cheapest flights based on the user's request. Since the data is stored in the Neon database by airport codes, the analyst agent forms the SQL query based on the airport codes, not the initially provided city codes.
+*   The SQL query is executed by the user proxy agent using the `run_sql` tool, and the flight data is returned to the AutoGen workflow.
+*   A travel agent generates a response to the user's query based on the flight data.
+*   A senior analyst reviews the travel agent's response for quality control and returns it to the user.
+
+The workflow utilizes multiple agents with specific roles. Each agent uses a large language model and contributes to fulfilling the user's request. This workflow demonstrates how AutoGen can be used to orchestrate complex tasks involving API calls and database queries to provide users with helpful information.

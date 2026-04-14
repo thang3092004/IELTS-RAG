@@ -1,0 +1,1 @@
+Rajesh Jain believes that trust and communication are required to build a strong company culture.

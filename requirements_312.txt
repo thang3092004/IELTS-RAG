@@ -1,0 +1,43 @@
+# Core numerical and deep learning libraries
+numpy==1.26.4
+torch==2.2.0+cu121
+torchvision==0.17.0+cu121
+torchaudio==2.2.0+cu121
+accelerate==0.30.1
+bitsandbytes==0.43.1
+triton==2.2.0
+setuptools<70
+
+# Video processing utilities
+moviepy==1.0.3
+git+https://github.com/facebookresearch/pytorchvideo.git@28fe037d212663c6a24f373b94cc5d478c8c1a1d
+git+https://github.com/facebookresearch/ImageBind.git@3fcf5c9039de97f6ff5528ee4a9dce903c5979b3
+
+# Multi-modal and vision libraries
+timm==1.0.26
+ftfy
+regex
+einops
+fvcore
+eva-decord==0.6.1
+iopath
+matplotlib
+types-regex
+cartopy
+
+# Audio processing and vector databases
+ctranslate2==4.4.0
+faster_whisper==1.0.3
+neo4j
+hnswlib
+xxhash
+nano-vectordb
+
+# Language models and utilities
+# IMPORTANT: After installing transformers, apply the patch in FIX_ENVIRONMENT.md
+transformers==4.37.1
+tiktoken
+openai
+tenacity
+ollama==0.5.3
+python-dotenv

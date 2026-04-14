@@ -1,0 +1,1 @@
+The notable environmental features present in the "Valley of Ecstasy" include mountains, a waterfall, and a lake.

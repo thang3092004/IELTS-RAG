@@ -1,0 +1,1 @@
+The observation is that **most neurons are typically inactive**, with only a small percentage actively firing at any given time. This is similar to the concepts of **dark energy and dark matter in astrophysics**. These concepts describe the vast majority of the universe that is undetectable and seemingly inactive, much like the silent majority of neurons in the brain.

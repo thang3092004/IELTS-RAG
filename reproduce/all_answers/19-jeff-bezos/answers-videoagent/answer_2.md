@@ -1,0 +1,1 @@
+Jeff Bezos's key principles for effective leadership include customer obsession, a long-term focus, a willingness to experiment and fail, high standards, and a focus on innovation. He emphasizes the importance of being customer-centric, thinking long-term, and maintaining a culture of high standards and innovation.

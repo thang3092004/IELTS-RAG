@@ -1,0 +1,1 @@
+I am unable to determine how the role of the Game Awards has evolved over the past 10 years according to Hideo Kojima based on the available information.

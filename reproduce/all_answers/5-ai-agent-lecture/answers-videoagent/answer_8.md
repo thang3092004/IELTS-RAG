@@ -1,0 +1,1 @@
+The methods used to improve LLM retrieval accuracy include using a large corpus of text, employing a language model to generate candidate answers, and utilizing a retrieval model to rank the candidate answers.

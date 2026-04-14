@@ -1,0 +1,3 @@
+Eden's whales have adapted to declining fish populations by developing a new hunting technique that requires less energy. Due to agricultural pollution, many fish stay closer to the surface where there is more oxygen.  This makes it difficult for the whales to feed effectively using their traditional method of filtering prey from large amounts of swallowed water.
+
+**To conserve energy, Eden's whales have learned to simply open their mouths and wait for fish to jump in.** They swim alongside other whales to scare even more fish into their open mouths. This ingenious technique allows Eden's whales to survive in a changing ocean environment.

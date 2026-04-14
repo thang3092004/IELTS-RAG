@@ -1,0 +1,1 @@
+The LEGO Foundation has contributed financial investments to Education Cannot Wait (ECW), a United Nations global fund for education in emergencies and protracted crises. The speaker specifically thanks the LEGO Foundation for their support, noting that they are “coming with financial investments - hard core finances”.

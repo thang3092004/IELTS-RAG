@@ -1,0 +1,1 @@
+The sources do not contain a description of the notable environmental features of the "Valley of Ecstasy".

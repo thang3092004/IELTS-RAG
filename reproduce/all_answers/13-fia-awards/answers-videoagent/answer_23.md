@@ -1,0 +1,1 @@
+The FIA Drivers' Commission advocates for the interests and safety of drivers by representing their concerns to the FIA, working on improving safety standards, regulations, and addressing issues that affect drivers' performance and well-being across various motorsport disciplines.

@@ -1,0 +1,9 @@
+The 2024 Game Awards was defined by a few major trends:
+
+*   **The return of dormant franchises:** Several games from long-dormant franchises were announced at the show, including *Oni Musha*, *Turok*, *Virtua Fighter*, and *Okami*. The show even featured a new entry in the *Helldivers* franchise, which had only ever seen one game before. This suggests that publishers are increasingly willing to invest in reviving older IPs, perhaps due to the success of games like *Elden Ring*, which showed that there is still a large audience for classic game styles. 
+*   **A focus on international games:** Many of the biggest announcements and award winners at the show came from outside the United States. Four of the Game of the Year nominees were developed in Japan, and one was developed in China. This trend was acknowledged by Geoff Keighley in his opening speech, and it reflects the increasing globalization of the games industry.
+*   **The rise of soulslike games:** Multiple soulslike games were featured, including *The First Descendant* and *Crimson Desert*, suggesting that this genre continues to grow in popularity.
+*   **A celebration of indie games:** *Batro* won several awards, including Best Debut Indie Game and Game of the Year, showcasing the impact indie games have on the industry. 
+*   **A focus on accessibility:** *Prince of Persia: The Lost Crown* won the award for accessibility, highlighting the industry's efforts to make games playable by as many people as possible.
+
+In addition to these trends, the show also featured a number of other notable moments, including a performance by Snoop Dogg and the announcement of a new IP from Naughty Dog. Overall, the 2024 Game Awards was a successful event that showcased the diversity and innovation of the games industry.

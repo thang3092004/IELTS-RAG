@@ -1,0 +1,1 @@
+AutoGen's caching mechanism is implemented using a database that stores the entire chat history and allows it to be recalled and used later. This allows it to perform tasks that require data from previous conversations.

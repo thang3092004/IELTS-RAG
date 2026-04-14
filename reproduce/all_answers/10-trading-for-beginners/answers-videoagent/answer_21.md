@@ -1,0 +1,1 @@
+Traders should track their emotional state, physical and mental well-being, and personal goals and aspirations in their journals for self-evaluation. This helps them understand their strengths and weaknesses and adjust their trading strategies accordingly.

@@ -1,0 +1,1 @@
+Incorporating GNNs into RAG systems can improve information retrieval by capturing complex relationships, providing contextual understanding, overcoming data sparsity, enabling dynamic learning, and integrating with other models, thus addressing limitations of vector-based methods.

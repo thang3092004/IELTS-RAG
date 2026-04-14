@@ -1,0 +1,3 @@
+The sources do not contain information about the weather conditions at the final race of the FIA World Rallycross Championship.
+
+However, Johan Kristoffersson, the 2024 World Rallycross Champion, states that **choosing between internal combustion and electric cars was the biggest challenge of the season**. He and his team opted to use an internal combustion engine.  His teammate, Kristoffersson, finished third in the championship driving the same type of car.

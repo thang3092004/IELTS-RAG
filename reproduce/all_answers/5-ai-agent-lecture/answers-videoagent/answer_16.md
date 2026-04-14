@@ -1,0 +1,1 @@
+Claude 3.5 Sonnet's system prompt is not a known feature or product as of my last update. If this is a new or hypothetical system, I would not have specific information on its key features. If you have more context or details, I might be able to provide a more informed response.

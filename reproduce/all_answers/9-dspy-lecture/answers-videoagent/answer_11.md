@@ -1,0 +1,1 @@
+The question is about a specific research topic related to Microsoft, which cannot be answered using the video analysis tools provided.

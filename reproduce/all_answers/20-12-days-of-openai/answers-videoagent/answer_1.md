@@ -1,0 +1,1 @@
+OpenAI's Canvas tool enhances ChatGPT's capabilities by providing a visual interface that allows users to interact with ChatGPT in a more dynamic and intuitive way. It enables users to create, edit, and organize content visually, which can improve the user experience and make it easier to manage complex interactions with the AI.

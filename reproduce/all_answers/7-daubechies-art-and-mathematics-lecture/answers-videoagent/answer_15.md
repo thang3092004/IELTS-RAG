@@ -1,0 +1,1 @@
+The 'Munt Lab' is mentioned in several segments, but the captions do not provide specific information about its role in the reconstruction project. It might be a location or facility involved in the project, but this is speculative based on the available information.

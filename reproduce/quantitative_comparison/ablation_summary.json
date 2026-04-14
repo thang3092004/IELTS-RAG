@@ -1,0 +1,34 @@
+{
+    "answers-ielts-rag": {
+        "Comprehensiveness": 4.8125,
+        "Empowerment": 4.828125,
+        "Trustworthiness": 4.8125,
+        "Depth": 4.796875,
+        "Density": 4.84375,
+        "Overall Score": 4.8125
+    },
+    "answers-no_graph": {
+        "Comprehensiveness": 4.65625,
+        "Empowerment": 4.703125,
+        "Trustworthiness": 4.640625,
+        "Depth": 4.59375,
+        "Density": 4.6875,
+        "Overall Score": 4.65625
+    },
+    "answers-no_chunks": {
+        "Comprehensiveness": 4.765625,
+        "Empowerment": 4.78125,
+        "Trustworthiness": 4.765625,
+        "Depth": 4.765625,
+        "Density": 4.796875,
+        "Overall Score": 4.765625
+    },
+    "answers-no_visual": {
+        "Comprehensiveness": 4.71875,
+        "Empowerment": 4.75,
+        "Trustworthiness": 4.71875,
+        "Depth": 4.671875,
+        "Density": 4.765625,
+        "Overall Score": 4.71875
+    }
+}

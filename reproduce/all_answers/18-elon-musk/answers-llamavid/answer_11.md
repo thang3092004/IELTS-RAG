@@ -1,0 +1,1 @@
+According to Musk, the most important thing his biological neural net comes up with is the truth. He states that the goal of programming an AI is to be as close to the truth as possible, and that adherence to truth is very important. He mentions that while AI can generate a lot of data, the goal is to be as close to the truth as possible, not to be completely correct.

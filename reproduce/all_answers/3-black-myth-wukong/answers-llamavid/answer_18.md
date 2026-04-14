@@ -1,0 +1,1 @@
+The Valley of Ecstasy is a snow-covered plain with a small lake in the middle. There are snow-covered mountains in the background, and it is filled with enemies that the player must fight.

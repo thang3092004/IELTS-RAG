@@ -1,0 +1,1 @@
+ChatGPT's iOS integration includes features such as voice input, allowing users to interact with the app using speech, and the ability to sync chat history across devices. It also supports shortcuts for quick access and integrates with other iOS features like Siri and the share sheet for seamless interaction.

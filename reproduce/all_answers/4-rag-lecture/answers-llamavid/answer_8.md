@@ -1,0 +1,1 @@
+ColPail improves document retrieval by converting the document into images using the call poly model and then using the vision language model to retrieve information from those images. This allows ColPail to generate a multi-vector representation of the document that can be used for retrieval.

@@ -1,0 +1,1 @@
+Daubechies emphasizes that understanding the underlying signal model is crucial in time-frequency analysis techniques as it guides the interpretation of results and aids in making accurate predictions.

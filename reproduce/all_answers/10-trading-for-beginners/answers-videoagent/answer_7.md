@@ -1,0 +1,1 @@
+The instructor suggests that a minimum IQ of 130 is beneficial for trading success.

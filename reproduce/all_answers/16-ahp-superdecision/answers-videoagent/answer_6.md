@@ -1,0 +1,1 @@
+The video demonstrates how sub-criteria can be incorporated into the AHP hierarchy using Super Decisions software by showing how to create sub-criteria, link them to the main criteria, and use the software to create a decision tree and a decision matrix.

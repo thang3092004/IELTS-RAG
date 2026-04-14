@@ -1,0 +1,3 @@
+A ranging market, also referred to as a sideways market, is characterized by price moving **sideways**  between support and resistance levels without establishing a clear upward or downward trend. This occurs when the market is neither bullish nor bearish. 
+
+The source uses a chart of the USD/JPY currency pair as an example, highlighting the price bouncing between highs and lows within a defined range. It emphasizes that ranging markets offer distinct opportunities for traders, particularly those interested in strategies like buying at support and selling at resistance.

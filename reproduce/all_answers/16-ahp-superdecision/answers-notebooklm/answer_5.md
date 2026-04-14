@@ -1,0 +1,8 @@
+There are a few ways to improve the inconsistency ratio in Super Decisions software.
+
+*   **Use the Inconsistency Report.** When the inconsistency ratio is higher than 0.1, the software will suggest entries that can be adjusted to reduce inconsistency. For example, in one case, the inconsistency report suggested that the value for "Growth vs. Location" should be changed from 3 to 0.847.
+*   **Revise Judgments.** Carefully review the pairwise comparisons that were made and consider whether any of the judgments are not consistent with the overall goal. If necessary, revise the judgments to better reflect the true priorities.
+*   **Use a Different Mode of Entering Judgments.** Super Decisions software offers five different modes of entering judgments: Questionnaire, Graphical, Verbal, Direct Entry, and Matrix View. If one mode is leading to high inconsistency, try using a different mode. For instance, when comparing criteria where cost is a factor, use the "invert" button so that the highest priority is given to the option with the lowest cost. 
+*   **Use More Precise Judgments.** When using the Questionnaire mode, the software uses a scale of 1 to 9. If the judgments are not very precise, it can lead to inconsistency. Try using more precise judgments, such as 2.5 or 3.2, to improve the inconsistency ratio.
+
+**It is important to note that some inconsistency is expected in any AHP model.** However, a high inconsistency ratio can indicate that the judgments are not reliable. By using the techniques described above, the inconsistency ratio can be improved, which will increase the confidence in the results of the model.

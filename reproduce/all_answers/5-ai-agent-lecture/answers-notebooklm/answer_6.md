@@ -1,0 +1,15 @@
+Claude 3, a family of models from Anthropic, addresses the inherent limitations of LLMs in several ways:
+
+* **Function Calling/Tool Usage:**  Claude 3 allows for integration with external tools and APIs, extending its capabilities beyond its training data. This enables actions like web searches, calculations, and access to real-time information. For instance, a Claude 3-based customer service chatbot can search customer data, retrieve order details, and even cancel orders using designated tools.
+* **Chain of Thought Prompting:** Claude 3.5 Sonnet, the most advanced model, incorporates "thinking step-by-step" into its system prompt. This encourages the model to break down complex problems into smaller steps, enhancing its reasoning abilities, especially in math, logic, and other tasks requiring systematic thought.
+* **Multimodality:**  Claude 3 is multimodal, understanding both text and images. This allows it to analyze visual information, such as flowcharts, and provide insights based on them. For example, Claude 3 can identify objects in images, understand their spatial relationships, and answer questions about them.
+* **Transparency and Control:** Anthropic provides developers with detailed system prompts for their Claude models, allowing for greater transparency and control over model behavior. This helps developers understand how the model is instructed to behave and can be leveraged to fine-tune its responses for specific tasks.
+* **Agent-Based Frameworks:** Anthropic supports the development of agent-based applications using Claude 3. These agents can perform complex tasks by coordinating with sub-agents and leveraging external tools. The "computer use" model, for example, allows Claude to interact with a user's computer, performing actions like clicks and typing.
+
+While Claude 3 shows advancements in addressing LLM limitations, certain challenges remain:
+
+* **Benchmarking Concerns:** Anthropic's claims of Claude 3 outperforming GPT-4 are based on comparisons with older GPT-4 versions. Comparing models across different release dates can lead to misleading conclusions about performance.
+* **Reasoning Capabilities:** Despite improvements, Claude 3 still struggles with basic reasoning tasks. Examples like counting the number of "t's" in "strawberry" highlight the limitations in its reasoning abilities, even with Chain of Thought prompting.
+* **Safety and Security in "Computer Use":** The "computer use" feature, while groundbreaking, poses significant security risks. Granting an LLM access to a computer necessitates stringent security measures to prevent unintended actions and data breaches.
+
+Overall, **Claude 3 represents a significant step forward in mitigating LLM limitations, but further research and development are necessary to overcome remaining challenges**. Notably, standardized benchmarking and refining reasoning capabilities remain key focus areas.

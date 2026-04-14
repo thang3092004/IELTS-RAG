@@ -1,0 +1,17 @@
+### Introduction to Software Carbon Intensity (SCI)
+
+The concept of Software Carbon Intensity (SCI) is an emerging framework that seeks to measure the environmental impact of software applications by quantifying the carbon emissions associated with their execution. While traditional SCI metrics were primarily applied to conventional software systems, recent initiatives have begun to adapt this standard specifically for Artificial Intelligence (AI) applications, given the increasing computational demands and energy consumption associated with AI processes.
+
+### Application of SCI to AI
+
+1. **Measuring Energy Efficiency**: In the context of AI, SCI focuses on evaluating the energy consumption involved in generating predictions or outputs from large-scale models, particularly Large Language Models (LLMs). The metric seeks to understand the energy per "token" generated during AI operations, effectively allowing developers and researchers to gauge the carbon footprint of their AI systems. This metric is vital as it ties directly into understanding and optimizing the operational carbon emissions related to AI tasks.
+
+2. **Standardization Efforts**: The push towards implementing SCI for AI also involves collaboration among tech giants and organizations developing standards. For instance, companies like IBM, Google, and others have initiated committees that focus on refining SCI guidelines specific to AI systems. This includes establishing benchmarks to compare energy efficiency across different AI models and paradigms, which can help in assessing the environmental impact of innovations in AI technology.
+
+3. **Sustainability Goals**: The adoption of the SCI framework within AI also aligns with broader sustainability efforts in the tech industry. As the demand for AI applications grows, so does the need to ensure these systems are designed with efficiency and low carbon footprints in mind. Adaptations of the SCI could play a crucial role in setting measurable goals for reducing overall energy consumption and advancing the development of greener AI technologies.
+
+4. **Evaluating Trade-offs**: Utilizing Markov models, such as the discussions surrounding Jevon's paradox in AI, highlights the challenges in achieving sustainability. As the efficiency of AI systems improves, this can inadvertently lead to increased usage and resource demand. The SCI framework helps provide clarity in such scenarios by measuring not only the direct energy usage but also its implications in a broader context, ultimately guiding policymakers and developers towards more sustainable practices.
+
+### Conclusion
+
+As the field of AI continues to evolve rapidly, the integration of Software Carbon Intensity standards specifically tailored for AI applications is critical in securing an environmentally sustainable future. By understanding and applying these standards, stakeholders can better assess their carbon footprints, mitigate energy consumption, and foster innovations that blend efficiency with sustainability. The ongoing efforts to refine SCI for AI represent a key step towards responsible environmental stewardship in technology development. The need for such standards becomes increasingly important as AI systems scale up and become integrated into various aspects of daily life and industry.

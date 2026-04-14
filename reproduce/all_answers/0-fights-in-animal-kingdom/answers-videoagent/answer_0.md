@@ -1,0 +1,1 @@
+The available captions do not provide specific information about what prompts the otters to engage with the caiman. It could be due to territorial behavior, curiosity, or a perceived threat, but this is speculative without more context.
