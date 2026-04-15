@@ -1,5 +1,0 @@
-In the context of fetal health, Ingrid Daubechies highlights the application of time-frequency analysis specifically in the analysis of fetal heart rates. This technique is vital for understanding the frequency changes and overall dynamics of the fetal heart's electrical activity, which can provide critical insights into the well-being of the fetus. The analysis allows for a detailed examination of how the fetal heart responds to various stimuli, thereby aiding in monitoring fetal health during pregnancy.
-
-Time-frequency analysis, as discussed in Daubechies' presentations, leverages mathematical tools to visualize and interpret the signals related to fetal heart rates. By employing methodologies such as the Fourier transform and wavelet analysis, clinicians can obtain a clearer picture of the heart rate data, assessing variability and recognizing patterns that could indicate potential health issues. 
-
-Overall, the interaction between time-frequency representations and fetal heart rate data enables enhanced diagnostic capabilities, making this approach a significant component in monitoring fetal health.

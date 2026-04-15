@@ -1,1 +1,0 @@
-The video segments reviewed do not provide specific information about trailers or announcements for upcoming games. The segments are more focused on gameplay and other activities. Therefore, I cannot determine which upcoming games are likely to generate significant discussion or anticipation among players based on the current video data.

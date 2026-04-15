@@ -1,1 +1,0 @@
-I cannot provide a comparison of the perspectives of world leaders and young people on the key challenges facing education based on the available data.

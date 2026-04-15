@@ -1,1 +1,0 @@
-The announcement of *The Witcher 4* at The Game Awards 2024 **confirms a previous leak** about the game's protagonist. The narrator of the YouTube video mentions that there was a leak a while ago about Ciri playing the protagonist in the new *Witcher* title. The narrator also states that the leak is confirmed, as the trailer shows Ciri as the protagonist.

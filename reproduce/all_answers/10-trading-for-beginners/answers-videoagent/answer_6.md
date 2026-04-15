@@ -1,1 +1,0 @@
-A "ranging market" is defined as a market condition where the price of an asset moves within a stable range, bouncing between a support level and a resistance level, without significant upward or downward trends.

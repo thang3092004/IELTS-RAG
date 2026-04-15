@@ -1,1 +1,0 @@
-DSPy addresses limitations of LangChain prompt templates by using a self-prompting approach that allows it to generate new prompts and data points. This allows it to create a data set for training and fine-tuning the language model. DSPy also uses a compiler to optimize the prompt design process, which helps maximize the model's performance.

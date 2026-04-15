@@ -1,1 +1,0 @@
-The mural in the Water Curtain Cave depicts a story of a man on a mission to retrieve something from a dangerous location, facing enemies and obstacles. This story relates to the game's events, where the player undertakes a similar mission.

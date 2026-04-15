@@ -1,1 +1,0 @@
-The contrasts between China's urban and rural landscapes include the presence of buildings and a bustling environment in urban areas, as seen in the cityscape, versus the natural elements like vegetation and flowers in rural areas, indicating a more serene and natural setting.

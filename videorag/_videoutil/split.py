@@ -14,12 +14,22 @@ def split_video(
     num_frames_per_segment,
     audio_output_format='mp3',
 ):  
-    unique_timestamp = str(int(time.time() * 1000))
     video_name = os.path.basename(video_path).split('.')[0]
+    # Use a stable timestamp (based on file size/time or just fixed) for resuming
+    unique_timestamp = "stable" 
     video_segment_cache_path = os.path.join(working_dir, '_cache', video_name)
+    
+    segment_index2name, segment_times_info = {}, {}
+    
+    # Check if we can reuse existing cache
     if os.path.exists(video_segment_cache_path):
-        shutil.rmtree(video_segment_cache_path)
-    os.makedirs(video_segment_cache_path, exist_ok=False)
+        logger.info(f"Cache folder exists for {video_name}, checking for existing segments...")
+        # Basic check: if we have files, we might be able to resume
+        if os.listdir(video_segment_cache_path):
+             logger.info(f"Found existing segments in {video_segment_cache_path}. Attempting to reconstruct metadata...")
+             # We still need to open the video to get durations/times for consistency
+    else:
+        os.makedirs(video_segment_cache_path, exist_ok=True)
     
     segment_index = 0
     segment_index2name, segment_times_info = {}, {}
@@ -48,9 +58,16 @@ def split_video(
             # save audio
             audio_file_base_name = segment_index2name[f"{segment_index}"]
             audio_file = f'{audio_file_base_name}.{audio_output_format}'
+            audio_full_path = os.path.join(video_segment_cache_path, audio_file)
+            
+            if os.path.exists(audio_full_path):
+                # Skip if already exists
+                segment_index += 1
+                continue
+
             try:
                 subaudio = subvideo.audio
-                subaudio.write_audiofile(os.path.join(video_segment_cache_path, audio_file), codec='mp3', verbose=False, logger=None)
+                subaudio.write_audiofile(audio_full_path, codec='mp3', verbose=False, logger=None)
             except Exception as e:
                 logger.warning(f"Warning: Failed to extract audio for video {video_name} ({start}-{end}). Probably due to lack of audio track.")
 

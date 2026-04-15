@@ -1,1 +1,0 @@
-The video segments explored do not provide specific information about how Mistral AI's agent builder function works. It might be embedded in a broader context or not explicitly covered in the video.

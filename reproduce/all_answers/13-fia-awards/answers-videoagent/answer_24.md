@@ -1,1 +1,0 @@
-The success of Toyota Gazoo Racing in the FIA World Rally Raid Championship and the FIA World Endurance Championship can likely be attributed to a combination of strong team management, skilled drivers, advanced technology and engineering, effective strategy, and robust support from sponsors and partners.

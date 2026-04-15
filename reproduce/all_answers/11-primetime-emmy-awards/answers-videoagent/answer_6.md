@@ -1,1 +1,0 @@
-The video does not contain specific information about Giselle Fernandez's career highlights.

@@ -1,1 +1,0 @@
-The video does not provide explicit information about Saint-Gobain's approach to engaging with and aligning its diverse workforce around sustainability goals. The segments explored involve general interactions and presentations without specific context related to the question.

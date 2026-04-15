@@ -1,1 +1,0 @@
-The progress in increasing the triple product in fusion research slowed in the late 1990s and early 2000s due to technical challenges, inconsistent funding, scientific and engineering limitations, and a shift in focus to the ITER project.

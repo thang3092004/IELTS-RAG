@@ -1,1 +1,0 @@
-The video does not provide explicit information about the navigational cues used by caribou during their migration.

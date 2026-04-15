@@ -1,9 +1,0 @@
-There are a number of limitations to using vision-language models like Quin-2 for local multimodal RAG implementations, especially when considering resource requirements and model performance on complex documents:
-
-• **Resource Requirements**: Running Quin-2 locally, especially the larger 7 billion parameter version, requires a **high-RAM GPU**. Even running on a 16-bit floating point precision, it's not feasible on less powerful GPUs like a T4. Smaller models may be less accurate.
-• **Image Resolution**: The **quality of the response is dependent on the resolution of the input images**. Reducing the resolution to save on resources can negatively impact the model's ability to accurately understand and extract information, even if the correct page is retrieved.
-• **Token Limits**: Processing images consumes a large number of tokens, potentially exceeding the model's context window. Downsampling images to reduce token usage can further compromise accuracy.
-• **Single Page Processing**: Some local models, including Quin-2, can only process one page at a time. This limits the system's ability to handle information spread across multiple pages, requiring workarounds to combine results from individual pages. 
-• **Accuracy on Complex Documents**: While vision-based RAG excels at extracting information from tables and images compared to text-based systems, smaller models may still struggle with complex layouts or nuanced information. For instance, accurately extracting numerical data from tables can be challenging.
-
-Despite these limitations, vision-based RAG offers significant advantages for multimodal documents, simplifying the RAG pipeline by avoiding complex parsing and chunking steps. Larger models and ongoing development may mitigate some of these limitations in the future.

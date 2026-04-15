@@ -1,1 +1,0 @@
-The instructor suggests that it takes 18 months to become consistently profitable as a trader. He emphasizes that it's important to have a rule of thumb of dedicating at least an hour a day to learning and treating it as a professional. He believes that if you allocate an hour a week to learning, you're more likely to become a consistently profitable trader.

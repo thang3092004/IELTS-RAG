@@ -1,1 +1,0 @@
-The video segments explored do not contain specific information about the "Raptor framework" or the "tree traversal" and "collapsed tree retrieval" methods. Therefore, I am unable to provide an explanation of these concepts based on the available video content.

@@ -1,1 +1,0 @@
-The anecdotes about people changing their schedules for KTLA stories likely illustrate the community's trust in the station by showing that viewers prioritize KTLA's content and consider it important enough to adjust their daily routines. This behavior suggests a strong connection and reliance on the station for news and information.

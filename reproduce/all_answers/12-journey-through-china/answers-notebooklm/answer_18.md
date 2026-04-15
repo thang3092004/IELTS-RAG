@@ -1,5 +1,0 @@
-The provided sources are about travel and food and do not contain information about how the video portrays the importance of family and tradition in Chinese culture.
-
- The video does mention that **Cantonese people were the first to immigrate** to Western countries like the USA, Canada, and Australia, and that the **food and culture** in those countries is **more similar to Cantonese food and culture than the food and cultures** of Sichuan or Xinjiang. The video also discusses the **importance of dim sum** to Cantonese culture, as it is the birthplace of dim sum. The video shows the speakers having dim sum with family, which is a tradition in Chinese culture. They discuss the different foods and how to eat them properly, which shows the **passing down of traditions** from one generation to the next. The video also mentions how **Cantonese food focuses on natural ingredients**, letting the ingredients speak for themselves.
-
- The speakers visit a church in Guangzhou and the speaker states that it **brought back memories** of being an altar girl in elementary school. This suggests that **religion and tradition are important** aspects of her life and upbringing.

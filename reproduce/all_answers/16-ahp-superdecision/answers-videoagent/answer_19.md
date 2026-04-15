@@ -1,1 +1,0 @@
-In SuperDecisions, the sensitivity analysis results can be visualized using various options such as performance graphs, dynamic sensitivity graphs, and gradient sensitivity graphs. These visualizations help in understanding how changes in criteria weights affect the overall decision-making process.

@@ -1,1 +1,0 @@
-AutoGen navigates the imperfect generation and reasoning abilities of LLMs by providing demonstrations and highlighting the features and benefits of the tool, as seen in the video segment.

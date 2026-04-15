@@ -1,1 +1,0 @@
-The video does not provide specific information about Saint-Gobain's low-carbon initiatives.

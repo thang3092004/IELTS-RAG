@@ -1,3 +1,0 @@
-Cursor allows users to incorporate external documentation into their projects through its **"add" feature**. When a user types "add" into the Cursor composer, a popup window appears. If the user clicks on "files," they can select files from their project. However, users can also select **"web"** and provide a link to an external website. Cursor will then be able to parse the information from the website and use it to generate code for the user's project. This feature is especially helpful when working with new APIs or packages that the model may not have encountered in its training data.
-
-For example, Cursor can access the official documentation for S3 and Hugging Face.

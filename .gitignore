@@ -1,25 +1,39 @@
-# Byte-compiled / optimized / DLL files
+# --- Python ---
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.ipynb_checkpoints/
+*.log
 
-# Virtual Environment
-.venv/
+# --- Environments ---
 venv/
+.venv/
 ENV/
-
-# Sensitive data
 .env
 
-# Large files and backups
-*.tar.gz
-*.zip
-eval_log.txt
-eval_pid.txt
+# --- Project Specific Models (HEAVY) ---
+MiniCPM-V-2_6-int4/
+faster-distil-whisper-large-v3/
+.checkpoints/
 
-# Large data/workdirs (Giữ lại dataset.json nhưng bỏ workdir tạm)
-longervideos/ielts-rag-workdir/
+# --- Project Data & Caches (HEAVY) ---
 _cache/
+reproduce/ablation/test_cache/
+videorag-workdir/
+longervideos/*/
+!longervideos/dataset.json
+!longervideos/prepare_data.py
+!longervideos/download.sh
 
-# Git
-.git/
+# --- Results & Evaluations (THOUSANDS OF FILES) ---
+custom_eval_results_17/
+reproduce/all_answers/
+reproduce/winrate_comparison/batch_*.json
+judge_output.json
+*.md
+!README.md
+
+# --- OS ---
+.DS_Store
+Thumb.db

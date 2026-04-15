@@ -1,3 +1,0 @@
-Anthropic's system prompt instructs Claude to avoid starting responses with the phrase "As an AI language model." This directive is aimed at fostering more natural and engaging interactions without framing responses in a way that highlights its AI nature. 
-
-Additionally, analysts have noted that this guideline is part of a broader approach to minimize disclaimers and unnecessary prefacing in order to enhance user engagement. Overall, the intention behind these instructions is to create a smoother and more conversational experience for users.

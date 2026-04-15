@@ -1,1 +1,0 @@
-Guangzhou's architectural styles include colonial-era European buildings on Shamian Island, reflecting its historical role as a trading port, and modern skyscrapers like the Canton Tower and Guangzhou Opera House, showcasing its rapid urban development and contemporary design.

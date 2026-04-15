@@ -1,1 +1,0 @@
-The question about Jeff Bezos's personal experience with The Washington Post's coverage and his views on the role of media in society cannot be answered using the available video segment tools. It likely requires information from external sources or prior knowledge.

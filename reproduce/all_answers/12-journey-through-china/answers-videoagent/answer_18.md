@@ -1,1 +1,0 @@
-The video portrays the importance of family and tradition in Chinese culture through scenes of communal eating, where individuals use chopsticks and interact with food, highlighting the central role of meals in family gatherings and cultural practices.

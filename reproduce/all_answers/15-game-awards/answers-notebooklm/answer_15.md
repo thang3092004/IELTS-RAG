@@ -1,8 +1,0 @@
-The announcements of mobile adaptations of popular franchises like *Monster Hunter Now* at The Game Awards reflect the **increasing accessibility and reach of gaming across various platforms**, particularly mobile devices.
-
-* The host emphasizes how **Monster Hunter Now** allows players to engage in "Monster hunting action" and "take down epic monsters on the go." This highlights the convenience and portability that mobile gaming offers, making it accessible to a wider audience. 
-* Additionally, showcasing **season 4** of the game with "a new Switch Axe Tundra habitat and even more monsters to discover" further demonstrates the continuous development and support for mobile titles. This suggests that mobile games are not merely simplified versions of their console or PC counterparts but receive significant updates and content expansions. 
-* The presence of a special promotional code ("TGA2024") specifically for viewers of The Game Awards emphasizes the **marketing effort and recognition** given to mobile titles. This signifies the increasing importance of the mobile gaming market within the broader industry. 
-* In another segment, the host mentions *Infinity Nikki*, a game that has already achieved 20 million downloads. This exemplifies the massive popularity and player base that mobile games can attract, further reinforcing their significance in the gaming landscape. 
-
-The sources, however, do not explicitly discuss how these mobile adaptations might compare in terms of gameplay complexity or depth to their non-mobile counterparts.

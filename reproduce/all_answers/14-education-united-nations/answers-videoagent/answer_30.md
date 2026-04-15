@@ -1,1 +1,0 @@
-I cannot provide an illustration of how education can empower girls and women and break down gender stereotypes based on the available video data.

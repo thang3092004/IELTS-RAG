@@ -1,1 +1,0 @@
-I cannot determine the segment where Rajesh Jain discusses the most common question entrepreneurs face with the available information.

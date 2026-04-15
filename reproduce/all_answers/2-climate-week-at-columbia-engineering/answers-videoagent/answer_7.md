@@ -1,1 +1,0 @@
-The video segments do not provide specific information on how researchers at Columbia University are working to close data gaps in air pollution monitoring. The captions mostly describe interactions and actions involving people and objects, without specific details on the research activities.

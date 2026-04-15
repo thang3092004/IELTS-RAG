@@ -1,1 +1,0 @@
-Rajesh Jain recommends using the Lean Canvas method to identify and validate market opportunities. He suggests starting with the problem, moving on to the solution, and then validating the solution with the target audience.

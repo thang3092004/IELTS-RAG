@@ -1,6 +1,0 @@
-The United Network for Organ Sharing (UNOS) needed to allocate organs more efficiently to save lives. However, their existing decision making process was ineffective. UNOS used a system based on travel time and medical urgency. However, this did not account for other factors that could impact the success of an organ transplant. For example, the blood type of the donor and recipient was not considered.
-
-
-UNOS decided to implement the Decision Lens software to make more equitable and effective organ allocation decisions. Decision Lens software allowed UNOS to consider multiple factors when evaluating organ candidates. It enabled UNOS to prioritize highly sensitized candidates who were unlikely to succeed. This resulted in a decrease in wait list deaths.
-
-The Decision Lens software allowed UNOS to consider factors like medical urgency, pediatric priority level, and blood type when evaluating organ candidates. This led to more equitable allocation of organs and improved survival rates for recipients.

@@ -1,1 +1,0 @@
-AutoGen manages diverse LLM configurations and agent types by using a combination of code and configuration files. The code defines different types of agents and their configurations, while the configuration files store specific settings and parameters for each agent, allowing for flexibility and customization.

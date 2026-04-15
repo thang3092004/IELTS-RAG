@@ -1,3 +1,0 @@
-Giselle Fernandez, a television host, notes that it's important to be able to do long-form reporting in a "bite-sized society" to tell in-depth stories. She emphasizes the ability to convey impactful narratives even amidst the prevalence of short-form content.
-
- This suggests that **in a media environment saturated with brief and easily consumable content, the capacity to deliver in-depth stories becomes crucial for providing comprehensive and impactful information.**

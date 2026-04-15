@@ -1,1 +1,0 @@
-Mistral AI focuses on open-weight language models and community collaboration, while OpenAI is known for its advanced, versatile AI models with a strong emphasis on safety and ethical use.

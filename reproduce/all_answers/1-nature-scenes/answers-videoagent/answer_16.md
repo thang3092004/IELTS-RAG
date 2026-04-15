@@ -1,1 +1,0 @@
-Puffin parents face several challenges when raising their chicks, including feeding them, protecting them from predators, teaching them to forage for food, and helping them learn to fly and become independent. Declining fish numbers have impacted puffin parents' ability to provide for their offspring by making it difficult for them to find enough food to feed their chicks.

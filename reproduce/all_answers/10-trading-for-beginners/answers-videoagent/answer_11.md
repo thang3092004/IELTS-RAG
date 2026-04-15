@@ -1,1 +1,0 @@
-A "doji" candle is a candlestick pattern in trading that indicates market indecision, formed when the opening and closing prices are nearly equal. It can signal potential trend reversals or continuations, depending on the context and subsequent market action.

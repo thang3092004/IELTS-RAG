@@ -1,1 +1,0 @@
- McLaren's resurgence as a dominant force in Formula 1 after a 26-year hiatus can be attributed to strong leadership, technical innovations, talented drivers, strategic partnerships, a positive team culture, and increased financial investment.

@@ -1,1 +1,0 @@
-The video segments and tools did not provide specific information about "ColPali's vision-based approach to RAG." The presentation in the video is about the Python programming language, which does not seem directly related to the topic in question.

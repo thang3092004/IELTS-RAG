@@ -1,7 +1,0 @@
-Digital technology can play a vital role in promoting access to quality education, particularly for marginalized learners. Digital resources can provide a wide range of learning materials, from video lessons to interactive online exercises, that can be tailored to individual learners' needs. This can help overcome the limitations of traditional brick-and-mortar classroom education, which often favors learners from more privileged backgrounds. 
-
-For example, the Khan Academy provides free online video lessons for learners around the world. It also offers personalized learning plans that can be tailored to individual learners' needs. This allows learners who may not have access to traditional classroom education to benefit from high-quality learning resources. 
-
-In addition, digital technology can help overcome other barriers to education, such as conflict and displacement. For example, the Education Cannot Wait initiative uses digital resources to provide education to children in crisis situations, such as refugees and those affected by conflict. This allows learners who may not have access to traditional education to still benefit from quality education.
-
-Overall, digital technology can help promote access to education, especially for learners who may not have access to traditional education resources. This can help promote learning and learning outcomes, especially for marginalized learners who may be left behind otherwise.

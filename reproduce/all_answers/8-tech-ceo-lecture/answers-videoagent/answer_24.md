@@ -1,1 +1,0 @@
-The '131' method involves defining 1 problem, generating 3 solutions, and making 1 recommendation. It benefits leadership by encouraging critical thinking, promoting ownership, developing decision-making skills, and enhancing communication.

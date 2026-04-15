@@ -1,1 +1,0 @@
-The sources provided do not contain information about red-legged seriema birds, jaguars, or harpy eagles. Therefore, I cannot answer your question using the provided sources.

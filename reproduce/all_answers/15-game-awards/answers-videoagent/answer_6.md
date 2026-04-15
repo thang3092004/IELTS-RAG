@@ -1,1 +1,0 @@
-The host's reaction to the announcement of "Elden Ring: Nights," characterized by laughter and smiles, suggests a positive reception and potentially high expectations for the game's development within the gaming community.

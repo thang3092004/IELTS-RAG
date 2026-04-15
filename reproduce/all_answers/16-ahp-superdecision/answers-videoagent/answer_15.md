@@ -1,4 +1,0 @@
-The consistency ratio (CR) in the Analytic Hierarchy Process (AHP) is a measure used to assess the consistency of the judgments made in pairwise comparisons. AHP involves comparing elements pairwise to establish priorities, and the CR helps determine whether the judgments are consistent enough to be reliable. A CR value of 0.1 or less is generally considered acceptable, indicating that the judgments are reasonably consistent. If the CR is higher, it suggests that the judgments may be inconsistent, and the decision-maker should review and adjust the comparisons.
-
-
-In SuperDecisions, a software tool for implementing AHP, the CR is calculated automatically when you input your pairwise comparisons. The software provides feedback on the CR value, allowing users to identify and address any inconsistencies in their judgments. If the CR is too high, users can revisit their comparisons and make adjustments to improve consistency

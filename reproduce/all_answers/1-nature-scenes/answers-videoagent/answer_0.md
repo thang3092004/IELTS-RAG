@@ -1,1 +1,0 @@
-Flying fish evade predators like the dorado and frigate birds by leaping out of the water and gliding long distances. They can reach speeds of up to 35 miles per hour and cover up to 150 miles in a single jump, which helps them escape from predators.

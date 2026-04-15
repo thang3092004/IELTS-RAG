@@ -1,1 +1,0 @@
-X-ray fluorescence aided the analysis of Van Gogh's painting by determining its composition, providing insights into the materials and techniques used.

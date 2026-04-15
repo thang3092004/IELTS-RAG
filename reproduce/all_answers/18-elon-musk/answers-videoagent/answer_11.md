@@ -1,1 +1,0 @@
-The most important thing Musk's biological neural net comes up with is likely related to a significant idea or innovation, but the specific details are unclear from the available information.

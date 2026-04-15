@@ -1,1 +1,0 @@
-The video does not contain specific segments showing army ants coordinating their hunting efforts or overcoming obstacles.

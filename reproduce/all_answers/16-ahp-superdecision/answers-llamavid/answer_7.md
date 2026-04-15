@@ -1,7 +1,0 @@
-Absolute measurement is preferred over relative measurement when dealing with a large number of alternatives in AHP because it allows for a more accurate assessment of the alternatives. Relative measurement only considers how alternatives compare to each other, while absolute measurement also takes into account the relative importance of each criterion. This allows for a more objective and unbiased assessment of the alternatives.
-
-In contrast, relative measurement only considers how alternatives compare to each other, without taking into account the relative importance of each criterion. This can lead to incorrect prioritization of the alternatives.
-
-For example, in the example of selecting a university program, relative measurement would only consider how each program compares to each other based on the criteria. However, absolute measurement would consider the relative importance of each criterion, and how each program compares to each other based on the importance of each criterion.
-
-In summary, absolute measurement provides a more objective and accurate assessment of the alternatives, which is why it is preferred over relative measurement when dealing with a large number of alternatives.

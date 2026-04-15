@@ -1,1 +1,0 @@
-The North Carolina Museum of Art initially had concerns about the reconstruction of the Gisi Altarpiece related to the quality of the reproduction and the potential impact on the original artwork.

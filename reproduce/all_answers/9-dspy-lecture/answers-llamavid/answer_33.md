@@ -1,5 +1,0 @@
-DSPy introduces the concept of signature-based prompts that are generated from the model's learned knowledge and not explicitly defined as hard-coded prompt templates. This allows the model to generate new and flexible prompts that can be optimized for different tasks. The signature is a string of text that identifies the task and input/output fields. This signature is then used to generate a new prompt for the next step in the pipeline, which is optimized for the current task. The signature provides a compact representation of the task that is easier for the model to generate new prompts for.
-
-By using signatures instead of hard-coded prompts, DSPy allows the model to generate new prompts that are better suited for the current task and optimized for the current knowledge. This helps the model learn more effective prompts that are relevant to the current task.
-
----

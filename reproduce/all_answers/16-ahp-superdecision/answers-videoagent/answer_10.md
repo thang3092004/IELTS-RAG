@@ -1,1 +1,0 @@
-The two phases involved in implementing absolute measurement in SuperDecisions software likely involve an initial phase of setting up or configuring the software to handle absolute measurements, followed by a phase of inputting or analyzing data using the configured settings.

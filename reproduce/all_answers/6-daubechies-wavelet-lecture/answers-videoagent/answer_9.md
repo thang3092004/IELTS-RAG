@@ -1,1 +1,0 @@
-The "no-go theorem" regarding orthonormal time-frequency bases states that it is impossible to construct a complete orthonormal basis for square-integrable functions that is simultaneously localized in both time and frequency, due to the constraints of the uncertainty principle.

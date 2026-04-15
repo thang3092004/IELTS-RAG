@@ -1,1 +1,0 @@
-The instructor differentiates between a 'buy limit' order and a 'buy stop' order by explaining that a 'buy limit' order is an order to buy a stock at a specific price or better, while a 'buy stop' order is an order to buy a stock when it reaches a specific price. The explanation is illustrated using a graph.

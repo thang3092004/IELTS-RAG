@@ -1,1 +1,0 @@
-I'm sorry, but the provided knowledge does not contain specific information regarding the limitations that Daubechies acknowledges in the use of the cepstrum for extracting signal components. Therefore, I am unable to provide an answer to that question.

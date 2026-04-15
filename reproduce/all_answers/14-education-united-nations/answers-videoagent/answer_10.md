@@ -1,1 +1,0 @@
-The Giga initiative, launched by UNICEF and ITU, aims to connect every school to the internet, addressing the digital divide in education by providing students with access to digital learning resources and opportunities, especially in underserved areas.

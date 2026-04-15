@@ -1,1 +1,0 @@
-To verify the order of price movements in a historical trade setup, the video shows the camera wearer systematically examining various charts, papers, and information sources. This sequence of actions suggests a detailed analysis process, consistent with understanding and verifying the order of price movements.

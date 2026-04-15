@@ -1,1 +1,0 @@
-The player is guided through the environments by the visually distinctive element of the relics that they need to recover.

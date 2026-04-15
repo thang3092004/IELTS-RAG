@@ -1,1 +1,0 @@
-The video segment shows a man using computer-based analysis and monitoring of the stock market to make trades, which are strategies and techniques for trading success.

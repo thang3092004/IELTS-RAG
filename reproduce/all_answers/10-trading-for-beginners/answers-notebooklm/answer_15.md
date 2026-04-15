@@ -1,7 +1,0 @@
-The length of a trade significantly impacts the accumulation of fees like rollover costs. Here's how:
-
-* **Rollover costs are charged daily by the broker for holding a trade overnight.** This means the longer you keep a trade open, the more rollover fees you accrue.
-* **These costs can eat into your profits even on winning trades**, making them less profitable than initially projected.
-* **Traders who frequently hold trades for extended periods, especially those engaging in "negative carry" trades (where the rollover costs exceed any interest earned on the position), can experience a significant drain on their account balance.** This highlights the importance of understanding rollover costs and incorporating them into your trading plan and risk management strategy.
-
-The source emphasizes that being unaware of rollover costs can lead to unexpected reductions in trading profits. To mitigate this, it's crucial to choose trading strategies and timeframes that align with your risk tolerance and fee structure. For example, **the source recommends the daily timeframe as it allows traders to get in and out of trades relatively quickly, minimizing exposure to rollover fees.** This approach prioritizes short-term trading opportunities to reduce potential costs associated with holding positions overnight.

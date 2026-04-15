@@ -1,1 +1,0 @@
-MemGPT integrates local open-source LLMs for processing by using a combination of pre-trained models and domain-specific models, enabling efficient processing of large amounts of data and handling a wide range of tasks.

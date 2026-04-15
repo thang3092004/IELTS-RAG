@@ -1,1 +1,0 @@
-The video does not provide specific information about how researchers calibrate low-cost air quality sensors. Generally, calibration of such sensors involves comparing their readings with those from a reference-grade instrument under controlled conditions and adjusting the sensor's output to match the reference.

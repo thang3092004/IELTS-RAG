@@ -1,1 +1,0 @@
-The "man-of-war fish" likely refers to a symbiotic relationship with the Portuguese man o' war, where the fish gains protection from predators by living among the tentacles of the man o' war, while being immune to its stings.

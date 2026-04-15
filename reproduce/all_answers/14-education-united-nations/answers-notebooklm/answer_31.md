@@ -1,7 +1,0 @@
-Intercultural dialogue and understanding are crucial for promoting quality education for all learners. The sources highlight several key points on this topic:
-
-* **Education should foster peace and respect for diversity.** Education systems should promote understanding and respect for diverse and interconnected societies. This includes teaching respect for others and preparing students to be responsible citizens. 
-* **Education should be inclusive and leave no one behind.** Inclusive education is not only good for learners with disabilities but is beneficial for everyone. This means ensuring access to education for all children, regardless of their background or circumstances.
-* **Education should promote global citizenship and intercultural understanding.**  Education can help learners understand their responsibilities to each other and the planet. It can also help learners understand different cultures and perspectives, preparing them for a globalized world. 
-
-The sources emphasize the importance of transforming education to meet the needs of the 21st century. This includes incorporating skills such as problem-solving, collaboration, and digital literacy. It also means addressing contemporary challenges like climate change and misinformation. Intercultural dialogue and understanding are essential components of this transformation, helping learners develop the knowledge, skills, and attitudes needed to thrive in a diverse and interconnected world.

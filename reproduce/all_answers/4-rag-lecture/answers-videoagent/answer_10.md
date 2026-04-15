@@ -1,1 +1,0 @@
-The video does not contain explicit discussions about LightRAG and GraphRAG, so I cannot provide a comparison of their cost and performance based on the video content.

@@ -1,5 +1,0 @@
-Keyword-based search mechanisms like BM25 can improve RAG performance in several ways. BM25 uses the number of tokens in a document to determine the relevance of a term to a query. This helps identify important terms that are more important for generating a relevant response. By identifying terms that are more relevant, BM25 can help generate a more informative response that covers the key points in the user's question.
-
-In addition, BM25 can be used in conjunction with other techniques like late chunking and contextual chunking to further improve the accuracy of the response. Late chunking identifies important information across multiple chunks, while contextual chunking helps generate more informative responses by considering the relationships between terms within a document.
-
-By using BM25 in conjunction with late chunking, contextual chunking and other techniques, RAG can generate more accurate and informative responses that provide the user with the knowledge they need.

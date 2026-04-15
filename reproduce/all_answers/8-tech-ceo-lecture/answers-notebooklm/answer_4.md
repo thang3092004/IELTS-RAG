@@ -1,1 +1,0 @@
-Rajesh Jain believes that building a strong company culture requires **an icon and a storyteller**.  An **icon** is someone in the company who is a living example of the positive qualities the company claims to have. The **storyteller** is someone who shares the stories that make the company great with new hires and helps establish the traditions of the company.

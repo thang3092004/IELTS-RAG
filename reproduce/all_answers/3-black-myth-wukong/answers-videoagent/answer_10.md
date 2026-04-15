@@ -1,1 +1,0 @@
-The "Self Advance" system likely enhances the player's combat abilities by providing some form of in-game advantage, such as increased strength, speed, or special abilities, which are common features in video games to improve player performance during combat.

@@ -1,1 +1,0 @@
-Saint-Gobain addresses financial barriers for homeowners considering energy-efficient renovations by offering financing options like low-interest loans and grants, and by illustrating potential energy bill savings to help homeowners make informed financial decisions.

@@ -1,1 +1,0 @@
-Saint-Gobain measures the impact of its sustainability initiatives by tracking energy consumption and greenhouse gas emissions, conducting life cycle assessments of products, engaging with stakeholders for feedback, and using data and analytics to identify areas for improvement and track progress towards sustainability goals.

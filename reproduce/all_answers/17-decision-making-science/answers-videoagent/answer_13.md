@@ -1,1 +1,0 @@
-The video does not appear to contain specific information about how Decision Lens has been used by professional sports teams to improve player evaluation and selection, particularly in identifying and quantifying intangible attributes.

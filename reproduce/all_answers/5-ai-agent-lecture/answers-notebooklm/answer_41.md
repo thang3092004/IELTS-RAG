@@ -1,3 +1,0 @@
-The first large language model (LLM) to claim it surpassed GPT-4 on a number of benchmarks was **Claude 3 Opus**.  However, Anthropic, the company behind Claude, **compared Claude 3 Opus to an earlier version of GPT-4 (from March 2023)** rather than the latest version.  When compared to the latest version of GPT-4 Turbo, **GPT-4 actually outperformed Claude 3 Opus on benchmarks such as GSM8K and the math data set**.
-
-It is important to note that while Claude 3 Opus may not surpass the most up-to-date version of GPT-4 on all benchmarks, it is still a highly capable model, potentially one of the best available.

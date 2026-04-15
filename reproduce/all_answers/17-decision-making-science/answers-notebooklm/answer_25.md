@@ -1,9 +1,0 @@
-In professional sports, seemingly insignificant differences in performance data can have a significant impact on player evaluation and strategic decisions. John Saaty, co-founder of decision-making software company Decision Lens, highlights this phenomenon using the example of **40-yard dash times for wide receivers in the NFL**.
-
-While the difference between a 4.2-second and a 4.6-second 40-yard dash may appear minor, Saaty explains that **every tenth of a second translates to a full step on the football field.** This seemingly small discrepancy can be the difference between a receiver consistently outrunning defenders for long gains and one who struggles to gain separation.
-
-Saaty emphasizes that a 4.2 or 4.3-second 40-yard dash time significantly alters defensive strategies.  The exceptional speed of such players forces opposing teams to adjust their defensive schemes entirely to account for the threat of deep passes. This illustrates how **minute differences in performance data can cascade into major strategic implications**.
-
-This concept extends beyond 40-yard dash times and wide receivers. In any sport where performance is measured and analyzed, **subtle variations in data can carry substantial weight in player assessment and game strategy.**  Scouts, coaches, and analysts must carefully consider the context and impact of even the slightest differences in data points to make informed decisions.
-
-The example provided by Saaty underscores the crucial role of data analysis in professional sports. It demonstrates that seemingly insignificant variations in performance metrics can have profound consequences on player evaluation, team composition, and strategic approaches.

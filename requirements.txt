@@ -1,39 +1,45 @@
-# Core numerical and deep learning libraries
-numpy==1.26.4
-torch==2.1.2
-torchvision==0.16.2
-torchaudio==2.1.2
+# VideoRAG & IELTS-RAG Core Requirements
+# Optimized for Python 3.12 and CUDA 12.1
+
+--index-url https://download.pytorch.org/whl/cu121
+
+# Core Deep Learning
+torch>=2.4.0
+torchvision
+torchaudio
 accelerate==0.30.1
 bitsandbytes==0.43.1
+numpy==1.26.4
 
-# Video processing utilities
-moviepy==1.0.3
-git+https://github.com/facebookresearch/pytorchvideo.git@28fe037d212663c6a24f373b94cc5d478c8c1a1d
-git+https://github.com/facebookresearch/ImageBind.git@3fcf5c9039de97f6ff5528ee4a9dce903c5979b3
-
-# Multi-modal and vision libraries
+# Multi-modal & Vision
 timm
 ftfy
 regex
 einops
 fvcore
-eva-decord==0.6.1
 iopath
 matplotlib
 types-regex
-cartopy
+transformers==4.37.1
 
-# Audio processing and vector databases
-ctranslate2==4.4.0
-faster_whisper==1.0.3
+# Video & Audio Processing
+moviepy==1.0.3
+ctranslate2
+faster_whisper
+# Patched repositories should be installed via:
+# pip install --no-deps git+https://github.com/facebookresearch/pytorchvideo.git
+# pip install --no-deps git+https://github.com/facebookresearch/ImageBind.git
+
+# Storage & Databases
 neo4j
 hnswlib
 xxhash
 nano-vectordb
 
-# Language models and utilities
-transformers==4.37.1
-tiktoken
+# LLM & Utilities
 openai
 tenacity
-ollama==0.5.3
+tiktoken
+ollama
+python-dotenv
+setuptools<70

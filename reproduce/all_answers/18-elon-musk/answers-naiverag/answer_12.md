@@ -1,7 +1,0 @@
-DJ Seo is an expert in the field of neural interface technology at Neuralink, with a focus on various aspects of brain-computer interfaces (BCIs). His work involves understanding the intricate details of implantable devices, specifically concerning the technological and surgical challenges associated with neural implants. 
-
-One of his key areas of expertise includes the design and implementation of flexible electrodes, which address the immune response elicited by rigid electrodes traditionally used in brain implants. These flexible electrodes are crucial as they minimize discomfort and damage to brain tissue, thereby enhancing the longevity and effectiveness of the implants.
-
-Additionally, DJ Seo is involved in the surgical implantation processes utilizing robotic systems, contributing significantly to improving precision during surgeries. He has explored the use of advanced signal processing techniques to ensure effective data collection from the brain, interpreting neural signals to facilitate interaction between the brain and external devices.
-
-His work also encompasses decoding neural signals for user intentions, working with machine learning models to translate these signals into actionable outputs, thus enabling users to control various functions through their thoughts. In summary, DJ Seo's expertise encompasses the development and deployment of cutting-edge technologies for effective and safe brain-computer interface systems.

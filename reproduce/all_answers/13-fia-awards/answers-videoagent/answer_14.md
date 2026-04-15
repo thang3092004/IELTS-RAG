@@ -1,1 +1,0 @@
-The FIA's recognition of Michelle Mouton's lifetime achievements highlights the evolving role of women in motorsports by acknowledging her pioneering contributions and success in a male-dominated field. This recognition serves as an inspiration for more women to participate in motorsports and emphasizes the importance of diversity and inclusion in the sport.

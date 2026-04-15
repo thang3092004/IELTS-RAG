@@ -1,4 +1,0 @@
-Mathematical techniques were used in the reconstruction of the Padua frescoes in several ways. First, Professor Ingrid Daubechies' team used circular harmonics to decompose the image into tiny blocks and then reconstruct the image from those blocks. This allowed them to fill in missing pieces by matching blocks that had been rotated. Second, the team used Fourier transforms to find the canvas's weave patterns and undulations, which helped in reconstructing the canvas. Third, they used computer graphics to model the gold and reflections on the new canvas. 
-
----Supporting evidence---
-The video shows the team using circular harmonics to reconstruct the image blocks and then reconstructing the image from those blocks. They also used Fourier transforms to find the canvas's weave patterns and undulations, which helped reconstruct the canvas. They used computer graphics to model the gold and reflections on the new canvas.

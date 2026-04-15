@@ -1,7 +1,0 @@
-The “overview effect” is a profound, transformative experience reported by astronauts who have viewed Earth from space. It is characterized by a shift in perspective, leading to a deeper understanding of the planet's fragility and interconnectedness. 
-
-**Jeff Bezos, founder of Blue Origin**, personally experienced the overview effect during his spaceflight aboard New Shepard, his company's tourism vehicle. He described seeing the curvature of Earth, the thinness of its atmosphere, and the overwhelming blackness of space, highlighting the uniqueness and preciousness of our planet. Bezos likened the experience to what astronaut Jim Lovell felt when he looked back at Earth and realized, "You don't go to heaven when you die. You go to heaven when you're born."
-
-**This experience has had a significant impact on Bezos's views on space exploration**. He believes that humanity **must prioritize saving Earth**, and he sees space exploration as a crucial part of that effort. Bezos advocates for **moving polluting industries off Earth** to preserve its natural beauty and resources while enabling continued technological and societal progress. He envisions a future where the **Moon serves as a stepping stone** to the rest of the solar system, providing a platform for building spaceships, harvesting resources, and expanding human presence beyond Earth.
-
-**Bezos believes the overview effect fosters a deep appreciation for Earth's fragility and interconnectedness, ultimately driving the need to protect it while simultaneously exploring the vast potential of space.**

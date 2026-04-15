@@ -1,3 +1,0 @@
-The instructor in the video suggests that a minimum IQ of **115** is beneficial for successful trading. He argues that trading requires a high IQ, and those with lower IQs may struggle to learn and become profitable. He acknowledges that some people claim anyone can learn to trade, but he believes those claims are false and possibly even exploitative.
-
- The instructor suggests that a person's IQ can be lowered by situations like poverty and desperation, which may hinder their ability to learn to trade. He encourages viewers to take an IQ test to determine if trading is a good fit for them.

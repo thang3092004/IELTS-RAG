@@ -1,1 +1,0 @@
-The challenges the player faces in mastering the combat system include using a variety of weapons and techniques, such as a sword, bow and arrow, and fireball, to defeat enemies, as well as using a shield to block attacks.

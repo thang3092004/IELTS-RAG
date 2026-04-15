@@ -1,1 +1,0 @@
-The dramatic fight between two male ibex competing for access to females at a waterhole is not clearly identified in the available segments. The segments where ibex appear are numerous, and the tools did not provide specific segments related to a fight. Therefore, it is difficult to describe the event without more precise information.

@@ -1,1 +1,0 @@
-I am unable to determine the specific medical application that Daubechies highlights for time-frequency analysis in the context of fetal health based on the available information.

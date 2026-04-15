@@ -1,1 +1,0 @@
-'Education Cannot Wait' is a global fund dedicated to education in emergencies and protracted crises. Its funding sources typically include contributions from governments, private sector partners, philanthropic foundations, and international organizations. For detailed and specific information, one would need to refer to the organization's official reports.

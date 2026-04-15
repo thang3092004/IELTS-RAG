@@ -1,7 +1,0 @@
-The vloggers expected Turpan to be a hot and dry region, but they found that traveling between sites was more challenging than they anticipated. They noted that **public transportation was limited and distances between sites were vast**, making it necessary to hire a driver for their excursions.
-
-They also remarked that **every site charged entrance fees, which were not included in the driver's fee**, adding to the overall cost of their trip. This differs from some other regions of China where admission to certain attractions might be included as part of a tour package or transportation service. 
-
-The vloggers remarked that **many tourists opt for organized tours when visiting Xinjiang** due to the complexities of independent travel. Their personal experience navigating language barriers and securing permits highlighted the difficulties of exploring the region on their own.  
-
-Despite the challenges, the couple were ultimately captivated by the **unique landscape of the Turpan desert**, particularly the mountainous sand dunes which provided a thrilling experience during their dune buggy ride. They compared the dunes to those in Dubai, noting that Turpan’s dunes offered a more dramatic and exciting ride due to their greater height.

@@ -1,1 +1,0 @@
-Eden's whales may have adapted their hunting behavior in response to declining fish populations and agricultural pollution by altering their feeding strategies, such as targeting different prey species, changing their hunting locations, or modifying their hunting techniques to be more efficient in capturing the available prey.

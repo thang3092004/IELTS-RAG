@@ -1,1 +1,0 @@
-The video does not appear to contain explicit discussions or reflections by the vloggers on the importance of preserving cultural heritage, based on the available segment captions and object memory.

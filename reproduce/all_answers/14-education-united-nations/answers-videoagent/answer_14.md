@@ -1,1 +1,0 @@
-Education can address social issues such as gender inequality and HIV/AIDS by empowering individuals with knowledge and skills. It helps challenge gender norms, promote rights and opportunities, and provides tools to understand and prevent the spread of HIV/AIDS.

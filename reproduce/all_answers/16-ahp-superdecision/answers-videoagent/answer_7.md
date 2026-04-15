@@ -1,1 +1,0 @@
-Absolute measurement is preferred over relative measurement in AHP when dealing with a large number of alternatives because it allows for more consistent and scalable comparisons by evaluating each alternative against a set of criteria independently, rather than comparing each alternative to every other alternative.

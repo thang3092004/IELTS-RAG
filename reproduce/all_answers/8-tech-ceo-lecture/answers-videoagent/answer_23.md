@@ -1,1 +1,0 @@
-The video segments do not contain explicit information about the two essential elements Rajesh Jain believes are necessary for building a strong company culture.

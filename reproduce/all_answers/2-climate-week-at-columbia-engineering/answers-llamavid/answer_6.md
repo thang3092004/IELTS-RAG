@@ -1,7 +1,0 @@
-The Software Carbon Intensity (SCI) standard is a measure of the energy usage of AI software, calculated by dividing the energy consumption of the software by the number of transistors. This standard is part of the Green Software Foundation and is intended to provide a standardized way to measure the energy efficiency of AI systems. The SCI is a way to compare the energy efficiency of AI systems, and to identify areas for improvement. 
-
-The SCI metric is based on the energy efficiency of the hardware, but the energy efficiency of AI models is also important. The SCI metric can be used to identify areas where AI models can be improved to reduce energy usage.
-
-The SCI metric can also be used to identify the trade-offs between performance, energy usage, and accuracy of AI models. It can help researchers and developers make decisions about what to give up in order to achieve energy efficiency.
-
-In summary, the SCI metric provides a standardized way to measure the energy efficiency of AI systems, and to identify areas where energy efficiency can be improved. It can be used to compare the energy efficiency of different AI models, and to identify trade-offs between performance, energy usage and accuracy.

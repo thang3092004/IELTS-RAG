@@ -1,1 +1,0 @@
-DJ Seo's area of expertise at Neuralink is likely related to neuroscience and brain-machine interfaces, as Neuralink is a company focused on developing implantable brain–machine interfaces.

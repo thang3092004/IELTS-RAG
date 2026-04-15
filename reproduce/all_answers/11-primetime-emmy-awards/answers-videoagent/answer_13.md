@@ -1,1 +1,0 @@
-The specific challenges faced by John Vande Wege and his team while covering food distributions during the pandemic are not mentioned in the available video segments and captions.

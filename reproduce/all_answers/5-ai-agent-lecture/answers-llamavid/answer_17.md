@@ -1,1 +1,0 @@
-OpenAI's SWARM system utilizes a multi-agent approach to orchestration, where sub-agents are created to perform specific tasks. The sub-agents are then fine-tuned based on their performance, and the best sub-agents are selected for the next task. This process is repeated in an iterative manner until the desired outcome is achieved.

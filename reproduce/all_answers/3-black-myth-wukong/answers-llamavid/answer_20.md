@@ -1,1 +1,0 @@
-The player acquires new spells by visiting shrines, which are marked with a blue-green dot, and by using the newly acquired spells.

@@ -6,7 +6,12 @@ from faster_whisper import WhisperModel
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 def speech_to_text(video_name, working_dir, segment_index2name, audio_output_format):
-    model = WhisperModel("./faster-distil-whisper-large-v3")
+    model_path = os.path.abspath("./faster-distil-whisper-large-v3")
+    if not os.path.exists(model_path):
+        # Fallback to remote if local not found
+        model_path = "Systran/faster-distil-whisper-large-v3"
+        
+    model = WhisperModel(model_path, device="cuda" if torch.cuda.is_available() else "cpu", compute_type="float16" if torch.cuda.is_available() else "int8")
     model.logger.setLevel(logging.WARNING)
     
     cache_path = os.path.join(working_dir, '_cache', video_name)

@@ -1,9 +1,0 @@
-The ChatGPT Pro tier enhances user experience and capabilities in the following ways:
-
-*   **Unlimited access to models:** ChatGPT Pro offers unlimited access to OpenAI's most advanced models, including GPT-4 and the enhanced O1 Pro mode. This ensures users can utilize the models' full potential without usage restrictions.
-*   **O1 Pro Mode:** This special mode for O1 within the Pro tier allows the model to utilize even more computing power to tackle complex problems, exceeding the capabilities of the standard O1 model. O1 Pro mode demonstrates significant performance improvements in areas like competition math and GPQA diamond.
-*   **Enhanced Reliability:** ChatGPT Pro provides a higher level of reliability compared to the free tier. This means answers generated in the Pro tier are statistically more likely to be accurate and consistent, a crucial factor for professional or research-based tasks. 
-*   **Advanced Voice Mode:** Pro users have access to advanced voice mode, a feature that allows users to interact with ChatGPT conversationally using their voice. Advanced voice mode utilizes the multimodal GPT-4 model to understand and respond in audio, enabling more natural and engaging conversations in over 50 languages.
-*   **Priority Access to New Features:** ChatGPT Pro users are often granted priority access to new features and updates. Features like live video, screen sharing, and Santa mode were initially rolled out to Pro users before becoming available in other tiers. This allows Pro users to experience and benefit from the latest advancements in AI technology.
-
-The ChatGPT Pro tier caters to users who require consistent access to the most powerful AI models, enhanced reliability, and priority access to cutting-edge features. The unlimited model usage and specialized modes like O1 Pro make it ideal for professionals, researchers, and anyone pushing the boundaries of AI capabilities.

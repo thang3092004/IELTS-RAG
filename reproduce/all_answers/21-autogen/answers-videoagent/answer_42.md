@@ -1,1 +1,0 @@
-AutoGen is likely used in automating applications, possibly in the context of SaaS products, as suggested by segments related to software development and user interaction. However, specific details about its role in building a SaaS product are not clearly outlined in the available segments.

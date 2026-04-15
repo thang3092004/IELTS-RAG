@@ -1,1 +1,0 @@
-AutoGen facilitates the testing and improvement of a basic snake game by generating code for the game, allowing the user to test it, and enabling the user to make changes to the code to improve the game.

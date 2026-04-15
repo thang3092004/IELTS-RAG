@@ -1,1 +1,0 @@
-Saint-Gobain reorganized to address sustainability challenges by focusing on energy efficiency, waste reduction, and resource conservation. They implemented a circular economy approach, developed new products and services prioritizing sustainability, such as low-emission building materials and energy-efficient windows.

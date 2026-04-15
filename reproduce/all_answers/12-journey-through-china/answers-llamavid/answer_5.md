@@ -1,1 +1,0 @@
-The vloggers described the atmosphere of Urumqi's Grand Bazaar as akin to a Middle Eastern souk. They noted that the Grand Bazaar was very popular and a lot of tourists and locals visit, but the atmosphere was very calm and peaceful. They also said that the Grand Bazaar was a bit chaotic and not much to see, but the buildings were very lovely.

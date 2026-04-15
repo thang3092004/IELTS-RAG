@@ -1,3 +1,0 @@
-The sources do not provide information about cheetahs or their hunting strategies. Therefore, a comparison of arctic wolf and cheetah hunting strategies for caribou cannot be made.
-
-The sources do describe the hunting strategies of arctic wolves when pursuing caribou. Arctic wolves hunt as a pack, running at the herd to flush out weaker or slower individuals, such as calves. The wolves work as a team to maintain the chase, with lead wolves setting the pace and others running alongside to prevent the caribou from changing direction.

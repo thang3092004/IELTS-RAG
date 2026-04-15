@@ -1,1 +1,0 @@
-Players can use potions to counter frost status ailments and maintain their health during combat in the game.

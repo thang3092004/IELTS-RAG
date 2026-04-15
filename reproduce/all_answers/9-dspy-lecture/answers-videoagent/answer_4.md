@@ -1,1 +1,0 @@
-The video does not contain explicit information about the advantages of LangGraph over legacy LangChain for multi-agent systems, or it is not captured in the segments I have access to.

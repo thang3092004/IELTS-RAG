@@ -1,1 +1,0 @@
-The video segments do not provide specific information about Bezos's rationale for not negotiating the purchase price of The Washington Post.

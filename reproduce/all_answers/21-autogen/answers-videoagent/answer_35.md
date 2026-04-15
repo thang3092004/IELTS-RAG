@@ -1,1 +1,0 @@
-The video segments do not provide specific details about setting up a local LLM environment using RunPods and Text Generation Web UI. The segments mostly show a person working on a computer, typing, and looking at documents or screens.

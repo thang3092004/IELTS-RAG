@@ -1,1 +1,0 @@
-Spherical tokamaks differ from traditional tokamaks in their more compact, cored-apple shape, which allows for stronger magnetic fields and better plasma confinement. Potential advantages include improved stability, reduced size and cost, and the ability to achieve higher plasma pressure.

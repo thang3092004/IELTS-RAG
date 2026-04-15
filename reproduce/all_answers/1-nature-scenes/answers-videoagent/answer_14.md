@@ -1,1 +1,0 @@
-The Portuguese man-of-war captures its prey using long, sharp, and venomous tentacles to immobilize it, and then consumes the prey by pulling it into its mouth.

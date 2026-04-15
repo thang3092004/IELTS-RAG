@@ -1,1 +1,0 @@
-Xinjiang's unique identity has been shaped by a variety of cultural influences, including those from the Han Chinese, Uyghur, Kazakh, and other ethnic groups. The region's history as a crossroads of trade and cultural exchange along the Silk Road has also contributed to its diverse cultural heritage.

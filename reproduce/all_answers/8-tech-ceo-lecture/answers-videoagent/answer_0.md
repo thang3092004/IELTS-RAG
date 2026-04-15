@@ -1,1 +1,0 @@
-The main research and development priorities for Saint-Gobain likely include sustainable building solutions, energy efficiency, and advanced materials, based on their focus in the construction and building materials industry.

@@ -1,1 +1,0 @@
-AutoGen is a framework for creating and managing autonomous agents, which can work individually or in teams. Agent teams collaborate to achieve common goals, enhancing performance through shared capabilities. Real-world use cases include robotics, autonomous vehicles, smart homes, and customer service, where agent teams improve efficiency and user experience.

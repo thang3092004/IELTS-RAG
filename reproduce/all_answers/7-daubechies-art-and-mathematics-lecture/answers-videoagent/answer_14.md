@@ -1,1 +1,0 @@
-The mathematical challenge of identifying the correct rotation of fresco fragments is to determine the correct orientation of the fragments to reconstruct the original fresco. Circular harmonics is a mathematical technique that helps in identifying the correct rotation of the fresco fragments.

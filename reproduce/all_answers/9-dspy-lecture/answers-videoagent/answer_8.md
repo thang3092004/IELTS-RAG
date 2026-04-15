@@ -1,1 +1,0 @@
-The video does not explicitly address the differences between signatures in DSPy and traditional hard-coded prompts. It seems to focus more on general programming concepts and code examples, particularly related to the Python programming language.

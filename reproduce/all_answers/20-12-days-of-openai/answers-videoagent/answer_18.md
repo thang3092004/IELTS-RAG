@@ -1,1 +1,0 @@
-The "o1 model" is discussed in numerous segments, but specific details on how it handles ambiguity in problem descriptions are not directly available from the retrieved information.

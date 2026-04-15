@@ -1,1 +1,0 @@
-Some brokers have a negative reputation in the trading community due to reasons such as lack of transparency, high fees, poor customer service, misleading advertising, conflicts of interest, and unethical practices. These factors can lead to distrust among traders and investors.

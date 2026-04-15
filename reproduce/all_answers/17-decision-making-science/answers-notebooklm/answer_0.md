@@ -1,9 +1,0 @@
-The Decision Lens software improves upon traditional AHP methods in several ways, according to John Saaty, co-founder of Decision Lens.
-
-*   **Decision Lens software moves AHP from a static model to a continuous process, reflecting today's reality where planning occurs continuously rather than in periodic episodes.** This continuous planning process allows organizations to adapt to changing circumstances and make better-informed decisions in real-time. 
-*   **Decision Lens connects planning across time horizons, functions, and organizational hierarchies.** This integrated approach allows organizations to break down silos and ensure that everyone is working towards the same strategic objectives. 
-*   **The software also incorporates resource optimization, allowing organizations to assess the cost of different options and choose the mix of investments that will deliver the most strategic value.** 
-*   **Decision Lens facilitates collaboration by allowing multiple stakeholders to weigh in on different aspects of a decision.** For example, IT portfolio decisions can incorporate input from both technical and business stakeholders. 
-*   **The software can run millions of permutations quickly on different resource scenarios, allowing organizations to explore a wider range of options and make better trade-offs.**
-
-John Saaty uses the example of the US Navy using Decision Lens to adapt to the changing strategic landscape after the disruptions caused by the war in Ukraine. He also discusses how the software is used by the United Network for Organ Sharing to allocate organs more efficiently, reducing deaths by over 50% in some cases.

@@ -1,5 +1,0 @@
-Saint-Gobain leverages the economic benefits of energy-efficient renovations to promote their adoption by highlighting the **return on investment** for homeowners and the **increased real estate value** associated with such renovations. The company stresses that while the initial cost of renovations can be a barrier for some homeowners, the **payback period is relatively short**, especially considering the rising energy costs in Europe. 
-
-For example, what was previously a 10-year payback period for an energy-efficient renovation in Europe has now been reduced to 3–4 years due to energy prices increasing four to five times compared to those in the US. This means that homeowners can **recoup their investment costs in a matter of years** simply through the savings on their energy bills. 
-
-Moreover, Saint-Gobain emphasizes that energy-efficient renovations **enhance the value of the real estate**. By improving the energy performance of a dwelling, homeowners can attract potential buyers willing to pay a premium for a more sustainable and cost-effective home.

@@ -32,6 +32,7 @@ from ._storage import (
     NanoVectorDBStorage,
     NanoVectorDBVideoSegmentStorage,
     NetworkXStorage,
+    HTVGStorage,
 )
 from ._utils import (
     EmbeddingFunc,
@@ -102,7 +103,7 @@ class VideoRAG:
     entity_summary_to_max_tokens: int = 500
 
     # Change to your LLM provider
-    llm: LLMConfig = field(default_factory=openai_config)
+    llm: LLMConfig = field(default_factory=lambda: openai_config)
     
     # entity extraction
     entity_extraction_func: callable = extract_entities
@@ -114,6 +115,7 @@ class VideoRAG:
     vector_db_storage_cls_kwargs: dict = field(default_factory=dict)
     graph_storage_cls: Type[BaseGraphStorage] = NetworkXStorage
     enable_llm_cache: bool = True
+    enable_htvg: bool = True  # Set to False to disable HTVG ingest
 
     # extension
     always_create_working_dir: bool = True
@@ -123,8 +125,11 @@ class VideoRAG:
     def load_caption_model(self, debug=False):
         # caption model
         if not debug:
-            self.caption_model = AutoModel.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True, torch_dtype=torch.bfloat16, device_map="cuda")
-            self.caption_tokenizer = AutoTokenizer.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True)
+            model_path = os.path.abspath("./MiniCPM-V-2_6-int4")
+            if not os.path.exists(model_path):
+                model_path = "openbmb/MiniCPM-V-2_6-int4"
+            self.caption_model = AutoModel.from_pretrained(model_path, trust_remote_code=True, torch_dtype=torch.bfloat16, device_map="cuda")
+            self.caption_tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
             self.caption_model.eval()
         else:
             self.caption_model = None
@@ -193,6 +198,21 @@ class VideoRAG:
                 embedding_func=None, # we code the embedding process inside the insert() function.
             )
         )
+
+        # --- HTVG Storage (optional, guarded by enable_htvg) ---
+        self.htvg_storage: Optional[HTVGStorage] = None
+        if self.enable_htvg:
+            try:
+                self.htvg_storage = HTVGStorage(
+                    namespace="htvg",
+                    global_config=asdict(self),
+                )
+            except Exception as _htvg_init_err:
+                logger.warning(
+                    f"[VideoRAG] HTVGStorage init failed (non-fatal): {_htvg_init_err}. "
+                    "HTVG will be disabled for this session."
+                )
+                self.htvg_storage = None
         
         self.llm.best_model_func = limit_async_func_call(self.llm.best_model_max_async)(
             partial(self.llm.best_model_func, hashing_kv=self.llm_response_cache)
@@ -452,6 +472,10 @@ class VideoRAG:
             self.chunk_entity_relation_graph = maybe_new_kg
             # ---------- commit upsertings and indexing
             await self.text_chunks.upsert(inserting_chunks)
+
+            # ---------- HTVG build (incremental; skipped if enable_htvg=False)
+            if self.htvg_storage is not None:
+                await self._build_htvg()
         finally:
             await self._insert_done()
 
@@ -464,6 +488,34 @@ class VideoRAG:
                 continue
             tasks.append(cast(StorageNameSpace, storage_inst).index_start_callback())
         await asyncio.gather(*tasks)
+
+    async def _build_htvg(self) -> None:
+        """Incrementally build or update the HTVG after entity extraction.
+
+        Called automatically at the end of :meth:`ainsert`. Requires that
+        ``self.htvg_storage`` is not ``None``.
+
+        The method is non-blocking for the standard VideoRAG modes: if HTVG
+        construction fails for any reason, a warning is logged and the error
+        is swallowed so that the main ingest pipeline continues.
+        """
+        if self.htvg_storage is None:
+            return
+        try:
+            logger.info("[VideoRAG] Building HTVG…")
+            await self.htvg_storage.build(
+                video_segments_data=self.video_segments._data,
+                existing_entity_graph=self.chunk_entity_relation_graph._graph,
+                text_chunks_data=self.text_chunks._data,
+                video_segment_feature_vdb=self.video_segment_feature_vdb,
+                text_embedding_func=self.embedding_func,
+            )
+            logger.info("[VideoRAG] HTVG build complete.")
+        except Exception as e:
+            logger.warning(
+                f"[VideoRAG] HTVG build failed (non-fatal): {e}. "
+                "Set enable_htvg=False to suppress this warning."
+            )
 
     async def _save_video_segments(self):
         tasks = []
@@ -488,6 +540,7 @@ class VideoRAG:
             self.video_segment_feature_vdb,
             self.video_segments,
             self.video_path_db,
+            self.htvg_storage,      # persist HTVG after each ingest
         ]:
             if storage_inst is None:
                 continue

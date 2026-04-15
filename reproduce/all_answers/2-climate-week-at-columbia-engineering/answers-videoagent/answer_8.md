@@ -1,1 +1,0 @@
-The idea behind the air sensors lab at Columbia's Lamont Doherty Earth Observatory is to monitor and analyze air quality and atmospheric conditions. The lab uses advanced sensors to collect data on pollutants, greenhouse gases, and other atmospheric components to better understand environmental changes and their impacts on climate and human health.

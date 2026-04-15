@@ -1,1 +1,0 @@
-DSPy improves in-context learning in LLMs by providing a visual representation of the model's knowledge, allowing users to see how the knowledge is organized and used to generate text. This helps users better understand and effectively use the model.

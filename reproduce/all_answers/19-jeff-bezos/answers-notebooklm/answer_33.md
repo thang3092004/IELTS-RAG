@@ -1,5 +1,0 @@
-Jeff Bezos believes it’s crucial for strong leaders to cultivate the “next generation of leaders”. He sees this as one of the few essential duties of a “big leader,” along with identifying big ideas and driving their execution. Bezos believes that leaders are not indispensable, and that companies should be able to function successfully without them. To demonstrate this point, he decided to step down as CEO of Amazon, in part to show that the company could thrive without his daily presence.
-
-  Bezos thinks of Amazon as a child that he raised to be independent and successful. He is proud of the fact that Amazon continues to do well without him directly at the helm, though he is still involved in some aspects of the business. He compares his relationship with Amazon to a parent whose child has gone off to college—still involved, but not in charge.
-
-  Even though he’s no longer CEO, Bezos still wants to see Amazon and its leadership team do well. He considers helping the leadership team to be one of his main jobs at the company.

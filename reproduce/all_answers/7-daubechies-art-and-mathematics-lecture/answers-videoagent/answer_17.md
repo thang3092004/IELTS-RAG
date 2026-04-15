@@ -1,1 +1,0 @@
-In addition to her work with the North Carolina Museum of Art, Daubechies discussed the use of mathematics in art conservation, including the process of cleaning and preserving paintings, and the use of mathematical models in scientific research to study the behavior of materials.

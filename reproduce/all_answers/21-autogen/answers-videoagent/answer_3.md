@@ -1,1 +1,0 @@
-The video segments do not provide specific information about AutoGen's integration with local LLMs and open-source models. The captions retrieved are generic and focus on looking at documents, diagrams, and manuals. Therefore, I cannot provide a detailed answer based on the current data.

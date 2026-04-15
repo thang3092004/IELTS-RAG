@@ -1,7 +1,0 @@
-The mural in the Water Curtain Cave tells the story of the Monkey King, Sun Wukong, and his journey. The mural depicts Wukong's rise to power, his rebellion against the celestial court, and his eventual imprisonment beneath a mountain. The mural also shows the events leading up to Wukong's journey to the west with the monk Tang Sanzang to retrieve Buddhist scriptures.
-
-**The mural in the Water Curtain Cave foreshadows the events of the game.** For example, the mural shows Wukong battling a celestial general, which mirrors the player's battles against various celestial enemies. The mural also shows Wukong being sealed beneath a mountain, which is similar to the fate of the protagonist at the end of the game.
-
-**The mural's depiction of Wukong's journey reflects the protagonist's own journey.** Both Wukong and the protagonist are powerful warriors who challenge the celestial order. Both characters also seek to break free from the past and forge their own destinies.
-
-The inscription on the mural emphasizes the cyclical nature of destiny. It suggests that **even those who seek to break free from the past are ultimately bound by fate.** This theme is reflected in the game's multiple endings, which suggest that the protagonist's choices may not ultimately change the course of destiny.

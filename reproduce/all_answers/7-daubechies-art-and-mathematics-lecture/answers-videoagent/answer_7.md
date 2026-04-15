@@ -1,1 +1,0 @@
-The methods used to virtually age and rejuvenate the Giotto altarpiece involve a combination of computer graphics and digital imaging techniques to manipulate the image, showing the effects of aging and rejuvenation.

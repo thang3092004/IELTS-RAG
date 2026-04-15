@@ -1,1 +1,0 @@
-I am unable to find specific segments in the video that discuss Bezos's approach to customer service or his overall business strategy. The available tools and data did not provide relevant information.

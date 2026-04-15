@@ -1,5 +1,0 @@
-The instructor suggests that a minimum IQ of 150 is beneficial for trading success. This recommendation is based on the notion that higher intelligence correlates with better decision-making and analytical skills, which are essential for navigating the complexities of trading. The instructor expresses skepticism about the idea that anyone can learn to trade without a strong intellectual foundation, cautioning that those who portray trading as easy may be misleading. 
-
-The emphasis on IQ highlights the instructor's belief in the necessity of cognitive abilities for effective trading, particularly when dealing with market dynamics and formulating trading strategies. This point is supported by references to studies showing that economic conditions can impact cognitive performance, suggesting that without the right mental capabilities, individuals might struggle in the trading environment. 
-
-In summary, the instructor advocates for a high IQ as a critical factor for success in trading, underscoring the importance of intelligence in understanding and managing financial markets effectively.

@@ -1,1 +1,0 @@
-The video does not provide specific details on how Massimo Fonacier reconstructs damaged frescoes. However, it shows a general process of cleaning paintings using brushes and sponges, which might be part of a restoration process.

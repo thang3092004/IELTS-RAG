@@ -1,1 +1,0 @@
-Mathematical techniques aided in reconstructing the Padua frescoes by analyzing patterns and shapes in the paintings, which enabled the creation of a 3D model of the frescoes.

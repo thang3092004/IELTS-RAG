@@ -16,8 +16,12 @@ def encode_video(video, frame_times):
     
 def segment_caption(video_name, video_path, segment_index2name, transcripts, segment_times_info, caption_result, error_queue):
     try:
-        model = AutoModel.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True, torch_dtype=torch.bfloat16, device_map="cuda")
-        tokenizer = AutoTokenizer.from_pretrained('./MiniCPM-V-2_6-int4', trust_remote_code=True)
+        model_path = os.path.abspath("./MiniCPM-V-2_6-int4")
+        if not os.path.exists(model_path):
+            model_path = "openbmb/MiniCPM-V-2_6-int4"
+            
+        model = AutoModel.from_pretrained(model_path, trust_remote_code=True, torch_dtype=torch.bfloat16, device_map="cuda")
+        tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         model.eval()
         
         with VideoFileClip(video_path) as video:

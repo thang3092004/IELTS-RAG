@@ -1,1 +1,0 @@
-The video segments do not provide specific details about Ingrid Daubechies's collaboration with the North Carolina Museum of Art. The captions mainly describe looking at art and decorations, with no mention of Ingrid Daubechies or any collaboration details.

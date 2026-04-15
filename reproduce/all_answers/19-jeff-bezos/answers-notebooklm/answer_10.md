@@ -1,5 +1,0 @@
-The internet has **destroyed almost all of the traditional advantages that local newspapers had**, including revenue sources. In the past, newspapers relied heavily on advertising revenue, but the internet has taken away that revenue stream. The internet also brought about **free global distribution**, which was previously a huge expense for newspapers that had to build printing plants everywhere to reach a wider audience.
-
-The Washington Post has adapted to these changes by switching from a business model that relied on a lot of money per reader with a relatively small number of readers to **one that makes a tiny bit of money per reader with a very large number of readers**. The Post transitioned from a local paper to a national and global publication. Additionally, the Post transitioned from an advertising-based model to a **subscription-based model**.
-
-The Post has faced financial challenges in recent years. Although it was profitable for six or seven years after being bought by Jeff Bezos in 2013, it has lost money again in the last few years and needs to be put back on a good footing. Bezos has a few ideas for how to do that and says to stay tuned.

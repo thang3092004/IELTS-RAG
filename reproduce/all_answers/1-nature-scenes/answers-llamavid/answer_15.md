@@ -1,1 +1,0 @@
-The man-of-war fish is a parasite that attaches to the body of the crab, which is then eaten by the sharks and trevally. The man-of-war fish is armed with thousands of sting cells, which it uses to kill fish that come close to it. It is able to detect the presence of fish and other prey through its powerful sense of smell.

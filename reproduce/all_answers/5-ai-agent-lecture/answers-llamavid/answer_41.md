@@ -1,1 +1,0 @@
-Gemini Flash claims to surpass GPT-4 on benchmarks. Gemini Flash is a new experimental model released by Google AI researchers that is designed to be multi-model and agentic in nature. It is a 104 billion parameter model that outperforms GPT-4 in response accuracy. Gemini Flash also has support for 10 different languages, including Arabic, Korean, and Chinese.

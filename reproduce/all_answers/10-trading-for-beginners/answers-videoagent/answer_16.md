@@ -1,1 +1,0 @@
-I cannot determine how traders can avoid emotional distress and anxiety when interacting with other traders based on the available video data and tools.

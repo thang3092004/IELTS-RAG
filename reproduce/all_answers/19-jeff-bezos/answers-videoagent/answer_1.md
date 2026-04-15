@@ -1,1 +1,0 @@
-Bezos's 'Day One' philosophy is a mindset focused on innovation and customer satisfaction, emphasizing that every day is a new opportunity to improve and that the company should always be in a state of innovation.

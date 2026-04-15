@@ -1,3 +1,0 @@
-"**Tech**, " which stands for **T**rust, **E**mpowerment, and **C**ollaboration, is a leadership principle implemented at Saint-Gobain to foster efficient decision-making and maximize the potential of its employees. 
-
-A significant organizational change reflecting this principle was raising the financial threshold for capital expenditure (CapEx) decisions. Previously, country CEOs could only authorize expenditures up to $3 million; this threshold was increased to $10 million. This empowerment enables country CEOs like Mark in North America to make faster decisions on projects under $10 million, improving the company's agility and responsiveness to market opportunities.

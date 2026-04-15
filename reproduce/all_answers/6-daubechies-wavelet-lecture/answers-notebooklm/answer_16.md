@@ -1,5 +1,0 @@
-Daubechies explains that spectrograms, which are visual representations of the frequency content of a signal over time, show characteristic features for signals with time-varying frequencies.
-
-**For a signal with time-varying frequencies, the spectrogram will show bands that are bent, indicating how the frequency content of the signal evolves with time**. Daubechies mentions that spectrograms often have features that are not intrinsic to the signal, but rather introduced by the analysis tool itself.  For example, sharp cutoffs in the analysis window can lead to slow decay in the frequency domain, creating artificial features in the spectrogram. 
-
-Another feature introduced by analysis tools that appears in spectrograms, according to Daubechies, are the repeated patterns of bands in speech signals. These patterns, sometimes called harmonics, are introduced by the way the signal is analyzed, rather than being inherent in the speech signal itself.

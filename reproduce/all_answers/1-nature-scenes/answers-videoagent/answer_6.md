@@ -1,1 +1,0 @@
-The giant cuttlefish of Australia reproduce through a process where males display vibrant colors to attract females. Once a female is interested, the male transfers a sperm packet to the female using a specialized arm. The female then lays eggs in a safe location, such as under rocks or in crevices.

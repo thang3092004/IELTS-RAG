@@ -1,1 +1,0 @@
-In SuperDecisions, defining and utilizing rating scales likely involves the use of visual aids or tools to facilitate the process, making it more efficient and easy to understand.

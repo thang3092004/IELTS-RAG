@@ -1,1 +1,0 @@
-I am unable to answer the question about the role of technological innovations in the 2024 Formula 1 season using the provided tools, as they are designed for video analysis.

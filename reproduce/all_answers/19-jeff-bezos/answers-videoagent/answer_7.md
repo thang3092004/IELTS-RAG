@@ -1,1 +1,0 @@
-Bezos balances intuition with data-driven decision-making by emphasizing the importance of intuition for making quick decisions and using data analysis to validate and refine those decisions. This combination allows him to make successful business decisions.

@@ -1,1 +1,0 @@
-Journalists face challenges such as access to reliable sources, pressure from external influences, maintaining objectivity, and the risk of misinformation while striving to report truthfully.

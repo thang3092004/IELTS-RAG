@@ -1,4 +1,0 @@
-AutoGen leverages a hierarchical agent setup by organizing agents into different levels, where each level has specific roles and responsibilities. In complex problems like multi-agent coding scenarios or supply chain optimization, this setup allows for efficient problem-solving by dividing tasks among specialized agents. Higher-level agents can oversee and coordinate the activities of lower-level agents, ensuring that the overall objectives are met. This hierarchical structure enables parallel processing, reduces complexity, and enhances scalability, making it suitable for tackling intricate problems.
-
-
-AutoGen uses a hierarchical agent setup by organizing agents into different levels with specific roles. In complex scenarios like multi-agent coding or supply chain optimization, higher-level agents coordinate lower-level agents, allowing for efficient problem-solving through task specialization, parallel processing, and enhanced scalability.

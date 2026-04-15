@@ -1,1 +1,0 @@
-Transformational teaching is an educational approach that inspires and motivates students by fostering a supportive and engaging learning environment. It plays a significant role in fostering student leadership and empowerment by encouraging autonomy, building confidence, promoting critical thinking, fostering collaboration, and inspiring a vision for the future.

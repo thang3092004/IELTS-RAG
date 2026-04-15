@@ -1,1 +1,0 @@
-The process involves using sub-agents to perform specific tasks such as extracting data, analyzing trends, and checking compliance, while a super agent coordinates these activities, integrates the results, and produces a comprehensive analysis of the financial reports in PDF format.

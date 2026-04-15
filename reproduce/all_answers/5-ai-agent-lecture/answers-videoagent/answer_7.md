@@ -1,1 +1,0 @@
-Anthropic's system prompt design likely differs from typical approaches by focusing on safety and alignment with human values, as Anthropic is known for its emphasis on AI safety and ethical considerations. However, the specific details of how it differs were not found in the video segments explored.

@@ -1,1 +1,0 @@
-The video does not seem to contain specific information about OpenAI's SWARM methods for multi-agent system orchestration. The segment I checked was about using OpenAI to generate text.

@@ -1,5 +1,0 @@
-Analyzing bird songs using synchrosqueezing can provide insights into the birds' communication patterns and the nature of their songs. Synchrosqueezing allows us to analyze the spectrogram of the bird's song, which shows its frequency and time components, and then reconstruct the original signal. This can reveal interesting aspects of the song's structure, including its melody, timing, and complexity. For example, by analyzing the spectrogram, we can determine how the bird's voice is modulated during the song. We can also determine whether the song is an example of a "cocktail party" problem, where the bird's songs are not completely realizable. 
-
-In addition, synchrosqueezing can be used to identify the "fast modes" and "slow modes" of a bird's songs, which can provide insights into how the bird produces the song. We can also determine the instantaneous frequency of a bird's song, which can provide insights into the bird's ability to sing at different frequencies. 
-
-Overall, synchrosqueezing can be a powerful tool for analyzing the complexity of bird songs and understanding the nature of their communication.

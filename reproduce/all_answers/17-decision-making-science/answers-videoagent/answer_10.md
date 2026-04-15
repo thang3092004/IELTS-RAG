@@ -1,1 +1,0 @@
-The Defense Health Agency balances the well-being of individual warfighters with the overall mission effectiveness of the Department of Defense by prioritizing readiness, providing comprehensive care, optimizing resources, collaborating with the DoD, investing in innovation and technology, and continuously adapting based on feedback.

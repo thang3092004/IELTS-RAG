@@ -1,6 +1,0 @@
-The digitization process of the fresco fragments involved transforming the visual information into numerical data that computers could process. Here's how it worked:
-
-*   **Images were divided into tiny squares called pixels.** Each pixel was assigned a number representing its gray level, ranging from 0 for black to 255 for white. This created a digital representation of the image using a grid of numbers.
-*   **This numerical representation allowed for mathematical analysis and manipulation of the images.** Researchers could then apply algorithms to compare, rotate, and analyze the fragments.
-
-However, simply comparing the raw numerical data of two images was not sufficient to determine if they matched, especially if the fragments were rotated or slightly shifted during digitization. To address this challenge, researchers developed algorithms based on circular harmonics to analyze the visual content of the fragments in a way that was rotation-invariant, enabling efficient matching and reconstruction of the frescoes.

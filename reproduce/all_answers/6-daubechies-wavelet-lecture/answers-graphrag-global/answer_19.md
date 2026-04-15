@@ -1,5 +1,0 @@
-In her discussion on the synchrosqueezing transform, Ingrid Daubechies emphasizes the enhancement in signal analysis made possible through the combination of multi-tapering and Hermite functions. One specific example she provides to illustrate the effectiveness of this technique is its application to Photoplethysmogram Signals. 
-
-These signals are vital in health monitoring because they require precise time-frequency localization for accurate analysis. By utilizing multi-tapering with Hermite functions, the resolution of time-frequency representation in such signals is significantly improved. This advancement is crucial as it facilitates better monitoring and interpretation of physiological data, which can lead to more accurate health assessments. 
-
-In summary, Daubechies' example of Photoplethysmogram Signals serves as a prime illustration of how the novel application of multi-tapering and Hermite functions enhances the analysis capabilities in critical health-related contexts.

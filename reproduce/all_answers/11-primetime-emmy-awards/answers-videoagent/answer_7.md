@@ -1,1 +1,0 @@
-Recurring themes across all Emmy ceremonies often include celebrating excellence in television, recognizing outstanding performances and productions, promoting diversity and inclusion, and addressing current social and political issues. Additionally, the ceremonies typically feature glamorous red carpet events, memorable speeches, and tributes to industry legends.

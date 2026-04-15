@@ -1,7 +1,0 @@
-The use of proprietary data and APIs in GPT models has a significant impact on their replicability. Since GPT models are trained on proprietary data, they are only able to replicate the knowledge contained within that data. This limits the scope of the models' knowledge to the specific data they have been trained on. This also means that the models are only able to provide answers that are relevant to the specific data they have been trained on, rather than general knowledge. This limits the usefulness of GPT models for tasks that require general knowledge beyond what is contained in the proprietary data. 
-
-In addition, proprietary APIs limit the ability of GPT models to interact with other tools and services. If a GPT model is only able to access a specific API, it is limited to the specific capabilities and functions that API provides. This limits the potential of GPT models to provide answers that go beyond what is contained within the proprietary data.
-
-In summary, proprietary data and APIs impact GPT models by limiting their knowledge to the specific data they have been trained on, and by limiting their ability to interact with other tools and services, thus limiting their usefulness for tasks requiring general knowledge.
-
----

@@ -1,1 +1,0 @@
-Keyword-based search mechanisms like BM25 improve RAG performance by efficiently retrieving and ranking relevant documents, ensuring high-quality context for the generative model, and handling large-scale datasets effectively.

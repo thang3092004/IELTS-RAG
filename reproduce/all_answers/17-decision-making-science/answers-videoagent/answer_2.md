@@ -1,1 +1,0 @@
-Trust is crucial in moving to the cloud as organizations must rely on cloud providers for secure data management, privacy, compliance, reliability, and performance. Trust is built through transparency, proven track records, and third-party audits.

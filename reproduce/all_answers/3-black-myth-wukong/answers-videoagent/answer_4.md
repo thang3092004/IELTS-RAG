@@ -1,1 +1,0 @@
-The specific in-game mechanics described in Part 1 include playing the game on the screen, controlling the game with a controller, and pressing buttons on a game controller.

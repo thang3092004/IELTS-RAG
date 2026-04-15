@@ -1,1 +1,0 @@
-The mission of xAI, founded by Elon Musk, is to understand the true nature of the universe. Grok, which is a product of xAI, aims to integrate advanced AI capabilities into social media platforms, starting with X (formerly known as Twitter), to enhance user interaction and experience.

@@ -1,1 +1,0 @@
-The key features of AutoGen Studio include its ability to generate code and its user-friendly interface. The video also highlights the importance of code generation in software development.

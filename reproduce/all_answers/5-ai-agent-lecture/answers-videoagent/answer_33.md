@@ -1,1 +1,0 @@
-Anthropic's system prompt for Claude 3.5 Sonnet specifically instructs the model to avoid starting responses with the word **"certainly"**. This instruction is part of a broader directive for Claude to respond directly to all human messages without unnecessary affirmations or filler phrases.

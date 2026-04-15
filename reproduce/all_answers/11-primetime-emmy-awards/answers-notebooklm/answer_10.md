@@ -1,3 +1,0 @@
-The sources provided do not include information about Amy J. Johnson or her work with "A Doll Like Me." Therefore, it is not possible to answer your question using only the provided sources. You may want to independently verify information about Amy J. Johnson and "A Doll Like Me."
-
- Araksya Karapetyan states that she was personally affected by the “doom and gloom” often encountered in her industry. She was inspired by the positivity of the subject of her story, who reminded her “that there is good in the world.” Karapetyan asserts that it is a journalist's job to “find that light” and show the world that “good still exist[s].”

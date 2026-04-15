@@ -1,1 +1,0 @@
-The video does not seem to contain explicit segments or captions related to Daubechies illustrating the effectiveness of synchrosqueezing in extracting fetal heartbeats from maternal ECGs, based on the tools and data available.

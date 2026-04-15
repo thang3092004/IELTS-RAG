@@ -1,1 +1,0 @@
-Linking feedback to specific parts of writing is challenging without Canvas because it requires manually identifying and marking the relevant parts in the writing. Canvas allows for easy identification and marking of parts of writing, making it easier to provide feedback on those specific parts.

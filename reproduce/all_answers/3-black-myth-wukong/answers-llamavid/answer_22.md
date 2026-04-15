@@ -1,1 +1,0 @@
-The staff the player receives in the 'Valley of Ecstasy' is unique because it can restore health and mana, and it has a secret ability to restore health and mana multiple times.

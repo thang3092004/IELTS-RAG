@@ -1,7 +1,0 @@
-The United Network for Organ Sharing (UNOS) used the AHP and Decision Lens software to prioritize organ transplant recipients based on a variety of factors, including medical urgency, age, medical status, and medical priority. This resulted in a significant decrease in the number of deaths on the waiting lists.
-
-Prior to using the software, UNOS was unable to effectively prioritize recipients and wasted resources on unsuccessful transplants. The AHP and Decision Lens software enabled UNOS to prioritize recipients based on various criteria, such as medical urgency, age, medical status, and medical priority. This prioritization allowed UNOS to allocate organs to the highest priority recipients, reducing the number of deaths on the waiting lists.
-
-The AHP and Decision Lens software allowed UNOS to take into account multiple factors, including medical urgency, age, medical status, and medical priority, when prioritizing recipients. This prioritization resulted in a decrease in the number of deaths on the waiting lists.
-
-In summary, the AHP and Decision Lens software allowed UNOS to prioritize recipients based on a variety of factors, enabling more effective allocation of organs and reducing the number of deaths on the waiting lists.

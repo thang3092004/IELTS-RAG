@@ -1,1 +1,0 @@
-In an AutoGen workflow, a senior analyst agent typically achieves managerial oversight by monitoring the progress of tasks, ensuring compliance with established procedures, and making strategic decisions to guide the workflow. This may involve reviewing reports, coordinating with team members, and using software tools to track performance metrics and outcomes.

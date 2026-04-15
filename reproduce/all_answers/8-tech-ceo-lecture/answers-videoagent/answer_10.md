@@ -1,1 +1,0 @@
-Saint-Gobain's main sustainability-focused strategies include energy efficiency, carbon reduction, circular economy, sustainable innovation, water management, and social responsibility.

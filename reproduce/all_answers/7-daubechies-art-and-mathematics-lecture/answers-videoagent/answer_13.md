@@ -1,1 +1,0 @@
-The video segments do not provide specific details about the digitization process of fresco fragments. The captions mainly describe looking at drawings and pictures, which might suggest that the digitization process involves examining and possibly capturing images of the fresco fragments for digital records.

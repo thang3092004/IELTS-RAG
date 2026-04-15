@@ -1,1 +1,0 @@
-Sora facilitates the creation of looping videos by providing a simple interface for creating and editing videos, with features such as adding text, images, and other visual elements, and adjusting the speed and direction of the video. This activity is associated with segments 1013, 1134, and 1135.

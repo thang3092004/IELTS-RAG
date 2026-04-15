@@ -1,1 +1,0 @@
-The video does not provide information on how the United Network for Organ Sharing (UNOS) leveraged AHP and Decision Lens software to reduce the number of deaths on organ transplant waiting lists.

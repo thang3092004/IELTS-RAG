@@ -1,1 +1,0 @@
-The challenges faced by mother bears in securing salmon typically include competition with other bears, the need to catch enough fish to sustain themselves and their cubs, and navigating the physical environment of rivers and streams where salmon are found. Additionally, mother bears must be vigilant in protecting their cubs from potential threats while fishing.

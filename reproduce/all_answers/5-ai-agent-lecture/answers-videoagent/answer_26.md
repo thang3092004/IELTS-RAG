@@ -1,1 +1,0 @@
-The question is not related to the video analysis tools provided and seems to be about a system prompt for Claude 3.5 Sonet, which is outside the scope of this task.

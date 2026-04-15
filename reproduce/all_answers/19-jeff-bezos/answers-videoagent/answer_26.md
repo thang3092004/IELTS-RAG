@@ -1,1 +1,0 @@
-The 'escape system' in the design of New Shepard is significant because it enhances crew safety by providing a reliable means to quickly separate the crew capsule from the booster rocket in case of an emergency during launch, allowing for a safe return to the ground using parachutes.

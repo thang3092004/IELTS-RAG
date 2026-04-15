@@ -1,7 +1,0 @@
-A stateful graph refers to a graph that can represent the state of a system. In LangGraph, nodes in the graph can have a state that can change over time. This state is represented by a dictionary containing the messages sent and received by that node. The state of a node is updated by appending the messages together and checking the result of the node's function. LangGraph uses stateful graphs to represent the state of the system and the interactions between nodes within the graph. 
-
-The stateful graph in LangGraph can be used to represent the state of an agent or the state of a system. The nodes in the graph can represent the different components of the system, while the edges can represent the interactions between nodes. The state of a node can be updated by appending the messages together and checking the result of the node's function. 
-
-The stateful graph in LangGraph allows for a flexible design approach that can be used to model complex multi-agent systems or systems with cyclic computations. The stateful graph in LangGraph provides a simple way to represent the state of the system and the interactions between nodes, making it a useful tool for building stateful applications.
-
-In summary, a stateful graph in LangGraph can be used to represent the state of the system and the interactions between nodes within the graph. The stateful graph provides a flexible way to model complex multi-agent systems and systems with cyclic computations.

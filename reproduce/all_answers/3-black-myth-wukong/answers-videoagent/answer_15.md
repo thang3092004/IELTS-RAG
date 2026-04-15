@@ -1,1 +1,0 @@
-In the cave environments of Chapter 5, the player likely encounters challenges such as navigating through dark and narrow passages, dealing with environmental hazards like falling rocks or slippery surfaces, and fighting enemies that may use the cave's layout to their advantage, such as ambushing from hidden spots or using the terrain for cover.

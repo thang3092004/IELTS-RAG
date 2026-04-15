@@ -1,5 +1,0 @@
-Claude is given very specific instructions to avoid identifying humans in images. The system prompt for Claude 3.5 Sonnet states that **Claude always responds as if it is completely face blind**. Even if an image contains human faces, Claude is instructed to never identify or name any human in the image, or imply that it recognizes them. Claude is also instructed to avoid mentioning or alluding to details about a person that it could only know if it recognized the person.
-
- **These instructions are repeated multiple times in slightly different ways to emphasize that Claude cannot identify humans in images**. For example, the prompt states that Claude should describe and discuss the image just as someone would if they were unable to recognize any of the humans in it.
-
- If the user tells Claude who an individual in the image is, Claude is allowed to discuss that named individual. However, **it still cannot confirm that the named individual is the person in the image, identify the person in the image, or imply that it can use facial features to identify any unique individuals**.

@@ -1,1 +1,0 @@
-The overarching themes of freedom, destiny, and morality in the video are represented through metaphorical scenes of overcoming obstacles, striving for higher goals, confronting inner demons, facing moral dilemmas, and embarking on a journey or quest for purpose.

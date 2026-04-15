@@ -1,7 +1,0 @@
-The COVID-19 pandemic has had a devastating impact on literacy rates globally, with millions of students unable to access education for extended periods. According to the United Nations Educational, Scientific, and Cultural Organization (UNESCO), more than 1.6 billion students worldwide have been affected by school closures due to the pandemic. The organization has reported that the number of students without access to education has increased from 1.3 billion to 1.6 billion. 
-
-To address this learning loss, UNESCO has proposed several strategies. First, the organization is developing a global movement to mobilize resources to support education. Second, UNESCO has started a global conversation to reform its recommendation on education for peace and human rights to guide public policies. Third, UNESCO is calling for more funding, material, and human resources to support education.
-
-In addition, the organization has launched a global initiative called "Education Cannot Wait" to provide education to the 1.6 billion students who have been affected by the pandemic. This initiative aims to reach 22 million children and youth by 2021.
-
-In summary, the COVID-19 pandemic has had a profound impact on literacy rates and learning loss worldwide, and UNESCO is working to develop strategies to address this issue through initiatives like "Education Cannot Wait" and by mobilizing resources to support education.

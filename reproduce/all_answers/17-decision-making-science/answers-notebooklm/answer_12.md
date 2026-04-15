@@ -1,5 +1,0 @@
-The sources do not discuss the specifics of Gartner's 7Rs framework. However, source mentions that the framework aids established companies in evaluating their technology and business processes to determine where to invest and what to change. Source provides an example of **how agility is crucial in decision-making for these companies**, using the case of Alcoa, a manufacturing company.
-
-Alcoa's traditional approach involved designing processes meant to last for 20 years without significant change. This rigid system clashed with Microsoft's shorter technology support lifecycles, posing a problem for Alcoa. This example highlights the importance of agility and continuous evaluation, aligning with the concept of Gartner's 7Rs, which prompts companies to constantly assess their systems to remain competitive.
-
-The sources emphasize that companies must embrace agility and iterative processes to remain competitive in a rapidly evolving technological landscape. While the 7Rs are not explicitly detailed, their core purpose resonates with the sources' emphasis on continuous evaluation and adaptation.

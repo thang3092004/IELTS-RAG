@@ -1,1 +1,0 @@
-Ollama facilitates local LLM usage in Graph RAG by allowing users to specify the model they want to use for their Graph RAG, and providing the necessary API key to access the model. This allows users to run Graph RAG on their local machines, bypassing the need to use the cloud services.

@@ -1,7 +1,0 @@
-Video is an important development area for OpenAI for a few key reasons. First, video has the potential to enable new use cases for AI that were previously not possible. For example, with video, AI models can generate realistic and dynamic visuals that can be used in applications like video editing, augmented reality, and virtual reality. This can help create more immersive and engaging experiences for users. 
-
-Second, video can enable new forms of storytelling and creativity that are difficult or impossible with text alone. For example, video can be used to create dynamic visualizations of stories, data visualizations, and animations. This can help expand the types of media that AI can generate and the creative possibilities it can enable.
-
-Finally, video can help AI learn from real-world data in a more practical and applied way. By generating and analyzing video data, AI models can learn from the real world and apply that knowledge to other domains. This can help make AI more useful and impactful for practical applications.
-
-In summary, video is an important development area for OpenAI because it has the potential to enable new use cases, forms of creativity, and learning from real-world data, which can help expand the capabilities of AI and make it more practical and impactful.

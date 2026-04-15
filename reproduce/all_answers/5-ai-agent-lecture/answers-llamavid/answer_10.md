@@ -1,7 +1,0 @@
-When using local LLMs with MemGPT, there are a few technical challenges that arise. First, the local LLMs may not have been trained on the same data as the MemGPT model. This could lead to the MemGPT model being able to generate more accurate and relevant responses. However, the local LLMs may also be able to provide useful context and background information that the MemGPT model is missing. 
-
-Second, the local LLMs may not be able to fully understand the user's question and provide the necessary information to generate an accurate response. The MemGPT model may need to utilize the local LLMs to provide the necessary knowledge.
-
-Third, the local LLMs may not have been trained on the same prompts and tasks as the MemGPT model. This could lead to the MemGPT model being able to generate more accurate and relevant responses. However, the MemGPT model may also be able to provide useful context and background information that the local LLMs are missing.
-
-In summary, while local LLMs can provide useful information and knowledge, they may not be able to fully understand the user's question and provide the necessary information to generate an accurate response. The MemGPT model may need to utilize the local LLMs to provide the necessary knowledge.

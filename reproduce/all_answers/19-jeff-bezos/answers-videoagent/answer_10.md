@@ -1,1 +1,0 @@
-The internet has impacted traditional newspapers by shifting advertising revenue to digital platforms and changing consumer behavior. The Washington Post has adapted by investing in digital transformation, offering digital subscriptions, leveraging social media, producing high-quality journalism, and using data analytics to tailor content.

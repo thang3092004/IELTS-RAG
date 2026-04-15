@@ -1,5 +1,0 @@
-According to Rajesh Jain, the CEO of Saint-Gobain, the two essential elements for building a strong company culture are:
-
-1. Empowering employees. Jain believes that empowering employees is the most important aspect of building a strong company culture. He says that empowering employees means giving them the freedom to make decisions, the responsibility for those decisions, and the trust that their decisions will be good. He says that he spends more than half of his time on HR and organizational issues because he believes that building a culture of trust and empowerment is the most rewarding and important aspect of being a CEO. 
-
-2. Defining priorities. Jain believes that defining priorities and giving people clear targets is crucial for building a strong company culture. He says that he spends a lot of time defining priorities and setting targets, and that he trusts the people he has hired to make the right decisions. He believes that by empowering employees and defining priorities, he can help them discover their own talents and unleash their potential.

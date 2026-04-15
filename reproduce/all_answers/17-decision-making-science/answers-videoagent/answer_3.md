@@ -1,1 +1,0 @@
-The video does not contain specific segments discussing Microsoft's approach to data privacy in China, Germany, and the United States, or the tools were unable to retrieve such information.

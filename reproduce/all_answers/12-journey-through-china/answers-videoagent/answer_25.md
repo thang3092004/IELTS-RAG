@@ -1,1 +1,0 @@
-The Bezeklik Thousand Buddha Caves in Turpan are historically and culturally significant as a center of Buddhist art and worship along the Silk Road, showcasing a blend of Indian, Persian, and Chinese influences through their murals and paintings. They offer insights into the religious and cultural exchanges of the time and face ongoing preservation challenges.

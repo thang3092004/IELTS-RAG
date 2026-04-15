@@ -1,1 +1,0 @@
-Daubechies employed wavelet transforms to analyze variations in scale and detail within Van Gogh's brushstrokes.

@@ -1,1 +1,0 @@
-The video does not contain information on the advantages and disadvantages of using the moon as a base for further space exploration.

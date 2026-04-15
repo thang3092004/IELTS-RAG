@@ -1,5 +1,0 @@
-Jeff Bezos, the owner of *The Washington Post*, explained the reasoning behind the newspaper's decision to not endorse a presidential candidate in the 2020 election. Bezos felt that **any endorsement would not have swayed voters and that it would have added to the perception of bias against the media**.
-
- Bezos believed that the endorsement would not have influenced any independent voters. He gave the example of a hypothetical independent voter in Pennsylvania who would not be swayed by *The Washington Post*'s endorsement.
-
- Bezos was also concerned about the perception of bias in the media. He stated that **media outlets, in order to be seen as objective and independent, need to be seen as accurately reporting information**, similar to voting machines that need to accurately count votes. He acknowledged that the distrust in media was not entirely the fault of media outlets but that they should address the problem where they can.

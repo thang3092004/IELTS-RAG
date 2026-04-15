@@ -1,1 +1,0 @@
-Chunking strategies in RAG include fixed-size chunking, semantic chunking, overlapping chunking, dynamic chunking, and hierarchical chunking. These strategies help manage large datasets and ensure efficient retrieval and generation by preserving context and relevance.

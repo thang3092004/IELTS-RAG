@@ -1,1 +1,0 @@
-AutoGen integrates with local LLMs and open-source models by using a configuration list to specify which models to use. It also allows for customizing the agents by specifying their roles, messages, and other attributes.

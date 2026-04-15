@@ -1,1 +1,0 @@
-The question about Bezos's childhood experience in Montessori schools and its influence on his views on education cannot be answered using the video analysis tools, as it requires information beyond the video content.

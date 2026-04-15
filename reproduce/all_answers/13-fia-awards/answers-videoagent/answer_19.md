@@ -1,1 +1,0 @@
-The FIA World Rally Championship has adapted by introducing hybrid technology in Rally1 cars, expanding its calendar with new events and locations, implementing sustainability initiatives, and enhancing fan engagement through digital platforms.

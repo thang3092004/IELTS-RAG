@@ -1,7 +1,0 @@
-The 'no-go theorem' regarding orthonormal time-frequency bases states that it is impossible to construct an orthonormal time-frequency basis with both the window function W and its reciprocal W^(-1) decaying faster than 1 over t and 1 over xi respectively. This is because the Fourier transform of such a function is not unitary.
-
-This theorem was proved by Jaffar and Lowe in 1996 and is a key result in the study of time-frequency analysis. It shows that in order to construct an orthonormal time-frequency basis, the window function W must have a decay rate that is slower than 1 over t and 1 over xi, which limits the possible decay rates of the functions that can be used.
-
-The 'no-go theorem' provides an important constraint on the types of functions that can be used to construct an orthonormal time-frequency basis. It helps to rule out functions that would not work well in practice due to their decay rates.
-
-In summary, the 'no-go theorem' regarding orthonormal time-frequency bases states that it is impossible to construct such bases with both W and W^(-1) decaying faster than 1 over t and 1 over xi respectively, because the Fourier transform of such functions is not unitary. This theorem provides an important constraint on the types of functions that can be used to construct orthonormal time-frequency bases.

@@ -1,5 +1,0 @@
-In the 20th century, a company's power was often equated with its size. Large, multinational corporations with many employees were considered powerful. For example, companies like GE were on the list of powerful companies, likely because they were big.
-
-However, **the definition of a powerful company has shifted in the 21st century**. As technology has advanced, companies that are **agile** and able to **adapt to change** have become more powerful. Companies like Tesla, which was founded less than 10 years ago, have surpassed companies like Ford and GM, which have been around for much longer, in terms of market capitalization. This is because Tesla has been able to adapt to the changing automotive market and introduce innovative products like electric vehicles.
-
-The rise of cloud computing and the shift towards a subscription-based economy have also contributed to this shift. Companies that are able to **embrace these changes** and **deliver services** that meet the needs of their customers are more likely to succeed in the 21st century.

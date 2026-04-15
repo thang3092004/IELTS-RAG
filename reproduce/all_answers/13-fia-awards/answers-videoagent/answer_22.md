@@ -1,1 +1,0 @@
-The FIA's efforts to promote cost-effective grassroots motorsports programs in developing nations like Rwanda are significant because they increase accessibility, develop talent, stimulate economic growth, provide social benefits, encourage cultural exchange, and emphasize sustainability.

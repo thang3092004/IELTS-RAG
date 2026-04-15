@@ -1,1 +1,0 @@
-The video segments reviewed do not provide specific instructions given to Claude regarding the identification of humans in images. The available information pertains to using software for graphic design.

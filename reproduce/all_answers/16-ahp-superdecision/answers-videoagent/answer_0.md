@@ -1,1 +1,0 @@
-The benefits of using a ratings model over pairwise comparisons in AHP include increased efficiency, simplicity, and consistency. Ratings models are particularly useful when dealing with a large number of alternatives, when criteria are standardized, and when resources are limited.

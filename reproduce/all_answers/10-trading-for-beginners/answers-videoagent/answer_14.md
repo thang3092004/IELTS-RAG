@@ -1,1 +1,0 @@
-Besides identifying bullish and bearish trends, traders should consider market conditions such as volatility, liquidity, support and resistance levels, economic indicators, and news events before engaging in a trade setup.

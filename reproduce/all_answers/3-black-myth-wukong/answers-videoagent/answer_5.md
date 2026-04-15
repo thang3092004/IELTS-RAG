@@ -1,1 +1,0 @@
-The gameplay mechanics described in the excerpts include playing video games on a computer and screen, using a game controller, and interacting with a game console.

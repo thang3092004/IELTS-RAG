@@ -1,1 +1,0 @@
-ColPail improves document retrieval by providing a visual representation of the document's structure and organization, allowing users to quickly identify relevant information, thus saving time and effort.

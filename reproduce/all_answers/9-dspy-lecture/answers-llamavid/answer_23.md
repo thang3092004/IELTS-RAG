@@ -1,5 +1,0 @@
-When an LLM is presented with a task embedded in the middle of a long text, it can face several challenges. The text may contain complex concepts or relationships that the LLM has not been trained on, making it difficult for the model to understand and generate an accurate response. The model may also struggle with the context and background knowledge required to answer the question correctly. Additionally, the LLM may lack the necessary background knowledge to fully comprehend the task and generate a relevant response.
-
-In the case of the task embedded in the middle of a long text, the model may have to rely on its ability to contextualize and infer information from the text itself. This requires the model to be able to understand the context and extract meaning from the text, which can be challenging for a language model.
-
-Overall, LLMs face difficulties when presented with tasks embedded in the middle of long texts, as the text may contain complex concepts or lack the necessary background knowledge to provide an accurate response.

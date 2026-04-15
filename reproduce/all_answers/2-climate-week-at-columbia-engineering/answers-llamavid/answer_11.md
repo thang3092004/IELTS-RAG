@@ -1,5 +1,0 @@
-AI is rapidly changing the landscape of computing and data processing, with its proliferation of powerful processors and memory chips. However, this has raised concerns about the growing energy demands of AI systems. According to the video, AI consumes a lot of power, with a recent study showing that AI energy usage is growing 2.5 times faster than Moore's Law, despite improvements in hardware efficiency. This has led to discussions around the trade-offs between performance and energy usage, with researchers working to optimize AI models to reduce their power consumption. While hardware improvements can help, there is also a need for better coding and compute techniques to achieve more energy efficient AI systems.
-
----Supporting evidence---
-
-The video mentions a recent study showing that AI energy usage is growing 2.5 times faster than Moore's Law, despite improvements in hardware efficiency. It also discusses the need for better coding and compute techniques to achieve more energy efficient AI.

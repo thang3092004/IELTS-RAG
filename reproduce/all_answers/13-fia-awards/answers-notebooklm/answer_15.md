@@ -1,5 +1,0 @@
-While the sources highlight Michelle Mouton's accomplishments as a rally driver and advocate for safety in motorsports, they don't specifically detail the evolution of safety standards from the 1980s. However, her comment referencing the lack of "AC" and "any aid of Technology" in the Audi Quattro A2 rally car she drove during that era suggests **significant advancements in both driver comfort and safety technology** have been implemented in the sport since then.
-
-The president of the FIA emphasizes **safety** as a top priority and acknowledges Mouton's contributions to making rallying safer. This suggests **Mouton's experiences likely played a role in pushing for higher safety standards.**
-
-Further research outside the provided sources could reveal more specific details on safety advancements in motorsports since the 1980s.

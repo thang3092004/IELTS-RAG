@@ -1,1 +1,0 @@
-The concept of 'presets' in creative processes, such as in software like Sora, typically enhances creativity by providing predefined settings or templates that users can apply to their projects. This allows users to quickly achieve certain effects or styles without starting from scratch, thereby saving time and encouraging experimentation with different creative options.

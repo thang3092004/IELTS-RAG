@@ -1,1 +1,0 @@
-The most common question entrepreneurs face, according to Rajesh Jain, is: **"Should I bring in a COO to replace myself, someone who can take the business and scale it?"**

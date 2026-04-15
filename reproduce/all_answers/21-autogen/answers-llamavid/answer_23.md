@@ -1,1 +1,0 @@
-A seed value is used in AutoGen to enable faster inference of the model, as it stores the entire conversation history for each prompt and model, which can be reused for the same prompt. This allows AutoGen to reduce the inference time from 400 tokens to 2000 tokens, improving performance.

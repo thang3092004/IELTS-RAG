@@ -1,1 +1,0 @@
-The video does not provide explicit information about what shaped Jeff Bezos's problem-solving approach. However, it is widely known that Jeff Bezos's approach is influenced by his background in computer science and electrical engineering, his experience in the finance industry, and his focus on customer-centric innovation and long-term thinking.

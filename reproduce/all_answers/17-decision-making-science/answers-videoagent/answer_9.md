@@ -1,1 +1,0 @@
-I cannot find any segments in the video that illustrate how Decision Lens software helped the United Network for Organ Sharing (UNOS) make more equitable and effective organ allocation decisions.
