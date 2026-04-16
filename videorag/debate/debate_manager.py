@@ -204,9 +204,9 @@ async def _defend_hypothesis(
     ]
 
     # Tool-call loop
-    max_calls = 1  # Reduced from 12 to strictly control evidence accumulation
+    max_calls = 3  # Allowed 3 calls per agent per round as requested
     calls_made = 0
-    while calls_made < max_calls and state.tool_calls_made < 3: # Global limit 3 to match baseline
+    while calls_made < max_calls and state.tool_calls_made < 25: # Global limit 25
         resp = await _chat(
             llm_client, r_cfg.model, local_msgs,
             tools=tools, tool_choice="auto",
@@ -241,9 +241,9 @@ async def _defend_hypothesis(
                 ),
             })
     
-    if state.tool_calls_made >= 3:
-        logger.warning(f"[Defender] Reached global tool call limit (3) — finishing early")
-    else:
+    if state.tool_calls_made >= 25:
+        logger.warning(f"[Defender] Reached global tool call limit (25) — finishing early")
+    elif calls_made >= max_calls:
         logger.warning(f"[Defender] Reached max local tool calls ({max_calls}) — finishing early")
     return local_msgs[-1].get("content") or "Reached tool call limit."
 

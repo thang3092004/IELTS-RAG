@@ -23,14 +23,20 @@ global_ollama_client = None
 def get_openai_async_client_instance():
     global global_openai_async_client
     if global_openai_async_client is None:
-        global_openai_async_client = AsyncOpenAI()
+        global_openai_async_client = AsyncOpenAI(
+            api_key=os.environ.get("OPENAI_API_KEY"),
+            base_url=os.environ.get("OPENAI_BASE_URL")
+        )
     return global_openai_async_client
 
 
 def get_azure_openai_async_client_instance():
     global global_azure_openai_async_client
     if global_azure_openai_async_client is None:
-        global_azure_openai_async_client = AsyncAzureOpenAI()
+        global_azure_openai_async_client = AsyncAzureOpenAI(
+            api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
+            azure_endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT")
+        )
     return global_azure_openai_async_client
 
 def get_ollama_async_client_instance():

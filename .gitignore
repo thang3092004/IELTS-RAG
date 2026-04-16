@@ -11,11 +11,13 @@ venv/
 .venv/
 ENV/
 .env
+.env.example-new
 
 # --- Project Specific Models (HEAVY) ---
 MiniCPM-V-2_6-int4/
 faster-distil-whisper-large-v3/
 .checkpoints/
+.hf_home/
 
 # --- Project Data & Caches (HEAVY) ---
 _cache/
@@ -26,7 +28,7 @@ longervideos/*/
 !longervideos/prepare_data.py
 !longervideos/download.sh
 
-# --- Results & Evaluations (THOUSANDS OF FILES) ---
+# --- Results & Evaluations ---
 custom_eval_results_17/
 reproduce/all_answers/
 reproduce/winrate_comparison/batch_*.json
@@ -34,6 +36,12 @@ judge_output.json
 *.md
 !README.md
 
+# --- Archives ---
+*.zip
+*.tar.gz
+*.7z
+
 # --- OS ---
 .DS_Store
 Thumb.db
+error_log_videorag.txt

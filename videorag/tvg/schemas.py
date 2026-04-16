@@ -1,14 +1,22 @@
 """
-videorag/htvg/schemas.py
+videorag/tvg/schemas.py
 ========================
 TypedDicts that define the data contracts for every node, edge, and subgraph
-object in the Hierarchical Temporal-Visual Graph (HTVG).
+object in the Temporal-Visual Graph (TVG).
 
-All names are intentionally terse so they serialise cleanly to GraphML
-attributes (which only support flat string/int/float values when written to
-disk — any vector field is stored externally in FAISS).
+The TVG contains exactly two node types:
+* **TANNode** — a Temporal Anchor Node, one per ~30-second video segment.
+* **SemanticNode** — a text-derived entity/concept node.
 
-Google-style docstrings are used throughout the module where prose is needed.
+And three edge types:
+* **TemporalEdge** — ordered chain between consecutive TANs.
+* **CrossModalEdge** — semantic entity → TAN (text-grounded to a clip).
+* **SemanticEdge** — undirected relation between two SemanticNodes.
+
+All names serialise cleanly to GraphML (flat string/int/float values).
+Vector fields are stored externally in FAISS and referenced by ``faiss_row_id``.
+
+Google-style docstrings are used throughout.
 """
 
 from typing import List, Optional
@@ -20,7 +28,7 @@ from typing_extensions import TypedDict
 # ---------------------------------------------------------------------------
 
 class SemanticNode(TypedDict, total=False):
-    """A text-derived concept node (entity) in the HTVG semantic layer.
+    """A text-derived concept node (entity) in the TVG semantic layer.
 
     Attributes:
         node_id: Unique identifier — upper-cased entity name, e.g. "CLIMATE CHANGE".
@@ -39,52 +47,26 @@ class SemanticNode(TypedDict, total=False):
     faiss_row_id: int
 
 
-class ClipTANNode(TypedDict, total=False):
-    """A Temporal Anchor Node at the *clip* level (one per video segment).
+class TANNode(TypedDict, total=False):
+    """A Temporal Anchor Node — one per video segment (~30 s window).
 
     Attributes:
-        node_id: ``{video_name}_{segment_index}``, e.g. ``"lecture_3"``.
-        node_type: Always ``"tan_clip"``.
-        tan_level: Always ``"clip"``.
+        node_id: ``"{video_name}_{segment_index}"``, e.g. ``"lecture_3"``.
+        node_type: Always ``"tan"``.
         video_name: Base name of the source video file (no extension).
         segment_index: String integer index of the segment within the video.
         time_range: ``"start-end"`` in seconds, e.g. ``"90-120"``.
         content: Raw ``"Caption:\\n...\\nTranscript:\\n..."`` text stored in
             ``video_segments._data``.
-        faiss_row_id: Integer row index into the clip FAISS index (-1 if unindexed).
+        faiss_row_id: Integer row index into the TAN FAISS index (-1 if unindexed).
     """
 
     node_id: str
-    node_type: str          # "tan_clip"
-    tan_level: str          # "clip"
+    node_type: str          # "tan"
     video_name: str
     segment_index: str
     time_range: str
     content: str
-    faiss_row_id: int
-
-
-class SceneTANNode(TypedDict, total=False):
-    """A Temporal Anchor Node at the *scene* level (aggregated from clip TANs).
-
-    Attributes:
-        node_id: ``"scene_{video_name}_{scene_index}"``.
-        node_type: Always ``"tan_scene"``.
-        tan_level: Always ``"scene"``.
-        video_name: Base name of the source video file (no extension).
-        scene_index: Sequential scene index within the video (int as str).
-        time_range: ``"start-end"`` covering all constituent clips.
-        clip_ids: Comma-separated list of constituent ``ClipTAN.node_id`` values.
-        faiss_row_id: Integer row index into the scene FAISS index (-1 if unindexed).
-    """
-
-    node_id: str
-    node_type: str          # "tan_scene"
-    tan_level: str          # "scene"
-    video_name: str
-    scene_index: str
-    time_range: str
-    clip_ids: str           # comma-separated clip node_id list
     faiss_row_id: int
 
 
@@ -113,13 +95,13 @@ class SemanticEdge(TypedDict, total=False):
 
 
 class TemporalEdge(TypedDict, total=False):
-    """Directed edge ``ClipTAN_i → ClipTAN_{i+1}`` encoding chronological flow.
+    """Directed edge ``TAN_i → TAN_{i+1}`` encoding chronological flow.
 
     Attributes:
-        src_id: Clip TAN node ID at time *t*.
-        tgt_id: Clip TAN node ID at time *t+1*.
+        src_id: TAN node ID at time *t*.
+        tgt_id: TAN node ID at time *t+1*.
         edge_type: Always ``"temporal"``.
-        delta_seconds: Duration gap between the two clips (usually 0 for
+        delta_seconds: Duration gap between the two segments (usually 0 for
             contiguous segments, >0 for jumps).
     """
 
@@ -130,11 +112,11 @@ class TemporalEdge(TypedDict, total=False):
 
 
 class CrossModalEdge(TypedDict, total=False):
-    """Directed edge ``SemanticNode → ClipTAN`` grounding text semantics temporally.
+    """Directed edge ``SemanticNode → TAN`` grounding text semantics temporally.
 
     Attributes:
         src_id: ``SemanticNode.node_id``.
-        tgt_id: ``ClipTANNode.node_id``.
+        tgt_id: ``TANNode.node_id``.
         edge_type: Always ``"cross_modal"``.
         confidence: Estimated grounding confidence (0..1; derived from chunk
             proximity or explicit alignment score).
@@ -146,50 +128,33 @@ class CrossModalEdge(TypedDict, total=False):
     confidence: float
 
 
-class HierarchicalEdge(TypedDict, total=False):
-    """Directed edge ``ClipTAN → SceneTAN`` encoding the clip-to-scene hierarchy.
-
-    Attributes:
-        src_id: ``ClipTANNode.node_id``.
-        tgt_id: ``SceneTANNode.node_id``.
-        edge_type: Always ``"hierarchical"``.
-    """
-
-    src_id: str
-    tgt_id: str
-    edge_type: str          # "hierarchical"
-
-
 # ---------------------------------------------------------------------------
-# Subgraph schema — returned by query_htvg()
+# Subgraph schema — returned by query_tvg()
 # ---------------------------------------------------------------------------
 
-class HTVGSubgraph(TypedDict, total=False):
-    """Rich subgraph returned by :func:`videorag.htvg.retrieval.query_htvg`.
+class TVGSubgraph(TypedDict, total=False):
+    """Rich subgraph returned by :func:`videorag.tvg.retrieval.query_tvg`.
 
-    This is the primary interface between HTVG retrieval and the IELTS-RAG
+    This is the primary interface between TVG retrieval and the IELTS-RAG
     multi-agent debate loop.  All lists are ordered for interpretability.
 
     Attributes:
         semantic_nodes: Matched entity/concept nodes from semantic FAISS search.
-        clip_tans: Clip-level TANs reachable via cross-modal or direct visual
-            search, plus temporal-context neighbours.
-        scene_tans: Scene-level TANs that aggregate the retrieved clips.
+        tans: TANs reachable via cross-modal or direct visual search,
+            plus temporal-context neighbours.
         edges: All edges in the subgraph as plain dicts (``src_id``, ``tgt_id``,
             ``edge_type``).
         segment_ids: Deduplicated, chronologically-sorted list of segment IDs
             (``"{video_name}_{index}"``) for use by downstream captioning /
             LLM grounding steps.
         provenance_paths: Human-readable trace strings, one per semantic node,
-            e.g. ``"CLIMATE CHANGE → [cross_modal] → lecture_3 → [temporal]
-            → lecture_4 → [hierarchical] → scene_lecture_0"``.
+            e.g. ``"CLIMATE CHANGE → [cross_modal] → lecture_3 → [temporal] → lecture_4"``.
         query: The original query string (for logging/debugging).
         top_k: The ``top_k`` used during retrieval.
     """
 
     semantic_nodes: List[SemanticNode]
-    clip_tans: List[ClipTANNode]
-    scene_tans: List[SceneTANNode]
+    tans: List[TANNode]
     edges: List[dict]
     segment_ids: List[str]
     provenance_paths: List[str]
@@ -198,32 +163,26 @@ class HTVGSubgraph(TypedDict, total=False):
 
 
 # ---------------------------------------------------------------------------
-# Build metadata — stored alongside the HTVG for provenance
+# Build metadata — stored alongside the TVG for provenance
 # ---------------------------------------------------------------------------
 
-class HTVGBuildMeta(TypedDict, total=False):
-    """Metadata recorded at HTVG build time.
+class TVGBuildMeta(TypedDict, total=False):
+    """Metadata recorded at TVG build time.
 
     Attributes:
         built_at: ISO-8601 timestamp of the build.
         num_semantic_nodes: Count of semantic nodes.
-        num_clip_tans: Count of clip TAN nodes.
-        num_scene_tans: Count of scene TAN nodes.
+        num_tans: Count of TAN nodes.
         num_edges: Total edge count.
-        clip_dim: Dimensionality of clip-level visual embeddings.
-        scene_dim: Dimensionality of scene-level aggregated embeddings.
+        tan_dim: Dimensionality of TAN visual embeddings (ImageBind).
         semantic_dim: Dimensionality of entity text embeddings.
-        aggregator_checkpoint: Path to the TemporalTransformer checkpoint used.
         videos_processed: Comma-separated list of video names ingested.
     """
 
     built_at: str
     num_semantic_nodes: int
-    num_clip_tans: int
-    num_scene_tans: int
+    num_tans: int
     num_edges: int
-    clip_dim: int
-    scene_dim: int
+    tan_dim: int
     semantic_dim: int
-    aggregator_checkpoint: str
     videos_processed: str

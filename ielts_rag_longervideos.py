@@ -24,9 +24,11 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 parser = argparse.ArgumentParser(description="IELTS-RAG on LongerVideos benchmark")
 parser.add_argument('--collection', type=str, default=None, help="Collection subfolder e.g. '4-rag-lecture'. Required unless --mode all.")
 parser.add_argument('--cuda', type=str, default='0')
-parser.add_argument('--mode', choices=['ingest', 'query', 'all'], default='query')
+parser.add_argument('--mode', choices=['ingest', 'query', 'all', 'naive'], default='query')
 parser.add_argument('--max-rounds', type=int, default=2, help="Number of debate rounds (1 is fast; 2 for higher quality)")
 parser.add_argument('--top-k', type=int, default=8, help="Top-K evidence items per retrieval")
+parser.add_argument('--use-tvg-only', action='store_true', help="Ablation: Only use TVG evidence, skipping baseline Graph/Visual")
+parser.add_argument('--suffix', type=str, default=None, help="Suffix for the answer directory name")
 args = parser.parse_args()
 
 os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda
@@ -52,16 +54,16 @@ longervideos_llm_config = LLMConfig(
     embedding_dim=1536,
     embedding_max_token_size=8192,
     embedding_batch_num=32,
-    embedding_func_max_async=16,
+    embedding_func_max_async=4,  # Reduced from 16 to 4 to fix rate limits
     query_better_than_threshold=0.2,
     best_model_func_raw=gpt_4o_mini_complete,
     best_model_name="gpt-4o-mini",
     best_model_max_token_size=32768,
-    best_model_max_async=16,
+    best_model_max_async=4,       # Reduced from 16 to 4 to fix rate limits
     cheap_model_func_raw=gpt_4o_mini_complete,
     cheap_model_name="gpt-4o-mini",
     cheap_model_max_token_size=32768,
-    cheap_model_max_async=16,
+    cheap_model_max_async=4,      # Reduced from 16 to 4 to fix rate limits
 )
 
 ANSWER_DIR_NAME = "answers-ielts-rag"
@@ -109,10 +111,17 @@ def run_query(collection: str):
 
     # Resolve the description for directory naming (matches author format)
     description = longervideos[collection_id][0]['description']
+    
+    dir_name = ANSWER_DIR_NAME
+    if args.suffix:
+        dir_name = f"{ANSWER_DIR_NAME}-{args.suffix}"
+    elif args.use_tvg_only:
+        dir_name = f"{ANSWER_DIR_NAME}-tvg-only"
+
     answer_folder = os.path.join(
         './reproduce/all_answers',
         f'{collection_id}-{description}',
-        ANSWER_DIR_NAME,
+        dir_name,
     )
     os.makedirs(answer_folder, exist_ok=True)
 
@@ -135,12 +144,19 @@ def run_query(collection: str):
             continue
 
         print(f"\n[Q{query_id}/{len(queries)-1}] {query[:80]}...")
-        param = QueryParam(
-            mode="ielts_rag",
-            ielts_top_k=args.top_k,
-            max_rounds=args.max_rounds,
-            return_detailed=False,  # Return plain string, compatible with eval scripts
-        )
+        if args.mode == "naive":
+            # Standard VideoRAG (Baseline without agents)
+            param = QueryParam(mode="videorag")
+            param.wo_reference = True
+        else:
+            # IELTS-RAG (with agents)
+            param = QueryParam(
+                mode="ielts_rag",
+                ielts_top_k=args.top_k,
+                max_rounds=args.max_rounds,
+                return_detailed=False,
+                ielts_use_tvg_only=args.use_tvg_only,
+            )
         response = videorag.query(query=query, param=param)
         print(f"  -> {str(response)[:120]}...")
 
@@ -176,8 +192,8 @@ if __name__ == '__main__':
             print("[ERROR] --collection is required for --mode ingest or query")
             exit(1)
         run_ingest(args.collection)
-    elif args.mode == 'query':
+    elif args.mode == 'query' or args.mode == 'naive':
         if not args.collection:
-            print("[ERROR] --collection is required for --mode ingest or query")
+            print("[ERROR] --collection is required for --mode ingest, query, or naive")
             exit(1)
         run_query(args.collection)

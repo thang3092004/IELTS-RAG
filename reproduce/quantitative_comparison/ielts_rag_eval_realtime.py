@@ -39,6 +39,7 @@ Here are the answers:
 **Evaluation Answer:**
 {evaluation_answer}
 
+
 Evaluate the answer using the criteria listed above and provide detailed explanations for the scores.
 
 Output your evaluation in the following JSON format:
@@ -102,7 +103,11 @@ async def call_judge(client, sem, request_data):
             }
 
 async def main():
-    client = AsyncOpenAI()
+    client = AsyncOpenAI(
+        api_key=os.environ.get("OPENAI_API_KEY"),
+        base_url=os.environ.get("OPENAI_BASE_URL"),
+        default_headers={"User-Agent": "Mozilla/5.0"} # Trình duyệt giả lập để tránh bị chặn IP đơn thuần
+    )
     sem = asyncio.Semaphore(10) # 10 concurrent requests to respect RPM/TPM
     
     dataset_path = "../../longervideos/dataset.json"
@@ -113,14 +118,16 @@ async def main():
     with open(dataset_path, 'r') as f:
         questions_dataset = json.load(f)
 
-    # We only processed these collection IDs
+    # Configuration for comparison
     processed_ids = ['0', '13', '17']
+    evaluation_answer_dirs = ['answers-ielts-rag-baseline', 'answers-ielts-rag-tvg-only']
+    baseline_dir_name = 'answers-naiverag'
+    
     evaluation_pairs = []
 
     print(f"--- Collecting answers for Real-time Evaluation (Sets: {processed_ids}) ---")
 
     for _id in processed_ids:
-        # Get metadata from dataset
         meta_list = questions_dataset.get(_id, [])
         if not meta_list: continue
         
@@ -128,31 +135,31 @@ async def main():
         questions = meta_list[0]['questions']
         base_dir = f"../all_answers/{_id}-{collection_desc}"
         
-        for q in questions:
-            q_id = q['id']
-            query_text = q['question']
-            
-            # Paths
-            path_target = os.path.join(base_dir, "answers-ielts-rag", f"answer_{q_id}.md")
-            path_baseline = os.path.join(base_dir, "answers-naiverag", f"answer_{q_id}.md")
-            
-            if os.path.exists(path_target) and os.path.exists(path_baseline):
-                with open(path_target, 'r', encoding='utf-8') as f1, \
-                     open(path_baseline, 'r', encoding='utf-8') as f2:
-                    
-                    target_ans = f1.read()
-                    base_ans = f2.read()
-                    
-                    prompt = USER_PROMPT_TEMPLATE.format(
-                        query=query_text,
-                        baseline_answer=base_ans,
-                        evaluation_answer=target_ans
-                    )
-                    
-                    evaluation_pairs.append({
-                        "custom_id": f"{_id}-{collection_desc}++query{q_id}++base++naiverag++evaluate++ielts_rag",
-                        "prompt": prompt
-                    })
+        for _eval_dir in evaluation_answer_dirs:
+            for q in questions:
+                q_id = q['id']
+                query_text = q['question']
+                
+                path_target = os.path.join(base_dir, _eval_dir, f"answer_{q_id}.md")
+                path_baseline = os.path.join(base_dir, baseline_dir_name, f"answer_{q_id}.md")
+                
+                if os.path.exists(path_target) and os.path.exists(path_baseline):
+                    with open(path_target, 'r', encoding='utf-8') as f1, \
+                         open(path_baseline, 'r', encoding='utf-8') as f2:
+                        
+                        target_ans = f1.read()
+                        base_ans = f2.read()
+                        
+                        prompt = USER_PROMPT_TEMPLATE.format(
+                            query=query_text,
+                            baseline_answer=base_ans,
+                            evaluation_answer=target_ans
+                        )
+                        
+                        evaluation_pairs.append({
+                            "custom_id": f"{_id}-{collection_desc}++query{q_id}++base++naiverag++evaluate++{_eval_dir}",
+                            "prompt": prompt
+                        })
 
     if not evaluation_pairs:
         print("No matches found to evaluate. Check paths.")

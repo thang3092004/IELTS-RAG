@@ -134,8 +134,9 @@ if __name__ == "__main__":
     baseline_answer_dir = 'answers-naiverag'
     base_dir = 'ielts_rag_comparison'
     evaluation_answer_dirs = [
-        'answers-videorag',       # Paper's VideoRAG (baseline for comparison)
-        'answers-ielts-rag',      # NEW: Our IELTS-RAG results
+        'answers-videorag',             # Original VideoRAG
+        'answers-ielts-rag-baseline',   # IELTS-RAG without TVG
+        'answers-ielts-rag-tvg-only',   # IELTS-RAG with TVG
     ]
 
     requests = []

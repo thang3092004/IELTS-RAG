@@ -8,7 +8,7 @@ from videorag import VideoRAG
 # ---------------------------------------------------------------------------
 # CONFIGURATION
 # ---------------------------------------------------------------------------
-WORKING_DIR = "./reproduce/ablation/test_cache"
+WORKING_DIR = "./longervideos/videorag-workdir"
 DOC_IDS = ["0", "1", "14", "18", "19"]
 DATASET_JSON = "longervideos/dataset.json"
 PROGRESS_FILE = "reproduce/ingest_progress.json"
@@ -88,12 +88,10 @@ def ingest_worker():
     """Main thread/loop to watch for finished downloads and ingest them."""
     global stop_flag, processed_files
     
-    print("[INGESTOR] Initializing VideoRAG engine...")
-    vrag = VideoRAG(working_dir=WORKING_DIR)
-    print(f"[INGESTOR] Engine ready. Target: {WORKING_DIR}")
-
+    print("[INGESTOR] Ingest worker starting...")
     collections = get_doc_collections()
-    
+    vrag_instances = {}
+
     while not stop_flag:
         new_targets = []
         
@@ -106,17 +104,27 @@ def ingest_worker():
                 if f.endswith(('.mp4', '.mkv', '.webm')) and ".part" not in f:
                     path = os.path.abspath(os.path.join(v_dir, f))
                     if path not in processed_files:
-                        new_targets.append(path)
+                        new_targets.append((path, coll))
         
         if new_targets:
             print(f"\n{'='*60}")
             print(f"[INGESTOR] FOUND {len(new_targets)} NEW VIDEOS TO INGEST!")
-            for target in new_targets:
+            for target, coll_name in new_targets:
                 v_name = os.path.basename(target)
-                print(f"[INGESTOR] >>> PROCESSING START: {v_name}")
+                
+                # Use collection-specific working directory to resume properly
+                coll_workdir = os.path.join(WORKING_DIR, coll_name)
+                if coll_name not in vrag_instances:
+                    print(f"[INGESTOR] Initializing engine for {coll_name} at {coll_workdir}")
+                    vrag_instances[coll_name] = VideoRAG(working_dir=coll_workdir)
+                
+                vrag = vrag_instances[coll_name]
+                
+                print(f"[INGESTOR] >>> PROCESSING START: {v_name} (Collection: {coll_name})")
                 start_t = time.time()
                 try:
-                    # HEAVY OPERATION: Whisper + VLM + ImageBind + HTVG build
+                    # HEAVY OPERATION: Whisper + VLM + ImageBind + TVG build
+                    # VideoRAG will automatically skip if already processed in this workdir
                     vrag.insert_video([target])
                     duration = time.time() - start_t
                     print(f"[INGESTOR] <<< DONE: {v_name} ({duration:.1f}s)")
@@ -129,8 +137,6 @@ def ingest_worker():
         else:
             # Wait for more downloads to finish
             time.sleep(5)
-            # Check if all collections are done downloading
-            # (Just a simple message for status)
             print(".", end="", flush=True)
 
 if __name__ == "__main__":

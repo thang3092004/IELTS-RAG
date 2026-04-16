@@ -21,6 +21,7 @@ class QueryParam:
     ielts_top_k: int = 10          # top-k for initial dual retrieval
     max_rounds: int = 2            # number of debate rounds (defend + critique cycles)
     return_detailed: bool = False  # Set to True to get the full IELTS-RAG metadata dict
+    ielts_use_tvg_only: bool = False # Toggle to only use TVG (skipping standard Graph/Visual)
 
 
 TextChunkSchema = TypedDict(

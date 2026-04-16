@@ -9,7 +9,7 @@ Improvements over previous version:
 - reads max_rounds and ielts_top_k from QueryParam
 - dispatch_tool passes global_config + query_param for LLM query rewriting
 - returns richer output: confidence, rounds_run, tool_calls_made
-- (NEW) incorporates HTVG evidence when htvg_storage is available on vrag
+- (NEW) incorporates TVG evidence when tvg_storage is available on vrag
 """
 import asyncio
 import re
@@ -20,7 +20,7 @@ from openai import AsyncOpenAI
 
 from ..tools.text_tools import search_text_evidence
 from ..tools.vision_tools import search_visual_segment
-from ..tools.htvg_tools import search_htvg_evidence
+from ..tools.tvg_tools import search_tvg_evidence
 from ..tools.schemas import ALL_TOOLS
 from ..debate.debate_manager import run_debate
 from ..debate.state import DebateConfig, DebateState
@@ -77,9 +77,9 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
         "knowledge_graph":          getattr(vrag, "chunk_entity_relation_graph", None),
         "video_segment_feature_vdb": getattr(vrag, "video_segment_feature_vdb", None),
         "video_segments":           getattr(vrag, "video_segments", None),
-        # HTVG stores (present only when HTVG ingest has been run)
-        "htvg_storage":             getattr(vrag, "htvg_storage", None),
-        # Embedding func exposed so htvg_tools can embed the query
+        # TVG stores (present only when TVG ingest has been run)
+        "tvg_storage":              getattr(vrag, "tvg_storage", None),
+        # Embedding func exposed so tvg_tools can embed the query
         "text_embedding_func":      getattr(getattr(vrag, "embedding_func", None), "func", None)
                                     or getattr(vrag, "embedding_func", None),
     }
@@ -95,34 +95,43 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
     global_config["retrieval_topk_chunks"] = top_k
 
     # --- Stage 1: Dual retrieval (skimming & scanning) ---
-    logger.info(f"[ielts_rag] Stage 1 — dual retrieval top_k={top_k}")
-    text_ev, visual_ev = await asyncio.gather(
-        search_text_evidence(query, stores, top_k=top_k, entity_boost=True,
-                             global_config=global_config, query_param=param),
-        search_visual_segment(query, stores, top_k=min(4, top_k),
-                              global_config=global_config, query_param=param),
-    )
+    init_evidence = []
+    use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
+
+    # Text evidence is used in BOTH modes
+    logger.info(f"[ielts_rag] Stage 1a — Text retrieval top_k={top_k}")
+    text_ev = await search_text_evidence(query, stores, top_k=top_k, entity_boost=True,
+                                         global_config=global_config, query_param=param)
+    
+    visual_ev = []
+    if not use_tvg_only:
+        logger.info(f"[ielts_rag] Stage 1b — Visual retrieval (Baseline) top_k={min(4, top_k)}")
+        visual_ev = await search_visual_segment(query, stores, top_k=min(4, top_k),
+                                               global_config=global_config, query_param=param)
+    else:
+        logger.info("[ielts_rag] Stage 1b — Skipping Visual baseline (TVG-only mode)")
+
     init_evidence = _dedup_evidence(text_ev + visual_ev)
     logger.info(f"[ielts_rag] Initial evidence pool: {len(init_evidence)} items "
                 f"({len(text_ev)} text, {len(visual_ev)} visual)")
 
-    # --- Stage 1b: HTVG evidence (additive, skipped if htvg_storage is None) ---
-    if stores.get("htvg_storage") is not None:
-        logger.info(f"[ielts_rag] Stage 1b — HTVG evidence top_k={top_k}")
+    # --- Stage 1b: TVG evidence (additive, skipped if tvg_storage is None) ---
+    if stores.get("tvg_storage") is not None:
+        logger.info(f"[ielts_rag] Stage 1b — TVG evidence top_k={top_k}")
         try:
-            htvg_ev = await search_htvg_evidence(
+            tvg_ev = await search_tvg_evidence(
                 query, stores, top_k=top_k,
                 temporal_context_hops=2,
                 global_config=global_config,
                 query_param=param,
             )
-            init_evidence = _dedup_evidence(init_evidence + htvg_ev)
+            init_evidence = _dedup_evidence(init_evidence + tvg_ev)
             logger.info(
-                f"[ielts_rag] After HTVG: evidence pool = {len(init_evidence)} items "
-                f"(+{len(htvg_ev)} htvg)"
+                f"[ielts_rag] After TVG: evidence pool = {len(init_evidence)} items "
+                f"(+{len(tvg_ev)} tvg)"
             )
-        except Exception as _htvg_exc:
-            logger.warning(f"[ielts_rag] HTVG evidence step failed (non-fatal): {_htvg_exc}")
+        except Exception as _tvg_exc:
+            logger.warning(f"[ielts_rag] TVG evidence step failed (non-fatal): {_tvg_exc}")
 
 
     # --- Build LLM client ---
@@ -130,7 +139,10 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
     try:
         llm_client: AsyncOpenAI = get_openai_async_client_instance()
     except TypeError:
-        llm_client = AsyncOpenAI()
+        llm_client = AsyncOpenAI(
+            api_key=os.environ.get("OPENAI_API_KEY"),
+            base_url=os.environ.get("OPENAI_BASE_URL")
+        )
 
     debate_cfg = DebateConfig(model=model_name, max_rounds=max_rounds, tool_top_k=top_k)
 
@@ -146,7 +158,10 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
         call_config = dict(global_config)
         call_config["retrieval_topk_chunks"] = tk
 
+        use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
+
         if name == "search_text_evidence":
+            # Enabled in both modes as requested (1 text, 2 tvg)
             evs = await search_text_evidence(
                 q, stores,
                 top_k=tk,
@@ -157,6 +172,8 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
             return {"evidence": evs}
 
         if name == "search_visual_segment":
+            if use_tvg_only:
+                return {"error": "Visual search disabled in TVG-only mode."}
             evs = await search_visual_segment(
                 q, stores,
                 top_k=min(tk, 2), # Ablation limit to 2
@@ -165,8 +182,8 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
             )
             return {"evidence": evs}
 
-        if name == "search_htvg_evidence":
-            evs = await search_htvg_evidence(
+        if name == "search_tvg_evidence":
+            evs = await search_tvg_evidence(
                 q, stores,
                 top_k=tk,
                 temporal_context_hops=int(args.get("temporal_hops", 2)),
