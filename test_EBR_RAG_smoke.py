@@ -1,15 +1,15 @@
-"""
-IELTS-RAG Smoke Test — uses 2 RAG-lecture videos already present in longervideos/4-rag-lecture/videos/
+﻿"""
+EBR-RAG Smoke Test — uses 2 RAG-lecture videos already present in longervideos/4-rag-lecture/videos/
 
 Usage:
     # Step 1: Ingest videos (only needed once)
-    python test_ielts_rag_smoke.py --phase ingest
+    python test_EBR_RAG_smoke.py --phase ingest
 
-    # Step 2: Run queries with ielts_rag
-    python test_ielts_rag_smoke.py --phase query
+    # Step 2: Run queries with EBR_RAG
+    python test_EBR_RAG_smoke.py --phase query
 
     # Step 3: Compare side-by-side with standard videorag
-    python test_ielts_rag_smoke.py --phase compare
+    python test_EBR_RAG_smoke.py --phase compare
 
 Set your OpenAI API key in OPENAI_API_KEY env var before running.
 """
@@ -86,8 +86,8 @@ def phase_ingest():
 
 
 def phase_query():
-    """Run all test queries using ielts_rag and print results."""
-    print("\n=== PHASE: QUERY (ielts_rag) ===")
+    """Run all test queries using EBR_RAG and print results."""
+    print("\n=== PHASE: QUERY (EBR_RAG) ===")
 
     vr = VideoRAG(llm=openai_4o_mini_config, working_dir=WORKING_DIR)
     vr.load_caption_model(debug=True)  # Optimized: skip heavy models during query
@@ -99,7 +99,7 @@ def phase_query():
         print('='*60)
 
         param = QueryParam(
-            mode="ielts_rag",
+            mode="EBR_RAG",
             ielts_top_k=8,
             max_rounds=1,
             return_detailed=True,
@@ -118,7 +118,7 @@ def phase_query():
         results.append({"query_id": q["id"], "question": q["question"], "response": resp})
 
     # Save results
-    out_path = os.path.join(WORKING_DIR, "ielts_rag_results.json")
+    out_path = os.path.join(WORKING_DIR, "EBR_RAG_results.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(
             [{**r, "response": {k: v for k, v in r["response"].items() if k != "transcript"}} for r in results],
@@ -129,7 +129,7 @@ def phase_query():
 
 def phase_compare():
     """Run same queries with standard videorag for side-by-side comparison."""
-    print("\n=== PHASE: COMPARE (videorag vs ielts_rag) ===")
+    print("\n=== PHASE: COMPARE (videorag vs EBR_RAG) ===")
 
     vr = VideoRAG(llm=openai_4o_mini_config, working_dir=WORKING_DIR)
     vr.load_caption_model(debug=True)
@@ -142,12 +142,12 @@ def phase_compare():
         param_std.wo_reference = True
         std_answer = vr.query(q["question"], param=param_std)
 
-        # IELTS-RAG
-        param_ielts = QueryParam(mode="ielts_rag", ielts_top_k=5, max_rounds=2, return_detailed=True)
+        # EBR-RAG
+        param_ielts = QueryParam(mode="EBR_RAG", ielts_top_k=5, max_rounds=2, return_detailed=True)
         ielts_resp = vr.query(q["question"], param=param_ielts)
 
         print(f"\n[VideoRAG]\n{std_answer}\n")
-        print(f"[IELTS-RAG]\n{ielts_resp['answer']}")
+        print(f"[EBR-RAG]\n{ielts_resp['answer']}")
         print(f"  Confidence: {ielts_resp['confidence']:.2f} | "
               f"Rounds: {ielts_resp['rounds_run']} | "
               f"Tool calls: {ielts_resp['tool_calls_made']}")
@@ -160,10 +160,10 @@ def phase_compare():
 if __name__ == "__main__":
     multiprocessing.set_start_method("spawn")
 
-    parser = argparse.ArgumentParser(description="IELTS-RAG smoke test")
+    parser = argparse.ArgumentParser(description="EBR-RAG smoke test")
     parser.add_argument(
         "--phase", choices=["ingest", "query", "compare"], default="query",
-        help="ingest=process videos, query=run ielts_rag, compare=ielts_rag vs videorag"
+        help="ingest=process videos, query=run EBR_RAG, compare=EBR_RAG vs videorag"
     )
     args = parser.parse_args()
 

@@ -1,4 +1,4 @@
-"""
+﻿"""
 videorag/tvg/retrieval.py
 ==========================
 ``query_tvg()`` — the unified retrieval API for the Temporal-Visual Graph.
@@ -15,7 +15,7 @@ Memory layout
 -------------
 All intermediate sets use ``str`` node IDs (no tensor allocations during
 traversal). Embedding lookups only happen for FAISS search steps. The function
-is fully synchronous to avoid event-loop friction; callers in the async IELTS-RAG
+is fully synchronous to avoid event-loop friction; callers in the async EBR-RAG
 pipeline should wrap with ``asyncio.get_event_loop().run_in_executor`` or call
 the ``async`` wrapper :func:`async_query_tvg`.
 """
@@ -142,7 +142,7 @@ async def async_query_tvg(
     top_k: int = 8,
     temporal_context_hops: int = 2,
 ) -> TVGSubgraph:
-    """Async wrapper around :func:`query_tvg` for use in the IELTS-RAG pipeline.
+    """Async wrapper around :func:`query_tvg` for use in the EBR-RAG pipeline.
 
     Computes both text and (optionally) visual query embeddings asynchronously,
     then delegates to the synchronous ``query_tvg`` for graph traversal.

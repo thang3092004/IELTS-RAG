@@ -1,4 +1,4 @@
-[
+﻿[
     {
         "custom_id": "13-fia-awards++query26++base++answers-naiverag++evaluate++answers-no_graph",
         "result": {
@@ -120,7 +120,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query26++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query26++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -150,7 +150,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query13++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query13++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -270,7 +270,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query4++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query4++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -420,7 +420,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query6++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query6++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -450,7 +450,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query19++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query19++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -780,7 +780,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query6++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query6++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -870,7 +870,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query0++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query0++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -1110,7 +1110,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query20++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query20++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1140,7 +1140,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query13++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query13++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -1200,7 +1200,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query7++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query7++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1230,7 +1230,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query0++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query0++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -1350,7 +1350,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query5++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query5++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1620,7 +1620,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query20++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query20++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1680,7 +1680,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query1++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query1++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1800,7 +1800,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query14++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query14++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1890,7 +1890,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query14++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query14++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1920,7 +1920,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query7++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query7++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -1980,7 +1980,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query21++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query21++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -2340,7 +2340,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query8++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query8++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -2370,7 +2370,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query1++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query1++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -2490,7 +2490,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query6++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query6++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -2730,7 +2730,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query15++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query15++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -2760,7 +2760,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query2++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query2++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -2790,7 +2790,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query0++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query0++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -2880,7 +2880,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query21++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query21++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -2910,7 +2910,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query8++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query8++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3150,7 +3150,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query22++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query22++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3330,7 +3330,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query15++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query15++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3450,7 +3450,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query9++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query9++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3510,7 +3510,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query2++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query2++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3720,7 +3720,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query7++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query7++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3780,7 +3780,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query22++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query22++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3840,7 +3840,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query3++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query3++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -3960,7 +3960,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query16++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query16++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -4050,7 +4050,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query9++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query9++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -4260,7 +4260,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query1++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query1++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -4500,7 +4500,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query16++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query16++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -4560,7 +4560,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query23++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query23++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -4650,7 +4650,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query10++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query10++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -4710,7 +4710,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query3++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query3++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -4800,7 +4800,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query8++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query8++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -4860,7 +4860,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query17++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query17++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5130,7 +5130,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query23++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query23++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5190,7 +5190,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query4++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query4++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5430,7 +5430,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query10++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query10++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5490,7 +5490,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query2++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query2++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5550,7 +5550,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query11++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query11++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5610,7 +5610,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query24++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query24++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -5700,7 +5700,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query17++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query17++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -5940,7 +5940,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query9++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query9++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -6000,7 +6000,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query4++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query4++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -6120,7 +6120,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query18++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query18++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -6300,7 +6300,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query24++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query24++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -6360,7 +6360,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query5++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query5++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -6420,7 +6420,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query25++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query25++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -6600,7 +6600,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query11++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query11++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -6630,7 +6630,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query3++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query3++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,
@@ -6840,7 +6840,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query18++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query18++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -7020,7 +7020,7 @@
         "error": null
     },
     {
-        "custom_id": "0-fights-in-animal-kingdom++query10++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "0-fights-in-animal-kingdom++query10++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -7050,7 +7050,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query12++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query12++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -7080,7 +7080,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query5++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query5++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -7380,7 +7380,7 @@
         "error": null
     },
     {
-        "custom_id": "13-fia-awards++query19++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "13-fia-awards++query19++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -7500,7 +7500,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query25++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query25++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 5,
@@ -7560,7 +7560,7 @@
         "error": null
     },
     {
-        "custom_id": "17-decision-making-science++query12++base++answers-naiverag++evaluate++answers-ielts-rag",
+        "custom_id": "17-decision-making-science++query12++base++answers-naiverag++evaluate++answers-EBR-RAG",
         "result": {
             "Comprehensiveness": {
                 "Score": 4,

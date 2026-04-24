@@ -1,4 +1,4 @@
-# VideoRAG & IELTS-RAG Core Requirements
+﻿# VideoRAG & EBR-RAG Core Requirements
 # Optimized for Python 3.12 and CUDA 12.1
 
 --index-url https://download.pytorch.org/whl/cu121

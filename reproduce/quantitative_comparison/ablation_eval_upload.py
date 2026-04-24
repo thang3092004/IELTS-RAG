@@ -1,4 +1,4 @@
-import os
+﻿import os
 import re
 import time
 import json
@@ -103,7 +103,7 @@ class Result(BaseModel):
 result_response_format = type_to_response_format_param(Result)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Submit IELTS-RAG and Ablation evaluation batches")
+    parser = argparse.ArgumentParser(description="Submit EBR-RAG and Ablation evaluation batches")
     parser.add_argument("--run-time", type=int, default=5, help="Number of repeated runs (paper uses 5)")
     parser.add_argument("--max-enqueued-tokens", type=int, default=1800000, help="Approx token budget per batch file")
     parser.add_argument("--only-generate", action="store_true", help="Only generate request json files, do not submit")
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     baseline_answer_dir = 'answers-naiverag'
     base_dir = 'ablation_comparison'
     evaluation_answer_dirs = [
-        'answers-ielts-rag',      # Full pipeline
+        'answers-EBR-RAG',      # Full pipeline
         'answers-no_graph',       # Ablation 1
         'answers-no_chunks',      # Ablation 2
         'answers-no_visual',      # Ablation 3

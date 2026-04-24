@@ -1,4 +1,4 @@
-"""
+﻿"""
 videorag/tvg/schemas.py
 ========================
 TypedDicts that define the data contracts for every node, edge, and subgraph
@@ -135,7 +135,7 @@ class CrossModalEdge(TypedDict, total=False):
 class TVGSubgraph(TypedDict, total=False):
     """Rich subgraph returned by :func:`videorag.tvg.retrieval.query_tvg`.
 
-    This is the primary interface between TVG retrieval and the IELTS-RAG
+    This is the primary interface between TVG retrieval and the EBR-RAG
     multi-agent debate loop.  All lists are ordered for interpretability.
 
     Attributes:

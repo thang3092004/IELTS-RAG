@@ -1,8 +1,8 @@
-#!/bin/bash
+﻿#!/bin/bash
 set -e
 
 echo "==================================================="
-echo "IELTS-RAG Representative Subset Runner (8.2 hours)"
+echo "EBR-RAG Representative Subset Runner (8.2 hours)"
 echo "==================================================="
 
 cd "$(dirname "$0")"
@@ -32,10 +32,10 @@ for col in "${COLLECTIONS[@]}"; do
     echo "---------------------------------------------------"
     
     echo "-> [Step 1] INGEST (Checking status or extracting features)..."
-    python ielts_rag_longervideos.py --collection "$col" --mode ingest --cuda 0
+    python EBR_RAG_longervideos.py --collection "$col" --mode ingest --cuda 0
     
     echo "-> [Step 2] QUERY (Checking status or generating answers)..."
-    python ielts_rag_longervideos.py --collection "$col" --mode query --cuda 0
+    python EBR_RAG_longervideos.py --collection "$col" --mode query --cuda 0
 done
 
 
@@ -44,7 +44,7 @@ echo "==================================================="
 echo "[Step 3] Starting evaluation upload to OpenAI API..."
 echo "==================================================="
 cd reproduce/quantitative_comparison
-python ielts_rag_eval_upload.py --run-time 1
+python EBR_RAG_eval_upload.py --run-time 1
 
 echo "==================================================="
 echo "Subset pipeline completed successfully!"

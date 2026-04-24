@@ -1,5 +1,5 @@
-"""
-Text and graph evidence retrieval tool for IELTS-RAG.
+﻿"""
+Text and graph evidence retrieval tool for EBR-RAG.
 
 This module wraps existing _op.py retrieval functions instead of re-implementing them.
 The key difference from the previous version: query rewriting via LLM is applied

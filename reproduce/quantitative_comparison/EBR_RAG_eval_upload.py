@@ -1,21 +1,21 @@
-"""
-IELTS-RAG Evaluation — adds 'answers-ielts-rag' to the official VideoRAG benchmark evaluation.
+﻿"""
+EBR-RAG Evaluation — adds 'answers-EBR-RAG' to the official VideoRAG benchmark evaluation.
 
 This script is a drop-in replacement for batch_quant_eval_upload.py that includes
-the IELTS-RAG answers in the comparison. Run this AFTER:
-    1. ielts_rag_longervideos.py --mode all     (generates answers)
+the EBR-RAG answers in the comparison. Run this AFTER:
+    1. EBR_RAG_longervideos.py --mode all     (generates answers)
     2. This script                               (submits batch evaluation to OpenAI)
     3. batch_quant_eval_download.py              (downloads results)
     4. batch_quant_eval_parse.py                 (parses results)
-    5. batch_quant_eval_calculate.py with ielts_rag added to evaluate_model list
+    5. batch_quant_eval_calculate.py with EBR_RAG added to evaluate_model list
 
 Usage (from the reproduce/quantitative_comparison/ folder):
     cd reproduce/quantitative_comparison
     # Only generate request files (no submission):
-    python ielts_rag_eval_upload.py --only-generate
+    python EBR_RAG_eval_upload.py --only-generate
 
     # Generate and submit to OpenAI Batch API:
-    python ielts_rag_eval_upload.py
+    python EBR_RAG_eval_upload.py
 """
 import os
 import re
@@ -122,7 +122,7 @@ class Result(BaseModel):
 result_response_format = type_to_response_format_param(Result)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Submit IELTS-RAG evaluation batches")
+    parser = argparse.ArgumentParser(description="Submit EBR-RAG evaluation batches")
     parser.add_argument("--run-time", type=int, default=5, help="Number of repeated runs (paper uses 5)")
     parser.add_argument("--max-enqueued-tokens", type=int, default=1800000, help="Approx token budget per batch file")
     parser.add_argument("--only-generate", action="store_true", help="Only generate request json files, do not submit")
@@ -132,11 +132,11 @@ if __name__ == "__main__":
         questions = json.load(f)
 
     baseline_answer_dir = 'answers-naiverag'
-    base_dir = 'ielts_rag_comparison'
+    base_dir = 'EBR_RAG_comparison'
     evaluation_answer_dirs = [
         'answers-videorag',             # Original VideoRAG
-        'answers-ielts-rag-baseline',   # IELTS-RAG without TVG
-        'answers-ielts-rag-tvg-only',   # IELTS-RAG with TVG
+        'answers-EBR-RAG-baseline',   # EBR-RAG without TVG
+        'answers-EBR-RAG-tvg-only',   # EBR-RAG with TVG
     ]
 
     requests = []
@@ -239,7 +239,7 @@ if __name__ == "__main__":
                 input_file_id=batch_input_file.id,
                 endpoint="/v1/chat/completions",
                 completion_window="24h",
-                metadata={"description": f"ielts-rag run{k}-part{part_idx}"},
+                metadata={"description": f"EBR-RAG run{k}-part{part_idx}"},
             )
             print(f"Run {k} Part {part_idx}: Batch {batch.id} created.")
             submitted_count += 1

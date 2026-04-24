@@ -1,4 +1,4 @@
-import os
+﻿import os
 import json
 import logging
 import warnings
@@ -47,7 +47,7 @@ longervideos_llm_config = LLMConfig(
     cheap_model_max_async=16,
 )
 
-WORKDIR_BASE = "./longervideos/ielts-rag-workdir"
+WORKDIR_BASE = "./longervideos/EBR-RAG-workdir"
 
 
 class DummyRetriever:
@@ -130,11 +130,11 @@ def _run_scenario(vrag: VideoRAG, scenario: str, query: str, top_k: int) -> str:
         else:
             raise ValueError(f"Unsupported scenario: {scenario}")
 
-        # IMPORTANT: Run the same IELTS-RAG mode, just with the backend data disabled
+        # IMPORTANT: Run the same EBR-RAG mode, just with the backend data disabled
         param = QueryParam(
-            mode="ielts_rag",
+            mode="EBR_RAG",
             ielts_top_k=top_k,
-            max_rounds=2,       # Same as ielts_rag_longervideos
+            max_rounds=2,       # Same as EBR_RAG_longervideos
             return_detailed=False,
         )
         response = vrag.query(query, param=param)

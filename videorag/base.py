@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+﻿from dataclasses import dataclass, field
 from typing import TypedDict, Union, Literal, Generic, TypeVar
 
 import numpy as np
@@ -8,7 +8,7 @@ from ._utils import EmbeddingFunc
 
 @dataclass
 class QueryParam:
-    mode: Literal["local", "global", "naive", "videorag", "videorag_multiple_choice", "ielts_rag"] = "global"
+    mode: Literal["local", "global", "naive", "videorag", "videorag_multiple_choice", "EBR_RAG"] = "global"
     only_need_context: bool = False
     response_type: str = "Multiple Paragraphs"
     level: int = 2
@@ -17,10 +17,10 @@ class QueryParam:
     naive_max_token_for_text_unit: int = 12000
     # videorag search
     wo_reference: bool = True
-    # ielts_rag controls
+    # EBR_RAG controls
     ielts_top_k: int = 10          # top-k for initial dual retrieval
     max_rounds: int = 2            # number of debate rounds (defend + critique cycles)
-    return_detailed: bool = False  # Set to True to get the full IELTS-RAG metadata dict
+    return_detailed: bool = False  # Set to True to get the full EBR-RAG metadata dict
     ielts_use_tvg_only: bool = False # Toggle to only use TVG (skipping standard Graph/Visual)
 
 

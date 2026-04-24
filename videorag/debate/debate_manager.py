@@ -1,5 +1,5 @@
-"""
-IELTS-RAG Debate Manager — full rewrite.
+﻿"""
+EBR-RAG Debate Manager — full rewrite.
 
 Key improvements over previous version:
 1. Generator outputs structured JSON hypotheses (deterministic parsing)
@@ -339,7 +339,7 @@ async def run_debate(
     forced_hypotheses: list[dict] | None = None,
 ) -> tuple[dict, DebateState]:
     """
-    Run the full IELTS-RAG debate pipeline.
+    Run the full EBR-RAG debate pipeline.
 
     Returns:
         (final_answer_dict, state)

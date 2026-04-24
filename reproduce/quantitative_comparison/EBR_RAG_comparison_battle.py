@@ -1,11 +1,11 @@
-import os
+﻿import os
 import json
 import asyncio
 import tqdm
 from openai import AsyncOpenAI
 
 # ===========================================================================
-# IELTS-RAG Comparison Battle (Real-time Evaluation)
+# EBR-RAG Comparison Battle (Real-time Evaluation)
 # USES 100% ORIGINAL SYS_PROMPT AND USER_PROMPT_TEMPLATE FROM THE BENCHMARK
 # ===========================================================================
 
@@ -98,7 +98,7 @@ async def main():
     with open('../../longervideos/dataset.json', 'r') as f:
         dataset = json.load(f)
     
-    methods = ['answers-videorag', 'answers-ielts-rag']
+    methods = ['answers-videorag', 'answers-EBR-RAG']
     ids = ['0', '13', '17']
     tasks = []
 
@@ -155,11 +155,11 @@ async def main():
                 fs[r['method']][fname].append(3.0)
 
     print("\n" + "="*75)
-    print(f"{'TIÊU CHÍ (XỊN)':<25} | {'VideoRAG (Gốc)':<22} | {'IELTS-RAG (Ours)':<22}")
+    print(f"{'TIÊU CHÍ (XỊN)':<25} | {'VideoRAG (Gốc)':<22} | {'EBR-RAG (Ours)':<22}")
     print("-" * 75)
     for met in m_map:
         v_list = fs['answers-videorag'][met]
-        i_list = fs['answers-ielts-rag'][met]
+        i_list = fs['answers-EBR-RAG'][met]
         
         v_avg = sum(v_list)/len(v_list) if v_list else 0
         i_avg = sum(i_list)/len(i_list) if i_list else 0

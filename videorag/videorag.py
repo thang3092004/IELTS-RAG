@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import json
 import shutil
@@ -26,7 +26,7 @@ from ._op import (
     videorag_query,
     videorag_query_multiple_choice,
 )
-from .pipeline.ielts_rag import ielts_rag_answer
+from .pipeline.EBR_RAG import EBR_RAG_answer
 from ._storage import (
     JsonKVStorage,
     NanoVectorDBStorage,
@@ -73,7 +73,7 @@ class VideoRAG:
     video_output_format: str = "mp4"
     audio_output_format: str = "mp3"
     video_embedding_batch_num: int = 2
-    segment_retrieval_top_k: int = 8 # Ablation: Tweak baseline to 8 (slightly larger/equal to ielts-rag max cap)
+    segment_retrieval_top_k: int = 8 # Ablation: Tweak baseline to 8 (slightly larger/equal to EBR-RAG max cap)
     video_embedding_dim: int = 1024
     
     # query
@@ -392,8 +392,8 @@ class VideoRAG:
         return loop.run_until_complete(self.aquery(query, param))
 
     async def aquery(self, query: str, param: QueryParam = QueryParam()):
-        if param.mode == "ielts_rag":
-            response = await ielts_rag_answer(self, query, param)
+        if param.mode == "EBR_RAG":
+            response = await EBR_RAG_answer(self, query, param)
             # For backward compatibility with official eval scripts, return string by default
             if isinstance(response, dict) and not param.return_detailed:
                 return response.get("answer", "")

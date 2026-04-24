@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 # VideoRAG: Retrieval-Augmented Generation with Extreme Long-Context Videos
 
@@ -8,7 +8,7 @@
 
 <img src='VideoRAG_cover.png' />
 
- This is the PyTorch implementation for VideoRAG proposed in this paper, extended with an **IELTS-RAG** pipeline (iterative evidence-verification with multi-agent debate and tool-calling).
+ This is the PyTorch implementation for VideoRAG proposed in this paper, extended with an **EBR-RAG** pipeline (iterative evidence-verification with multi-agent debate and tool-calling).
 
  >**VideoRAG: Retrieval-Augmented Generation with Extreme Long-Context Videos**  
  >Xubin Ren*, Lingrui Xu*, Long Xia, Shuaiqiang Wang, Dawei Yin, Chao Huang†
@@ -196,9 +196,9 @@ if __name__ == '__main__':
     print(response)
 ```
 
-## 🧠 IELTS-RAG (iterative evidence-verification)
+## 🧠 EBR-RAG (iterative evidence-verification)
 
-Pipeline name: `ielts_rag` (replaces earlier iterative_ev_rag). It runs dual retrieval (dense + entity/graph + visual), then multi-agent debate with on-demand tool-calling, and returns structured JSON: `{answer, rationale, citations, transcript, evidence}`.
+Pipeline name: `EBR_RAG` (replaces earlier iterative_ev_rag). It runs dual retrieval (dense + entity/graph + visual), then multi-agent debate with on-demand tool-calling, and returns structured JSON: `{answer, rationale, citations, transcript, evidence}`.
 
 Minimal usage:
 
@@ -207,13 +207,13 @@ from videorag import VideoRAG, QueryParam
 
 vr = VideoRAG(working_dir="./videorag-workdir")
 # assume videos already ingested via vr.insert_video([...])
-param = QueryParam(mode="ielts_rag", top_k=20)
+param = QueryParam(mode="EBR_RAG", top_k=20)
 resp = vr.query("Your question here", param=param)
 print(resp["answer"])
 print(resp.get("citations", []))
 ```
 
-Colab evaluation: see `notesbooks/colab_eval.ipynb` (expects `longervideos.tar` and `all_answers.zip` from Drive). Set `param.mode = 'ielts_rag'` in the notebook.
+Colab evaluation: see `notesbooks/colab_eval.ipynb` (expects `longervideos.tar` and `all_answers.zip` from Drive). Set `param.mode = 'EBR_RAG'` in the notebook.
 
 ## 🧪 Experiments
 

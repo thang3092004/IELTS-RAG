@@ -1,4 +1,4 @@
-import os
+﻿import os
 from dotenv import load_dotenv
 load_dotenv()
 import json
@@ -12,7 +12,7 @@ from videorag._llm import openai_4o_mini_config
 # "17-decision-making-science"
 # 
 # Constraints:
-# 1. IELTS-RAG Context: 2 initial + 3 tool calls * 2 data = ~8 max
+# 1. EBR-RAG Context: 2 initial + 3 tool calls * 2 data = ~8 max
 # 2. Video-RAG Context: Statically boosted to exactly 8 (baseline matched to IELTS max)
 # =======================================================
 
@@ -45,8 +45,8 @@ async def main():
 
     # 4. Initialize VideoRAG instances for baseline DB and ielts db
     # We assume you've already run "ingest" on collection 17 at least once.
-    # The default DB dir for ielts is: "longervideos/ielts-rag-workdir/17-decision-making-science"
-    work_dir = os.path.join("longervideos", "ielts-rag-workdir", collection_name)
+    # The default DB dir for ielts is: "longervideos/EBR-RAG-workdir/17-decision-making-science"
+    work_dir = os.path.join("longervideos", "EBR-RAG-workdir", collection_name)
     
     print(f"Loading Index from: {work_dir}...")
     vrag = VideoRAG(working_dir=work_dir, llm=llm_cfg)
@@ -72,7 +72,7 @@ async def main():
         # -------------------------------------------------------------
         print("\n--- Running Baseline VideoRAG (Context=8) ---")
         # EXPLANATION OF 8:
-        # IELTS-RAG initially gets 2 data per type. With 3 tool calls (each retrieving 2 max),
+        # EBR-RAG initially gets 2 data per type. With 3 tool calls (each retrieving 2 max),
         # an agent could theoretically retrieve 2 + (3 * 2) = 8 max objects of a single type.
         # Thus, we set all Baseline limits (text chunks, graph entities, graph expansion chunks, visual) to 8.
         vrag_param = QueryParam(
@@ -89,12 +89,12 @@ async def main():
         print(f"[VideoRAG Output]:\n{baseline_ans}\n")
 
         # -------------------------------------------------------------
-        # RUN ABLATION: IELTS-RAG (Starts with 2, crawls up to 8 max via 3 calls)
+        # RUN ABLATION: EBR-RAG (Starts with 2, crawls up to 8 max via 3 calls)
         # -------------------------------------------------------------
-        print("\n--- Running IELTS-RAG Ablation (Context=2, Max Rounds=3) ---")
+        print("\n--- Running EBR-RAG Ablation (Context=2, Max Rounds=3) ---")
         ielts_param = QueryParam(
-            mode="ielts_rag", 
-            ielts_top_k=2,    # Passed to ielts_rag.py (overrides default 10)
+            mode="EBR_RAG", 
+            ielts_top_k=2,    # Passed to EBR_RAG.py (overrides default 10)
             max_rounds=3      # Tells it to debate up to 3 times
         )
         
@@ -105,8 +105,8 @@ async def main():
         tool_calls = ielts_resp.get("tool_calls_made", "?") if isinstance(ielts_resp, dict) else "?"
         evidence_len = len(ielts_resp.get("evidence", [])) if isinstance(ielts_resp, dict) else "?"
         
-        print(f"[IELTS-RAG Output]:\n{ielts_ans}")
-        print(f"\n[IELTS-RAG Telemetry]:")
+        print(f"[EBR-RAG Output]:\n{ielts_ans}")
+        print(f"\n[EBR-RAG Telemetry]:")
         print(f" - Tool Calls Made: {tool_calls} (Target limit was 3)")
         print(f" - Final Evidence Chunks Gathered: {evidence_len} (Should be <= 8 baseline items)")
 

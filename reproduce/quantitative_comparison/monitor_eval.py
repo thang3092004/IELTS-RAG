@@ -1,8 +1,8 @@
-import os, time, sys
+﻿import os, time, sys
 from openai import OpenAI
 
 client = OpenAI()
-print("--- Đang giám sát TOÀN BỘ phiên chấm điểm IELTS-RAG... ---")
+print("--- Đang giám sát TOÀN BỘ phiên chấm điểm EBR-RAG... ---")
 
 while True:
     batches = client.batches.list(limit=20)

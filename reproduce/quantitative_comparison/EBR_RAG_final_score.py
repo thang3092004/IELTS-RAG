@@ -1,8 +1,8 @@
-import json, numpy as np
+﻿import json, numpy as np
 
 def calculate():
     try:
-        with open('batch_requests/ielts_rag_comparison/realtime_evaluation_results.json', 'r') as f:
+        with open('batch_requests/EBR_RAG_comparison/realtime_evaluation_results.json', 'r') as f:
             data = json.load(f)
     except:
         print("Không thấy file kết quả!")

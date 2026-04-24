@@ -1,6 +1,6 @@
-"""
-Unit tests for the IELTS-RAG rewrite.
-Run with: python -m pytest tests/test_ielts_rag_unit.py -v
+﻿"""
+Unit tests for the EBR-RAG rewrite.
+Run with: python -m pytest tests/test_EBR_RAG_unit.py -v
 """
 import asyncio
 import json
@@ -14,7 +14,7 @@ from videorag.debate.debate_manager import (
     _generate_hypotheses,
     run_debate,
 )
-from videorag.pipeline.ielts_rag import _dedup_evidence
+from videorag.pipeline.EBR_RAG import _dedup_evidence
 from videorag.tools.formatters import _score_from_result, make_text_evidence, make_segment_evidence
 
 

@@ -1,4 +1,4 @@
-import os
+﻿import os
 import json
 import asyncio
 import tqdm
@@ -7,7 +7,7 @@ from openai import AsyncOpenAI
 import argparse
 
 # ===========================================================================
-# IELTS-RAG Full Ablation & Framework Real-time Evaluation Script
+# EBR-RAG Full Ablation & Framework Real-time Evaluation Script
 # ===========================================================================
 
 SYS_PROMPT = """You are an expert evaluating an answer against a baseline answer based on these criteria: **Comprehensiveness**, **Empowerment**, **Trustworthiness**, **Depth** and **Density**."""
@@ -128,7 +128,7 @@ async def main():
     # We only processed these collection IDs
     processed_ids = ['0', '13', '17']
     evaluation_answer_dirs = [
-        'answers-ielts-rag',      # Full
+        'answers-EBR-RAG',      # Full
         'answers-no_graph',       # Ablation 1
         'answers-no_chunks',      # Ablation 2
         'answers-no_visual',      # Ablation 3
@@ -231,7 +231,7 @@ async def main():
     
     # Map dir names to friendly names
     name_map = {
-        "answers-ielts-rag": "Full Framework",
+        "answers-EBR-RAG": "Full Framework",
         "answers-no_graph": "w/o Knowledge Graph",
         "answers-no_chunks": "w/o Segment Chunks",
         "answers-no_visual": "w/o Visual Features"

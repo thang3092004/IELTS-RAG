@@ -1,8 +1,8 @@
-#!/bin/bash
+﻿#!/bin/bash
 # =============================================================================
 # run_tvg_pipeline.sh
 # =============================================================================
-# Chạy thử nghiệm IELTS-RAG với cấu trúc TVG (Temporal-Visual Graph) trên
+# Chạy thử nghiệm EBR-RAG với cấu trúc TVG (Temporal-Visual Graph) trên
 # 3 collection đại diện cho 3 categories trong bộ LongerVideos benchmark.
 #
 # 3 Collections:
@@ -16,14 +16,14 @@
 #   bash run_tvg_pipeline.sh --ingest-only  # Chỉ ingest TVG
 #
 # TVG files sẽ được lưu tại:
-#   ./longervideos/ielts-rag-workdir/<collection>/tvg/
+#   ./longervideos/EBR-RAG-workdir/<collection>/tvg/
 # =============================================================================
 
 set -euo pipefail
 
 # ── Banner ────────────────────────────────────────────────────────────────────
 echo "============================================================"
-echo "  IELTS-RAG × TVG — Representative Subset Runner"
+echo "  EBR-RAG × TVG — Representative Subset Runner"
 echo "  3 Collections | Documentary · Sports · Educational"
 echo "============================================================"
 echo "  Started at: $(date '+%Y-%m-%d %H:%M:%S %Z')"
@@ -161,7 +161,7 @@ for idx in "${!COLLECTIONS[@]}"; do
             N_VIDEOS=$(find "$VIDEO_DIR" -maxdepth 1 \( -name "*.mp4" -o -name "*.webm" -o -name "*.mkv" \) | wc -l)
             echo "  Videos found: $N_VIDEOS"
 
-            if python3 ielts_rag_longervideos.py \
+            if python3 EBR_RAG_longervideos.py \
                 --collection "$col" \
                 --mode ingest \
                 --cuda "$CUDA"; then
@@ -174,7 +174,7 @@ for idx in "${!COLLECTIONS[@]}"; do
         fi
 
         # ── Print TVG build summary ────────────────────────────────────────────
-        TVG_META="./longervideos/ielts-rag-workdir/${col}/tvg/tvg_meta.json"
+        TVG_META="./longervideos/EBR-RAG-workdir/${col}/tvg/tvg_meta.json"
         if [ -f "$TVG_META" ]; then
             echo ""
             echo "  📊 TVG Build Summary:"
@@ -200,11 +200,11 @@ print(f\"    Built at     : {m.get('built_at', 'N/A')}\")
     # ── Step 2: Query ─────────────────────────────────────────────────────────
     if [ "$INGEST_ONLY" = false ]; then
         echo ""
-        echo "  [Step 2] QUERY (IELTS-RAG + TVG evidence)"
+        echo "  [Step 2] QUERY (EBR-RAG + TVG evidence)"
         echo "  -------------------------------------------"
         T0=$SECONDS
 
-        if python3 ielts_rag_longervideos.py \
+        if python3 EBR_RAG_longervideos.py \
             --collection "$col" \
             --mode query \
             --cuda "$CUDA" \
@@ -232,7 +232,7 @@ if [ "$INGEST_ONLY" = false ] && [ ${#FAILED_COLLECTIONS[@]} -eq 0 ]; then
     echo "  [Step 3] EVALUATION UPLOAD"
     echo "============================================================"
     cd reproduce/quantitative_comparison
-    if python3 ielts_rag_eval_upload.py --run-time 1; then
+    if python3 EBR_RAG_eval_upload.py --run-time 1; then
         echo "  ✅ Evaluation upload complete"
     else
         echo "  ⚠️  Evaluation upload failed (non-fatal)"
@@ -273,12 +273,12 @@ echo "  ✅ All collections processed successfully."
 echo ""
 echo "  TVG indices saved at:"
 for col in "${COLLECTIONS[@]}"; do
-    echo "    ./longervideos/ielts-rag-workdir/${col}/tvg/"
+    echo "    ./longervideos/EBR-RAG-workdir/${col}/tvg/"
 done
 echo ""
 echo "  Answers saved at:"
 for col in "${COLLECTIONS[@]}"; do
-    echo "    ./reproduce/all_answers/$(echo $col | cut -d- -f1-2)/answers-ielts-rag/"
+    echo "    ./reproduce/all_answers/$(echo $col | cut -d- -f1-2)/answers-EBR-RAG/"
 done
 echo ""
 

@@ -1,11 +1,11 @@
-import os
+﻿import os
 import json
 import asyncio
 import tqdm
 from openai import AsyncOpenAI
 
 # ===========================================================================
-# IELTS-RAG Real-time Evaluation Script
+# EBR-RAG Real-time Evaluation Script
 # Uses EXACT logic and prompts from the official benchmark.
 # ===========================================================================
 
@@ -120,7 +120,7 @@ async def main():
 
     # Configuration for comparison
     processed_ids = ['0', '13', '17']
-    evaluation_answer_dirs = ['answers-ielts-rag-baseline', 'answers-ielts-rag-tvg-only']
+    evaluation_answer_dirs = ['answers-EBR-RAG-baseline', 'answers-EBR-RAG-tvg-only']
     baseline_dir_name = 'answers-naiverag'
     
     evaluation_pairs = []
@@ -175,7 +175,7 @@ async def main():
         results.append(await coro)
 
     # Save results to a file compatible with existing parsers
-    output_dir = "batch_requests/ielts_rag_comparison"
+    output_dir = "batch_requests/EBR_RAG_comparison"
     os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, "realtime_evaluation_results.json")
     

@@ -1,8 +1,8 @@
-"""
-IELTS-RAG Pipeline Orchestrator — full rewrite.
+﻿"""
+EBR-RAG Pipeline Orchestrator — full rewrite.
 
-ielts_rag_answer() is the top-level entry point called from VideoRAG.aquery()
-when param.mode == "ielts_rag".
+EBR_RAG_answer() is the top-level entry point called from VideoRAG.aquery()
+when param.mode == "EBR_RAG".
 
 Improvements over previous version:
 - threads global_config (LLM + retrieval functions) into retrieval tools
@@ -56,9 +56,9 @@ def _dedup_evidence(items: list[EvidenceItem]) -> list[EvidenceItem]:
     return deduped
 
 
-async def ielts_rag_answer(vrag, query: str, param) -> dict:
+async def EBR_RAG_answer(vrag, query: str, param) -> dict:
     """
-    Iterative Evidence-Verification RAG (IELTS-RAG pipeline).
+    Iterative Evidence-Verification RAG (EBR-RAG pipeline).
 
     Args:
         vrag:   VideoRAG instance (provides all storage handles + global_config)
@@ -90,7 +90,7 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
     top_k: int = getattr(param, "ielts_top_k", 2) # Ablation: Very small initial top_k
     max_rounds: int = getattr(param, "max_rounds", 3) # Ablation: Increase rounds to 3
     
-    # Ablation: Explicitly limit graph entity expansion for IELTS-RAG down to top_k. 
+    # Ablation: Explicitly limit graph entity expansion for EBR-RAG down to top_k. 
     # (Because the baseline VideoRAG config now has this set to 15)
     global_config["retrieval_topk_chunks"] = top_k
 
@@ -99,25 +99,25 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
     use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
 
     # Text evidence is used in BOTH modes
-    logger.info(f"[ielts_rag] Stage 1a — Text retrieval top_k={top_k}")
+    logger.info(f"[EBR_RAG] Stage 1a — Text retrieval top_k={top_k}")
     text_ev = await search_text_evidence(query, stores, top_k=top_k, entity_boost=True,
                                          global_config=global_config, query_param=param)
     
     visual_ev = []
     if not use_tvg_only:
-        logger.info(f"[ielts_rag] Stage 1b — Visual retrieval (Baseline) top_k={min(4, top_k)}")
+        logger.info(f"[EBR_RAG] Stage 1b — Visual retrieval (Baseline) top_k={min(4, top_k)}")
         visual_ev = await search_visual_segment(query, stores, top_k=min(4, top_k),
                                                global_config=global_config, query_param=param)
     else:
-        logger.info("[ielts_rag] Stage 1b — Skipping Visual baseline (TVG-only mode)")
+        logger.info("[EBR_RAG] Stage 1b — Skipping Visual baseline (TVG-only mode)")
 
     init_evidence = _dedup_evidence(text_ev + visual_ev)
-    logger.info(f"[ielts_rag] Initial evidence pool: {len(init_evidence)} items "
+    logger.info(f"[EBR_RAG] Initial evidence pool: {len(init_evidence)} items "
                 f"({len(text_ev)} text, {len(visual_ev)} visual)")
 
     # --- Stage 1b: TVG evidence (additive, skipped if tvg_storage is None) ---
     if stores.get("tvg_storage") is not None:
-        logger.info(f"[ielts_rag] Stage 1b — TVG evidence top_k={top_k}")
+        logger.info(f"[EBR_RAG] Stage 1b — TVG evidence top_k={top_k}")
         try:
             tvg_ev = await search_tvg_evidence(
                 query, stores, top_k=top_k,
@@ -127,11 +127,11 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
             )
             init_evidence = _dedup_evidence(init_evidence + tvg_ev)
             logger.info(
-                f"[ielts_rag] After TVG: evidence pool = {len(init_evidence)} items "
+                f"[EBR_RAG] After TVG: evidence pool = {len(init_evidence)} items "
                 f"(+{len(tvg_ev)} tvg)"
             )
         except Exception as _tvg_exc:
-            logger.warning(f"[ielts_rag] TVG evidence step failed (non-fatal): {_tvg_exc}")
+            logger.warning(f"[EBR_RAG] TVG evidence step failed (non-fatal): {_tvg_exc}")
 
 
     # --- Build LLM client ---
@@ -192,17 +192,17 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
             )
             return {"evidence": evs}
 
-        logger.warning(f"[ielts_rag] Unknown tool requested: {name!r}")
+        logger.warning(f"[EBR_RAG] Unknown tool requested: {name!r}")
         return {"error": f"unknown tool: {name}"}
 
     # --- Detect MCQ ---
     mcq_options = _extract_mcq_options(query)
     is_mcq = len(mcq_options) > 0
     if is_mcq:
-        logger.info(f"[ielts_rag] MCQ detected with {len(mcq_options)} options")
+        logger.info(f"[EBR_RAG] MCQ detected with {len(mcq_options)} options")
 
     # --- Stage 2-4: Multi-agent debate ---
-    logger.info(f"[ielts_rag] Starting debate: max_rounds={max_rounds}, model={model_name}, mode={'MCQ' if is_mcq else 'Open'}")
+    logger.info(f"[EBR_RAG] Starting debate: max_rounds={max_rounds}, model={model_name}, mode={'MCQ' if is_mcq else 'Open'}")
     verdict, state = await run_debate(
         query=query,
         initial_evidence=init_evidence,
@@ -214,7 +214,7 @@ async def ielts_rag_answer(vrag, query: str, param) -> dict:
         is_mcq=is_mcq,
         forced_hypotheses=mcq_options if is_mcq else None
     )
-    logger.info(f"[ielts_rag] Debate complete — "
+    logger.info(f"[EBR_RAG] Debate complete — "
                 f"rounds={state.rounds_run}, tool_calls={state.tool_calls_made}, "
                 f"evidence_pool={len(state.evidence)}, "
                 f"confidence={verdict.get('confidence', 'N/A')}")

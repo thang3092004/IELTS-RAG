@@ -1,9 +1,9 @@
-"""
+﻿"""
 videorag/tools/tvg_tools.py
 =============================
 ``search_tvg_evidence()`` — wraps :func:`videorag.tvg.retrieval.async_query_tvg`
 and converts the rich ``TVGSubgraph`` into typed ``EvidenceItem`` objects
-consumable by the IELTS-RAG multi-agent debate loop.
+consumable by the EBR-RAG multi-agent debate loop.
 
 Evidence types produced
 -----------------------

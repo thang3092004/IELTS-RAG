@@ -1,8 +1,8 @@
-#!/bin/bash
+﻿#!/bin/bash
 set -e
 
 echo "==================================================="
-echo "IELTS-RAG Ablation Pipeline Runner (3 Collections)"
+echo "EBR-RAG Ablation Pipeline Runner (3 Collections)"
 echo "==================================================="
 
 cd "$(dirname "$0")"
@@ -37,11 +37,11 @@ for col in "${COLLECTIONS[@]}"; do
     echo "---------------------------------------------------"
     
     echo "-> [Step 1] INGEST (Checking status or nạp video)..."
-    /usr/bin/python3 ielts_rag_longervideos.py --collection "$col" --mode ingest --cuda 0
+    /usr/bin/python3 EBR_RAG_longervideos.py --collection "$col" --mode ingest --cuda 0
     echo "==================================================="
     
-    echo "-> [Step 2] FULL PIPELINE QUERY (IELTS-RAG)..."
-    /usr/bin/python3 ielts_rag_longervideos.py --collection "$col" --mode query --cuda 0
+    echo "-> [Step 2] FULL PIPELINE QUERY (EBR-RAG)..."
+    /usr/bin/python3 EBR_RAG_longervideos.py --collection "$col" --mode query --cuda 0
     echo "==================================================="
     
     echo "-> [Step 3] ABLATION QUERIES (3 scenarios)..."

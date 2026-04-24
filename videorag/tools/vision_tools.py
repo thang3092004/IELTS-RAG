@@ -1,5 +1,5 @@
-"""
-Visual (multimodal) evidence retrieval tool for IELTS-RAG.
+﻿"""
+Visual (multimodal) evidence retrieval tool for EBR-RAG.
 
 Uses ImageBind cross-modal embeddings. Applies LLM query rewriting before searching,
 matching the behaviour of videorag_query().

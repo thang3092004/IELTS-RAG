@@ -1,5 +1,5 @@
-"""
-System prompts for the IELTS-RAG multi-agent debate pipeline.
+﻿"""
+System prompts for the EBR-RAG multi-agent debate pipeline.
 Optimized for high-rigor, adversarial debate, active retrieval, and detailed academic reporting.
 Contains two distinct pipelines:
 1. OPEN-ENDED: For standard QA (Generator -> Debate -> Judge)

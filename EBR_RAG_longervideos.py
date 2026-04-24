@@ -1,15 +1,15 @@
-"""
-IELTS-RAG Full Dataset Runner — mirrors videorag_longervideos.py exactly.
+﻿"""
+EBR-RAG Full Dataset Runner — mirrors videorag_longervideos.py exactly.
 
 Usage:
     # Step 1: Ingest all videos for a collection
-    python ielts_rag_longervideos.py --collection 4-rag-lecture --mode ingest --cuda 0
+    python EBR_RAG_longervideos.py --collection 4-rag-lecture --mode ingest --cuda 0
 
-    # Step 2: Generate IELTS-RAG answers (saves to reproduce/all_answers/<id>-<name>/answers-ielts-rag/)
-    python ielts_rag_longervideos.py --collection 4-rag-lecture --mode query --cuda 0
+    # Step 2: Generate EBR-RAG answers (saves to reproduce/all_answers/<id>-<name>/answers-EBR-RAG/)
+    python EBR_RAG_longervideos.py --collection 4-rag-lecture --mode query --cuda 0
 
     # Step 3: Ingest + query ALL collections (runs sequentially)
-    python ielts_rag_longervideos.py --mode all --cuda 0
+    python EBR_RAG_longervideos.py --mode all --cuda 0
 """
 import os
 import json
@@ -21,7 +21,7 @@ import argparse
 warnings.filterwarnings("ignore")
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-parser = argparse.ArgumentParser(description="IELTS-RAG on LongerVideos benchmark")
+parser = argparse.ArgumentParser(description="EBR-RAG on LongerVideos benchmark")
 parser.add_argument('--collection', type=str, default=None, help="Collection subfolder e.g. '4-rag-lecture'. Required unless --mode all.")
 parser.add_argument('--cuda', type=str, default='0')
 parser.add_argument('--mode', choices=['ingest', 'query', 'all', 'naive'], default='query')
@@ -66,12 +66,12 @@ longervideos_llm_config = LLMConfig(
     cheap_model_max_async=4,      # Reduced from 16 to 4 to fix rate limits
 )
 
-ANSWER_DIR_NAME = "answers-ielts-rag"
-WORKDIR_BASE = "./longervideos/ielts-rag-workdir"
+ANSWER_DIR_NAME = "answers-EBR-RAG"
+WORKDIR_BASE = "./longervideos/EBR-RAG-workdir"
 
 
 def run_ingest(collection: str):
-    """Ingest all videos in a collection into the IELTS-RAG working directory."""
+    """Ingest all videos in a collection into the EBR-RAG working directory."""
     print(f"\n{'='*60}")
     print(f"[INGEST] Collection: {collection}")
     print(f"{'='*60}")
@@ -95,7 +95,7 @@ def run_ingest(collection: str):
 
 
 def run_query(collection: str):
-    """Run IELTS-RAG on all questions for a collection and save answers as .md files."""
+    """Run EBR-RAG on all questions for a collection and save answers as .md files."""
     print(f"\n{'='*60}")
     print(f"[QUERY] Collection: {collection}")
     print(f"{'='*60}")
@@ -149,9 +149,9 @@ def run_query(collection: str):
             param = QueryParam(mode="videorag")
             param.wo_reference = True
         else:
-            # IELTS-RAG (with agents)
+            # EBR-RAG (with agents)
             param = QueryParam(
-                mode="ielts_rag",
+                mode="EBR_RAG",
                 ielts_top_k=args.top_k,
                 max_rounds=args.max_rounds,
                 return_detailed=False,
