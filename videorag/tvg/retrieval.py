@@ -1,4 +1,4 @@
-﻿"""
+"""
 videorag/tvg/retrieval.py
 ==========================
 ``query_tvg()`` — the unified retrieval API for the Temporal-Visual Graph.
@@ -48,6 +48,7 @@ def query_tvg(
     tvg: TVGraph,
     top_k: int = 8,
     temporal_context_hops: int = 2,
+    semantic_context_hops: int = 1,
     query: str = "",
 ) -> TVGSubgraph:
     """Retrieve a rich, temporally-coherent subgraph from the TVG.
@@ -69,11 +70,24 @@ def query_tvg(
         A ``TVGSubgraph`` TypedDict containing semantic nodes, TANs,
         edges, segment IDs, and provenance traces.
     """
-    # --- Step 1: Semantic FAISS search ---
-    semantic_hits: List[Tuple[str, float]] = tvg.search_semantic_index(
-        query_semantic_emb, top_k=top_k
+    # --- Step 1: Diverse semantic FAISS search ---
+    # Fetch a larger candidate pool so the diversity filter has enough to pick from.
+    candidate_hits: List[Tuple[str, float]] = tvg.search_semantic_index(
+        query_semantic_emb, top_k=top_k * 3
     )
-    semantic_node_ids: Set[str] = {nid for nid, _ in semantic_hits}
+    # Greedy-select top_k seeds that are mutually disconnected in the semantic subgraph.
+    semantic_hits: List[Tuple[str, float]] = _select_diverse_semantic_nodes(
+        candidate_hits, tvg, top_k=top_k
+    )
+    seed_node_ids: Set[str] = {nid for nid, _ in semantic_hits}
+
+    # Expand each seed by semantic_context_hops along semantic edges.
+    semantic_expanded_ids: Set[str] = set()
+    if semantic_context_hops > 0:
+        semantic_expanded_ids = _expand_semantic_neighbors(
+            seed_node_ids, tvg, hops=semantic_context_hops
+        )
+    semantic_node_ids: Set[str] = seed_node_ids | semantic_expanded_ids
 
     # --- Step 2: Cross-modal traversal (semantic → TANs) ---
     tan_ids_from_semantic: Set[str] = set()
@@ -141,6 +155,8 @@ async def async_query_tvg(
     tan_embedding_func: Optional[Any],
     top_k: int = 8,
     temporal_context_hops: int = 2,
+    semantic_context_hops: int = 1,
+    visual_query: Optional[str] = None,
 ) -> TVGSubgraph:
     """Async wrapper around :func:`query_tvg` for use in the EBR-RAG pipeline.
 
@@ -167,8 +183,9 @@ async def async_query_tvg(
     tan_emb: Optional[np.ndarray] = None
     if tan_embedding_func is not None:
         try:
+            target_q = visual_query if visual_query else query
             tan_emb_batch = await asyncio.get_event_loop().run_in_executor(
-                None, lambda: tan_embedding_func(query)
+                None, lambda: tan_embedding_func(target_q)
             )
             tan_emb = np.array(tan_emb_batch, dtype=np.float32).reshape(-1)
         except Exception as e:
@@ -184,6 +201,7 @@ async def async_query_tvg(
             tvg=tvg,
             top_k=top_k,
             temporal_context_hops=temporal_context_hops,
+            semantic_context_hops=semantic_context_hops,
             query=query,
         ),
     )
@@ -193,6 +211,102 @@ async def async_query_tvg(
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+def _select_diverse_semantic_nodes(
+    candidate_hits: List[Tuple[str, float]],
+    tvg: TVGraph,
+    top_k: int,
+) -> List[Tuple[str, float]]:
+    """Greedily select up to top_k semantic nodes that are mutually disconnected.
+
+    Iterates through FAISS hits in descending relevance order.  A candidate is
+    accepted only if it shares **no semantic edge** with any already-accepted
+    node.  This produces a set of evidence seeds that cover different topic
+    clusters rather than collapsing into one densely-connected neighbourhood.
+
+    Args:
+        candidate_hits: ``(node_id, score)`` list from FAISS, sorted by
+            descending similarity (as returned by ``search_semantic_index``).
+        tvg: Populated ``TVGraph`` (used for edge lookup).
+        top_k: Maximum number of nodes to accept.
+
+    Returns:
+        List of ``(node_id, score)`` pairs, length ≤ top_k.
+    """
+    selected: List[Tuple[str, float]] = []
+    selected_ids: Set[str] = set()
+
+    for node_id, score in candidate_hits:
+        if len(selected) >= top_k:
+            break
+        if not tvg._graph.has_node(node_id):
+            continue
+        # Check: does this candidate share a semantic edge with any accepted node?
+        has_conflict = False
+        for accepted_id in selected_ids:
+            if (
+                tvg._graph.has_edge(node_id, accepted_id)
+                and tvg._graph[node_id][accepted_id].get("edge_type") == "semantic"
+            ) or (
+                tvg._graph.has_edge(accepted_id, node_id)
+                and tvg._graph[accepted_id][node_id].get("edge_type") == "semantic"
+            ):
+                has_conflict = True
+                break
+        if not has_conflict:
+            selected.append((node_id, score))
+            selected_ids.add(node_id)
+
+    logger.debug(
+        f"[diverse_select] Accepted {len(selected)}/{min(top_k, len(candidate_hits))} "
+        f"diverse seeds from {len(candidate_hits)} candidates."
+    )
+    return selected
+
+
+def _expand_semantic_neighbors(
+    seed_ids: Set[str],
+    tvg: TVGraph,
+    hops: int = 1,
+) -> Set[str]:
+    """Expand seed semantic nodes along semantic edges for ``hops`` steps.
+
+    Unlike temporal expansion, this operates only on ``semantic`` edge types
+    and expands in **both** directions (the semantic graph is logically
+    undirected, stored as two directed edges).
+
+    Args:
+        seed_ids: Starting set of semantic node IDs (the diverse seeds).
+        tvg: Populated ``TVGraph``.
+        hops: Number of semantic hops (default 1 to keep context tight).
+
+    Returns:
+        Set of neighbour node IDs reached (does not include seed_ids).
+    """
+    expanded: Set[str] = set()
+    frontier: Set[str] = set(seed_ids)
+
+    for _ in range(hops):
+        next_frontier: Set[str] = set()
+        for node_id in frontier:
+            for nxt in tvg.get_successors_by_edge_type(node_id, "semantic"):
+                if nxt not in seed_ids and nxt not in expanded:
+                    next_frontier.add(nxt)
+                    expanded.add(nxt)
+            for prv in tvg.get_predecessors_by_edge_type(node_id, "semantic"):
+                if prv not in seed_ids and prv not in expanded:
+                    next_frontier.add(prv)
+                    expanded.add(prv)
+        frontier = next_frontier
+        if not frontier:
+            break
+
+    logger.debug(
+        f"[semantic_expand] {len(seed_ids)} seeds → {len(expanded)} neighbours "
+        f"({hops}-hop semantic expansion)."
+    )
+    return expanded
+
 
 def _expand_temporal_context(
     seed_tan_ids: Set[str],

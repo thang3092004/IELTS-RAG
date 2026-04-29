@@ -31,5 +31,22 @@ VISUAL_TOOL = {
     }
 }
 
-ALL_TOOLS = [TEXT_GRAPH_TOOL, VISUAL_TOOL]
+TVG_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "search_tvg_evidence",
+        "description": "Retrieve deep evidence using the Temporal-Visual Graph (TVG). Captures cross-modal links and temporal contexts (before/after events).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string", "description": "Search query or event description."},
+                "top_k": {"type": "integer", "description": "Max items", "minimum": 1, "maximum": 20, "default": 4},
+                "temporal_hops": {"type": "integer", "description": "Number of temporal hops to expand context", "minimum": 0, "maximum": 5, "default": 2},
+            },
+            "required": ["query"],
+        },
+    }
+}
+
+ALL_TOOLS = [TEXT_GRAPH_TOOL, VISUAL_TOOL, TVG_TOOL]
 

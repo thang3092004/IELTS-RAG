@@ -405,10 +405,10 @@ async def extract_entities(
             final_result = await use_llm_func(hint_prompt)
         except Exception as e:
             logger.error(f"Failed to extract entities for chunk {chunk_key}. Error: {e}")
-            # Log the problematic content for debugging
             with open("failed_payloads.txt", "a", encoding="utf-8") as f:
                 f.write(f"--- Chunk: {chunk_key} ---\n{content}\n")
-            return {}, {}
+            # User requirement: Halt ingestion completely on error instead of silent fallback
+            raise e
 
 
         history = pack_user_ass_to_openai_messages(hint_prompt, clean_toxic_json_chars(final_result))
@@ -496,8 +496,8 @@ async def extract_entities(
         ]
     )
     if not len(all_entities_data):
-        logger.warning("Didn't extract any entities, maybe your LLM is not working")
-        return None
+        logger.error("Didn't extract any entities, maybe your LLM is not working")
+        raise RuntimeError("Entity Extraction failed completely. Halting ingestion to prevent corrupt/fake data state.")
     if entity_vdb is not None:
         data_for_vdb = {
             compute_mdhash_id(dp["entity_name"], prefix="ent-"): {

@@ -1,4 +1,4 @@
-﻿"""
+"""
 EBR-RAG Debate Manager — full rewrite.
 
 Key improvements over previous version:
@@ -85,14 +85,15 @@ async def _chat(
 # Evidence helpers
 # ---------------------------------------------------------------------------
 
-def _format_evidence(evs: List[EvidenceItem], limit: int = 15) -> str:
+def _format_evidence(evs: List[EvidenceItem], limit: int = 50) -> str:
     rows = []
     for ev in evs[:limit]:
         row = f"[{ev.id}] ({ev.type}) score={ev.score:.3f} src={ev.source}"
         if ev.video_name and ev.time_range:
             row += f" | video={ev.video_name} time={ev.time_range}"
         if ev.snippet:
-            row += f"\n  Snippet: {ev.snippet[:300]}"
+            # Removed the destructive [:300] truncation to ensure fairness with Naive RAG
+            row += f"\n  Snippet: {ev.snippet}"
         rows.append(row)
     return "\n\n".join(rows)
 
@@ -308,7 +309,7 @@ async def _run_judge(
         {"role": "user", "content": (
             f"Query: {query}\n\n"
             f"Debate Transcript:\n{json.dumps(compact_transcript, ensure_ascii=False)}\n\n"
-            f"Full Evidence Pool:\n{_format_evidence(state.evidence, limit=30)}"
+            f"Full Evidence Pool:\n{_format_evidence(state.evidence, limit=50)}"
         )},
     ]
     resp = await _chat(

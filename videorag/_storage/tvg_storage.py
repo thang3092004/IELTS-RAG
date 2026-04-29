@@ -126,6 +126,7 @@ class TVGStorage(StorageNameSpace):
         top_k: int = 8,
         temporal_context_hops: int = 2,
         tan_embedding_func: Optional[Any] = None,
+        visual_query: Optional[str] = None,
     ) -> TVGSubgraph:
         """Query the TVG and return a rich subgraph.
 
@@ -146,6 +147,7 @@ class TVGStorage(StorageNameSpace):
             tan_embedding_func=tan_embedding_func,
             top_k=top_k,
             temporal_context_hops=temporal_context_hops,
+            visual_query=visual_query,
         )
 
     # ------------------------------------------------------------------

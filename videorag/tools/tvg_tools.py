@@ -1,4 +1,4 @@
-﻿"""
+"""
 videorag/tools/tvg_tools.py
 =============================
 ``search_tvg_evidence()`` — wraps :func:`videorag.tvg.retrieval.async_query_tvg`
@@ -74,12 +74,22 @@ async def search_tvg_evidence(
     tan_embedding_func = stores.get("tan_embedding_func", None)
 
     try:
+        from .._op import _refine_visual_retrieval_query
+        visual_query = query
+        if global_config is not None and query_param is not None:
+            try:
+                visual_query = await _refine_visual_retrieval_query(query, query_param, global_config)
+                logger.debug(f"[search_tvg_evidence] rewritten visual query: {visual_query!r}")
+            except Exception as e:
+                logger.warning(f"[search_tvg_evidence] query rewriting failed: {e}")
+
         subgraph: TVGSubgraph = await tvg_storage.query(
             query=query,
             text_embedding_func=text_embedding_func,
             top_k=top_k,
             temporal_context_hops=temporal_context_hops,
             tan_embedding_func=tan_embedding_func,
+            visual_query=visual_query,
         )
     except Exception as e:
         logger.warning(f"[search_tvg_evidence] TVG query failed: {e}")
@@ -129,6 +139,18 @@ async def search_tvg_evidence(
             },
         )
         evidence.append(ev)
+
+    # --- Fairness Truncation ---
+    # Hard cap the evidence list to prevent Graph explosion from artificially
+    # beating baselines just by feeding more tokens to the LLM.
+    # We allow TVG to return slightly more items to account for temporal context,
+    # but strictly cap it at min(50, top_k * 3). The Global Fairness Cap in EBR_RAG
+    # will handle the absolute limit.
+    MAX_CAPACITY = min(50, top_k * 3)
+    if len(evidence) > MAX_CAPACITY:
+        logger.info(f"[search_tvg_evidence] Local Truncation: {len(evidence)} items -> {MAX_CAPACITY}")
+        # Keep semantic nodes (which are usually first) and top TAN nodes
+        evidence = evidence[:MAX_CAPACITY]
 
     logger.info(
         f"[search_tvg_evidence] Retrieved {len(evidence)} items "

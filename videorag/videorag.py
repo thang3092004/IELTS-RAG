@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 import json
 import shutil
@@ -467,8 +467,7 @@ class VideoRAG:
                 global_config=asdict(self),
             )
             if maybe_new_kg is None:
-                logger.warning("No new entities found")
-                return
+                raise RuntimeError("Entity extraction returned None. Halting ingestion.")
             self.chunk_entity_relation_graph = maybe_new_kg
             # ---------- commit upsertings and indexing
             await self.text_chunks.upsert(inserting_chunks)
@@ -512,10 +511,9 @@ class VideoRAG:
             )
             logger.info("[VideoRAG] TVG build complete.")
         except Exception as e:
-            logger.warning(
-                f"[VideoRAG] TVG build failed (non-fatal): {e}. "
-                "Set enable_tvg=False to suppress this warning."
-            )
+            logger.error(f"[VideoRAG] TVG build failed: {e}")
+            # User requirement: Do not fallback or swallow exceptions
+            raise RuntimeError(f"TVG Construction failed: {e}") from e
 
     async def _save_video_segments(self):
         tasks = []

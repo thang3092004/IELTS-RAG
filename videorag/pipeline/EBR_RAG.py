@@ -1,4 +1,4 @@
-﻿"""
+"""
 EBR-RAG Pipeline Orchestrator — full rewrite.
 
 EBR_RAG_answer() is the top-level entry point called from VideoRAG.aquery()
@@ -84,43 +84,83 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
                                     or getattr(vrag, "embedding_func", None),
     }
 
+    # Helper for lazy ImageBind instantiation for TVG direct visual search
+    def _tan_embed(q: str):
+        from .._videoutil import encode_string_query
+        from imagebind.models import imagebind_model
+        import torch
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        embedder = imagebind_model.imagebind_huge(pretrained=True).to(device)
+        embedder.eval()
+        return encode_string_query(q, embedder)[0].numpy()
+        
+    stores["tan_embedding_func"] = _tan_embed
+
     # global_config is the full asdict(vrag) dict — contains LLM functions, retrieval params
     global_config: dict = asdict(vrag) if hasattr(vrag, "__dataclass_fields__") else {}
 
-    top_k: int = getattr(param, "ielts_top_k", 2) # Ablation: Very small initial top_k
-    max_rounds: int = getattr(param, "max_rounds", 3) # Ablation: Increase rounds to 3
+    # -------------------------------------------------------------------------
+    # FAIRNESS ABLATION CONTROLLER (Evidence Budgeting)
+    # -------------------------------------------------------------------------
+    max_rounds: int = getattr(param, "max_rounds", 3)
+    use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
+    use_text_only = getattr(param, "ielts_use_text_only", False)
     
-    # Ablation: Explicitly limit graph entity expansion for EBR-RAG down to top_k. 
-    # (Because the baseline VideoRAG config now has this set to 15)
-    global_config["retrieval_topk_chunks"] = top_k
+    # 1. Base initial budget
+    # Calculate a mathematically perfectly fair evidence budget.
+    # A typical 3-round debate across 3 hypotheses generates roughly 36 items 
+    # (3 agents * 2 calls/round * 2 items/call * 3 rounds).
+    base_top_k: int = getattr(param, "ielts_top_k", 2)
+    debate_bonus = 36 
+    
+    if max_rounds == 0:
+        # No-Debate: we pull the "debate bonus" up front.
+        total_init_budget = base_top_k + (debate_bonus // 2)
+        logger.info(f"[EBR_RAG] No-Debate Ablation. Boosting initial budget to {total_init_budget} to match debate capacity.")
+    else:
+        # Debate: we pull base items up front, agents retrieve the rest.
+        total_init_budget = base_top_k
+        
+    # 2. Module Allocation
+    # Distribute the total_init_budget across active retrieval modules
+    if use_tvg_only:
+        text_k, tvg_k = 0, total_init_budget * 2  # Give TVG everything
+    elif use_text_only:
+        text_k, tvg_k = total_init_budget * 2, 0  # Give Text everything
+    else:
+        text_k, tvg_k = total_init_budget, total_init_budget
+
+    global_config["retrieval_topk_chunks"] = text_k
+    # -------------------------------------------------------------------------
 
     # --- Stage 1: Dual retrieval (skimming & scanning) ---
     init_evidence = []
-    use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
-
-    # Text evidence is used in BOTH modes
-    logger.info(f"[EBR_RAG] Stage 1a — Text retrieval top_k={top_k}")
-    text_ev = await search_text_evidence(query, stores, top_k=top_k, entity_boost=True,
-                                         global_config=global_config, query_param=param)
     
+    # Text evidence
+    text_ev = []
+    if text_k > 0:
+        logger.info(f"[EBR_RAG] Stage 1a — Text retrieval top_k={text_k}")
+        text_ev = await search_text_evidence(query, stores, top_k=text_k, entity_boost=True,
+                                             global_config=global_config, query_param=param)
+    
+    # Visual evidence (Baseline)
     visual_ev = []
-    if not use_tvg_only:
-        logger.info(f"[EBR_RAG] Stage 1b — Visual retrieval (Baseline) top_k={min(4, top_k)}")
-        visual_ev = await search_visual_segment(query, stores, top_k=min(4, top_k),
+    if stores.get("tvg_storage") is None and not use_tvg_only and not use_text_only:
+        v_k = min(4, text_k) if text_k > 0 else 4
+        logger.info(f"[EBR_RAG] Stage 1b — Visual retrieval (Baseline) top_k={v_k}")
+        visual_ev = await search_visual_segment(query, stores, top_k=v_k,
                                                global_config=global_config, query_param=param)
     else:
-        logger.info("[EBR_RAG] Stage 1b — Skipping Visual baseline (TVG-only mode)")
+        logger.info("[EBR_RAG] Stage 1b — Skipping Baseline Visual (TVG active or ablated)")
 
     init_evidence = _dedup_evidence(text_ev + visual_ev)
-    logger.info(f"[EBR_RAG] Initial evidence pool: {len(init_evidence)} items "
-                f"({len(text_ev)} text, {len(visual_ev)} visual)")
 
-    # --- Stage 1b: TVG evidence (additive, skipped if tvg_storage is None) ---
-    if stores.get("tvg_storage") is not None:
-        logger.info(f"[EBR_RAG] Stage 1b — TVG evidence top_k={top_k}")
+    # TVG evidence
+    if stores.get("tvg_storage") is not None and tvg_k > 0:
+        logger.info(f"[EBR_RAG] Stage 1c — TVG evidence top_k={tvg_k}")
         try:
             tvg_ev = await search_tvg_evidence(
-                query, stores, top_k=top_k,
+                query, stores, top_k=tvg_k,
                 temporal_context_hops=2,
                 global_config=global_config,
                 query_param=param,
@@ -133,6 +173,17 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         except Exception as _tvg_exc:
             logger.warning(f"[EBR_RAG] TVG evidence step failed (non-fatal): {_tvg_exc}")
 
+    # -------------------------------------------------------------------------
+    # STRICT GLOBAL FAIRNESS CAP
+    # -------------------------------------------------------------------------
+    # Regardless of graph expansion or debate retrieval, limit the LLM context 
+    # to the exact theoretical max capacity of a Debate run.
+    universal_cap = (base_top_k * 2) + debate_bonus
+    if len(init_evidence) > universal_cap:
+        logger.info(f"[EBR_RAG] Fairness Universal Cap: Truncating {len(init_evidence)} -> {universal_cap}")
+        init_evidence = init_evidence[:universal_cap]
+    else:
+        logger.info(f"[EBR_RAG] Final initial evidence pool: {len(init_evidence)} items (cap is {universal_cap})")
 
     # --- Build LLM client ---
     model_name: str = getattr(getattr(vrag, "llm", None), "best_model_name", "gpt-4o-mini")
@@ -172,8 +223,8 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
             return {"evidence": evs}
 
         if name == "search_visual_segment":
-            if use_tvg_only:
-                return {"error": "Visual search disabled in TVG-only mode."}
+            if stores.get("tvg_storage") is not None or use_tvg_only:
+                return {"error": "Baseline visual search is disabled when TVG is active. Use search_tvg_evidence instead."}
             evs = await search_visual_segment(
                 q, stores,
                 top_k=min(tk, 2), # Ablation limit to 2
