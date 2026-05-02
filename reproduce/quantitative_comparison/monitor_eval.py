@@ -1,4 +1,4 @@
-﻿import os, time, sys
+import os, time, sys
 from openai import OpenAI
 
 client = OpenAI()
@@ -6,8 +6,8 @@ print("--- Đang giám sát TOÀN BỘ phiên chấm điểm EBR-RAG... ---")
 
 while True:
     batches = client.batches.list(limit=20)
-    targets = [b for b in batches if 'ielts' in (b.metadata or {}).get('description', '')]
-    targets = sorted(targets, key=lambda x: x.created_at, reverse=True)[:3] # Lấy 3 thằng mới nhất
+    targets = [b for b in batches if any(word in (b.metadata or {}).get('description', '').lower() for word in ['ebr', 'ablation'])]
+    targets = sorted(targets, key=lambda x: x.created_at, reverse=True)[:5] # Lấy 5 thằng mới nhất
     
     if not targets:
         print("\rKhông tìm thấy phiên nào. Đang quét...", end="")

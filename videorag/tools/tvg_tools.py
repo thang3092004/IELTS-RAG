@@ -90,6 +90,13 @@ async def search_tvg_evidence(
             temporal_context_hops=temporal_context_hops,
             tan_embedding_func=tan_embedding_func,
             visual_query=visual_query,
+            semantic_context_hops=getattr(query_param, "tvg_semantic_hops", 1),
+            # Ablation flags
+            disable_semantic=getattr(query_param, "tvg_disable_semantic", False),
+            disable_tan=getattr(query_param, "tvg_disable_tan", False),
+            disable_cross_modal=getattr(query_param, "tvg_disable_cross_modal", False),
+            disable_semantic_edges=getattr(query_param, "tvg_disable_semantic_edges", False),
+            disable_temporal=getattr(query_param, "tvg_disable_temporal", False),
         )
     except Exception as e:
         logger.warning(f"[search_tvg_evidence] TVG query failed: {e}")

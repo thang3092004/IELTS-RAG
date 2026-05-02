@@ -6,12 +6,13 @@ when param.mode == "EBR_RAG".
 
 Improvements over previous version:
 - threads global_config (LLM + retrieval functions) into retrieval tools
-- reads max_rounds and ielts_top_k from QueryParam
+- reads max_rounds and ebr_top_k from QueryParam
 - dispatch_tool passes global_config + query_param for LLM query rewriting
 - returns richer output: confidence, rounds_run, tool_calls_made
 - (NEW) incorporates TVG evidence when tvg_storage is available on vrag
 """
 import asyncio
+import os
 import re
 from dataclasses import asdict
 from typing import Any, List
@@ -63,7 +64,7 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
     Args:
         vrag:   VideoRAG instance (provides all storage handles + global_config)
         query:  User question
-        param:  QueryParam — controls ielts_top_k, max_rounds
+        param:  QueryParam — controls ebr_top_k, max_rounds
 
     Returns:
         {answer, rationale, confidence, citations, transcript,
@@ -103,14 +104,14 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
     # FAIRNESS ABLATION CONTROLLER (Evidence Budgeting)
     # -------------------------------------------------------------------------
     max_rounds: int = getattr(param, "max_rounds", 3)
-    use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
-    use_text_only = getattr(param, "ielts_use_text_only", False)
+    use_tvg_only = getattr(param, "ebr_use_tvg_only", False)
+    use_text_only = getattr(param, "ebr_use_text_only", False)
     
     # 1. Base initial budget
     # Calculate a mathematically perfectly fair evidence budget.
     # A typical 3-round debate across 3 hypotheses generates roughly 36 items 
     # (3 agents * 2 calls/round * 2 items/call * 3 rounds).
-    base_top_k: int = getattr(param, "ielts_top_k", 2)
+    base_top_k: int = getattr(param, "ebr_top_k", 2)
     debate_bonus = 36 
     
     if max_rounds == 0:
@@ -161,7 +162,7 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         try:
             tvg_ev = await search_tvg_evidence(
                 query, stores, top_k=tvg_k,
-                temporal_context_hops=2,
+                temporal_context_hops=getattr(param, "tvg_temporal_hops", 2),
                 global_config=global_config,
                 query_param=param,
             )
@@ -195,12 +196,19 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
             base_url=os.environ.get("OPENAI_BASE_URL")
         )
 
-    debate_cfg = DebateConfig(model=model_name, max_rounds=max_rounds, tool_top_k=top_k)
+    debate_cfg = DebateConfig(
+        model=model_name,
+        max_rounds=max_rounds,
+        tool_top_k=base_top_k,
+        critique_see_evidence=getattr(param, "debate_critique_see_evidence", False),
+        defender_disable_tools=getattr(param, "debate_defender_disable_tools", False),
+        single_hypothesis=getattr(param, "debate_single_hypothesis", False),
+    )
 
     # --- Tool dispatcher (bridges debate loop → retrieval functions) ---
     async def dispatch_tool(name: str, args: dict, evidence_pool: list[EvidenceItem]) -> dict:
         q: str = args.get("query", query)
-        tk: int = int(args.get("top_k", top_k))
+        tk: int = int(args.get("top_k", base_top_k))
         
         # Ablation: Hard limit per tool call
         tk = min(tk, 2)
@@ -209,7 +217,7 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         call_config = dict(global_config)
         call_config["retrieval_topk_chunks"] = tk
 
-        use_tvg_only = getattr(param, "ielts_use_tvg_only", False)
+        use_tvg_only = getattr(param, "ebr_use_tvg_only", False)
 
         if name == "search_text_evidence":
             # Enabled in both modes as requested (1 text, 2 tvg)
@@ -237,7 +245,7 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
             evs = await search_tvg_evidence(
                 q, stores,
                 top_k=tk,
-                temporal_context_hops=int(args.get("temporal_hops", 2)),
+                temporal_context_hops=int(args.get("temporal_hops", getattr(param, "tvg_temporal_hops", 2))),
                 global_config=call_config,
                 query_param=param,
             )
@@ -263,8 +271,14 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         cfg=debate_cfg,
         role_cfgs=ROLE_CONFIGS,
         is_mcq=is_mcq,
-        forced_hypotheses=mcq_options if is_mcq else None
+        forced_hypotheses=mcq_options if is_mcq else None,
+        wo_reference=param.wo_reference
     )
+    # Ensure verdict is a dict (LLM might return a raw string for open-ended questions - baseline style)
+    if isinstance(verdict, str):
+        logger.info(f"[EBR_RAG] Verdict is a raw text string (baseline open-ended style). Wrapping.")
+        verdict = {"answer": verdict, "rationale": "Synthesized from debate.", "confidence": 1.0}
+
     logger.info(f"[EBR_RAG] Debate complete — "
                 f"rounds={state.rounds_run}, tool_calls={state.tool_calls_made}, "
                 f"evidence_pool={len(state.evidence)}, "
@@ -274,7 +288,7 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         "answer":          verdict.get("answer", ""),
         "rationale":       verdict.get("rationale", ""),
         "confidence":      verdict.get("confidence", 0.0),
-        "citations":       verdict.get("citations", []),    # validated citation list
+        "citations":       verdict.get("citations", []),
         "transcript":      state.transcript,
         "evidence":        [ev.to_dict() for ev in state.evidence],
         "rounds_run":      state.rounds_run,

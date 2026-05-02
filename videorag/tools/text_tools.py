@@ -1,4 +1,4 @@
-﻿"""
+"""
 Text and graph evidence retrieval tool for EBR-RAG.
 
 This module wraps existing _op.py retrieval functions instead of re-implementing them.

@@ -1,4 +1,4 @@
-﻿"""
+"""
 EBR-RAG Evaluation — adds 'answers-EBR-RAG' to the official VideoRAG benchmark evaluation.
 
 This script is a drop-in replacement for batch_quant_eval_upload.py that includes

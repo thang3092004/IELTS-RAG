@@ -50,6 +50,11 @@ def query_tvg(
     temporal_context_hops: int = 2,
     semantic_context_hops: int = 1,
     query: str = "",
+    disable_semantic: bool = False,
+    disable_tan: bool = False,
+    disable_cross_modal: bool = False,
+    disable_semantic_edges: bool = False,
+    disable_temporal: bool = False,
 ) -> TVGSubgraph:
     """Retrieve a rich, temporally-coherent subgraph from the TVG.
 
@@ -71,39 +76,44 @@ def query_tvg(
         edges, segment IDs, and provenance traces.
     """
     # --- Step 1: Diverse semantic FAISS search ---
-    # Fetch a larger candidate pool so the diversity filter has enough to pick from.
-    candidate_hits: List[Tuple[str, float]] = tvg.search_semantic_index(
-        query_semantic_emb, top_k=top_k * 3
-    )
-    # Greedy-select top_k seeds that are mutually disconnected in the semantic subgraph.
-    semantic_hits: List[Tuple[str, float]] = _select_diverse_semantic_nodes(
-        candidate_hits, tvg, top_k=top_k
-    )
-    seed_node_ids: Set[str] = {nid for nid, _ in semantic_hits}
-
-    # Expand each seed by semantic_context_hops along semantic edges.
-    semantic_expanded_ids: Set[str] = set()
-    if semantic_context_hops > 0:
-        semantic_expanded_ids = _expand_semantic_neighbors(
-            seed_node_ids, tvg, hops=semantic_context_hops
+    semantic_node_ids: Set[str] = set()
+    semantic_hits: List[Tuple[str, float]] = []
+    
+    if not disable_semantic:
+        # Fetch a larger candidate pool so the diversity filter has enough to pick from.
+        candidate_hits: List[Tuple[str, float]] = tvg.search_semantic_index(
+            query_semantic_emb, top_k=top_k * 3
         )
-    semantic_node_ids: Set[str] = seed_node_ids | semantic_expanded_ids
+        # Greedy-select top_k seeds that are mutually disconnected in the semantic subgraph.
+        semantic_hits = _select_diverse_semantic_nodes(
+            candidate_hits, tvg, top_k=top_k
+        )
+        seed_node_ids: Set[str] = {nid for nid, _ in semantic_hits}
+
+        # Expand each seed by semantic_context_hops along semantic edges.
+        semantic_expanded_ids: Set[str] = set()
+        if semantic_context_hops > 0 and not disable_semantic_edges:
+            semantic_expanded_ids = _expand_semantic_neighbors(
+                seed_node_ids, tvg, hops=semantic_context_hops
+            )
+        semantic_node_ids = seed_node_ids | semantic_expanded_ids
 
     # --- Step 2: Cross-modal traversal (semantic → TANs) ---
     tan_ids_from_semantic: Set[str] = set()
     provenance_map: Dict[str, str] = {}  # tan_id → provenance path string
 
-    for sem_id, sem_score in semantic_hits:
-        reachable_tans = tvg.get_successors_by_edge_type(sem_id, "cross_modal")
-        for tan_id in reachable_tans:
-            tan_ids_from_semantic.add(tan_id)
-            provenance_map[tan_id] = (
-                f"{sem_id} [cross_modal] → {tan_id}"
-            )
+    if not disable_semantic and not disable_cross_modal and not disable_tan:
+        for sem_id, sem_score in semantic_hits:
+            reachable_tans = tvg.get_successors_by_edge_type(sem_id, "cross_modal")
+            for tan_id in reachable_tans:
+                tan_ids_from_semantic.add(tan_id)
+                provenance_map[tan_id] = (
+                    f"{sem_id} [cross_modal] → {tan_id}"
+                )
 
     # --- Step 3: Direct visual search (skip if no TAN embedding or empty index) ---
     tan_ids_from_visual: Set[str] = set()
-    if query_tan_emb is not None and tvg._tan_index.ntotal > 0:
+    if not disable_tan and query_tan_emb is not None and tvg._tan_index.ntotal > 0:
         visual_hits = tvg.search_tan_index(query_tan_emb, top_k=top_k)
         for tan_id, score in visual_hits:
             tan_ids_from_visual.add(tan_id)
@@ -112,14 +122,16 @@ def query_tvg(
 
     # --- Step 4: Temporal context expansion ---
     all_tan_ids: Set[str] = tan_ids_from_semantic | tan_ids_from_visual
-    expanded_tans = _expand_temporal_context(
-        all_tan_ids, tvg, hops=temporal_context_hops
-    )
-    all_tan_ids |= expanded_tans
+    expanded_tans: Set[str] = set()
+    if not disable_tan and not disable_temporal and temporal_context_hops > 0:
+        expanded_tans = _expand_temporal_context(
+            all_tan_ids, tvg, hops=temporal_context_hops
+        )
+        all_tan_ids |= expanded_tans
 
-    for tan_id in expanded_tans:
-        if tan_id not in provenance_map:
-            provenance_map[tan_id] = f"[temporal_context] → {tan_id}"
+        for tan_id in expanded_tans:
+            if tan_id not in provenance_map:
+                provenance_map[tan_id] = f"[temporal_context] → {tan_id}"
 
     # --- Step 5: Collect edges within the subgraph ---
     subgraph_nodes = semantic_node_ids | all_tan_ids
@@ -157,6 +169,11 @@ async def async_query_tvg(
     temporal_context_hops: int = 2,
     semantic_context_hops: int = 1,
     visual_query: Optional[str] = None,
+    disable_semantic: bool = False,
+    disable_tan: bool = False,
+    disable_cross_modal: bool = False,
+    disable_semantic_edges: bool = False,
+    disable_temporal: bool = False,
 ) -> TVGSubgraph:
     """Async wrapper around :func:`query_tvg` for use in the EBR-RAG pipeline.
 
@@ -203,6 +220,11 @@ async def async_query_tvg(
             temporal_context_hops=temporal_context_hops,
             semantic_context_hops=semantic_context_hops,
             query=query,
+            disable_semantic=disable_semantic,
+            disable_tan=disable_tan,
+            disable_cross_modal=disable_cross_modal,
+            disable_semantic_edges=disable_semantic_edges,
+            disable_temporal=disable_temporal,
         ),
     )
     return subgraph

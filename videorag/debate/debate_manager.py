@@ -147,23 +147,34 @@ async def _generate_hypotheses(
         {"role": "system", "content": agents_prompts.GENERATOR_PROMPT_OPEN},
         {"role": "user", "content": f"Query: {query}\n\nEvidence Pool:\n{ctx}"},
     ]
-    resp = await _chat(
-        llm_client, r_cfg.model, messages,
-        temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
-    )
-    raw = (resp.choices[0].message.content or "").strip()
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        resp = await _chat(
+            llm_client, r_cfg.model, messages,
+            temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
+        )
+        raw = (resp.choices[0].message.content or "").strip()
+        
+        # Robust JSON extraction — Generator returns an array [...], not an object {...}
+        from .._utils import locate_json_array_from_string
+        json_body = locate_json_array_from_string(raw)
+        
+        if json_body:
+            try:
+                hypotheses = json.loads(json_body)
+                if isinstance(hypotheses, list) and hypotheses:
+                    return hypotheses
+            except json.JSONDecodeError:
+                pass
+        
+        retry_count += 1
+        logger.warning(f"[Generator] Could not parse JSON hypotheses (attempt {retry_count}/{max_retries}). Retrying...")
 
-    # Robust JSON parsing
-    try:
-        hypotheses = json.loads(raw)
-        if isinstance(hypotheses, list) and hypotheses:
-            return hypotheses
-    except json.JSONDecodeError:
-        pass
-
-    # Fallback: wrap the whole response as a single hypothesis
-    logger.warning("[Generator] Could not parse JSON hypotheses — falling back to single hypothesis")
-    return [{"id": "H1", "claim": raw[:200], "reasoning": "Generated as fallback (JSON parse error)"}]
+    # If all retries fail, then we raise an error because the user wants "perfection" and no fallbacks
+    logger.error("[Generator] Failed to generate valid hypotheses after all retries.")
+    raise ValueError("Generator failed to produce valid JSON hypotheses. Check LLM connectivity or prompt clarity.")
 
 
 # ---------------------------------------------------------------------------
@@ -203,11 +214,20 @@ async def _defend_hypothesis(
             f"Current evidence:\n{_format_evidence(state.evidence)}"
         )},
     ]
-
-    # Tool-call loop
-    max_calls = 3  # Allowed 3 calls per agent per round as requested
+    # Tool-call loop variables (must be declared before the early-return branch)
+    max_calls = 3
     calls_made = 0
-    while calls_made < max_calls and state.tool_calls_made < 25: # Global limit 25
+
+    # Ablation: Disable tool calling — make a single LLM call WITHOUT tools
+    if getattr(cfg, "defender_disable_tools", False):
+        resp = await _chat(
+            llm_client, r_cfg.model, local_msgs,
+            tools=None, tool_choice=None,
+            temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
+        )
+        return resp.choices[0].message.content or ""
+
+    while calls_made < max_calls and state.tool_calls_made < 25:  # Global limit 25
         resp = await _chat(
             llm_client, r_cfg.model, local_msgs,
             tools=tools, tool_choice="auto",
@@ -241,12 +261,17 @@ async def _defend_hypothesis(
                     ensure_ascii=False
                 ),
             })
-    
+
     if state.tool_calls_made >= 25:
         logger.warning(f"[Defender] Reached global tool call limit (25) — finishing early")
     elif calls_made >= max_calls:
         logger.warning(f"[Defender] Reached max local tool calls ({max_calls}) — finishing early")
-    return local_msgs[-1].get("content") or "Reached tool call limit."
+
+    # Get the last assistant message (not user message)
+    for msg in reversed(local_msgs):
+        if msg.get("role") == "assistant" and msg.get("content"):
+            return msg["content"]
+    return "No response generated."
 
 
 # ---------------------------------------------------------------------------
@@ -271,15 +296,21 @@ async def _run_critique(
         for h, s in zip(hypotheses, defender_summaries)
     )
     prompt_base = agents_prompts.CRITIQUE_PROMPT_MCQ if is_mcq else agents_prompts.CRITIQUE_PROMPT_OPEN
+    # Critique is intentionally blinded from tools/evidence; single-shot critique.
+    # Ablation: Allow Critique to see the full evidence pool
+    evidence_ctx = ""
+    if getattr(cfg, "critique_see_evidence", False):
+        evidence_ctx = f"\n\nFull Evidence Pool:\n{_format_evidence(state.evidence, limit=50)}"
+
     local_msgs: list[dict] = [
         {"role": "system", "content": prompt_base},
         {"role": "user", "content": (
             f"Query: {query}\n\n"
             f"Hypotheses & Defences:\n{hyp_summary}\n\n"
             f"{'Note: Challenge the options for this MCQ.' if is_mcq else ''}"
+            f"{evidence_ctx}"
         )},
     ]
-    # Critique is intentionally blinded from tools/evidence; single-shot critique.
     resp = await _chat(
         llm_client, r_cfg.model, local_msgs,
         tools=None, tool_choice=None,
@@ -300,10 +331,19 @@ async def _run_judge(
     cfg: DebateConfig,
     role_cfgs: dict = ROLE_CONFIGS,
     is_mcq: bool = False,
+    wo_reference: bool = True,
 ) -> dict:
     r_cfg: RoleConfig = role_cfgs.get("judge", RoleConfig(model=cfg.model))
     compact_transcript = _compact_transcript(state.transcript, limit=50, max_chars=600)
-    prompt_base = agents_prompts.JUDGE_PROMPT_MCQ if is_mcq else agents_prompts.JUDGE_PROMPT_OPEN
+    
+    if is_mcq:
+        prompt_base = agents_prompts.JUDGE_PROMPT_MCQ
+    else:
+        prompt_base = agents_prompts.JUDGE_PROMPT_OPEN
+        if not wo_reference:
+            # Inject citation instructions if references are requested
+            prompt_base += "\n\n" + agents_prompts.JUDGE_CITATION_INSTRUCTIONS
+
     judge_msgs = [
         {"role": "system", "content": prompt_base},
         {"role": "user", "content": (
@@ -312,16 +352,57 @@ async def _run_judge(
             f"Full Evidence Pool:\n{_format_evidence(state.evidence, limit=50)}"
         )},
     ]
-    resp = await _chat(
-        llm_client, r_cfg.model, judge_msgs,
-        temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
-    )
-    raw = (resp.choices[0].message.content or "").strip()
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError:
-        logger.warning("[Judge] Could not parse JSON verdict — wrapping raw response")
-        return {"answer": raw, "rationale": raw, "confidence": 0.0, "citations": []}
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        resp = await _chat(
+            llm_client, r_cfg.model, judge_msgs,
+            temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
+        )
+        raw = (resp.choices[0].message.content or "").strip()
+        
+        # Robust JSON extraction using baseline's regex logic
+        from .._utils import locate_json_string_body_from_string
+        json_body = locate_json_string_body_from_string(raw)
+        
+        if json_body:
+            try:
+                verdict = json.loads(json_body)
+                # Normalize keys to match EBR-RAG internal expectations
+                if is_mcq:
+                    normalized = {
+                        "Answer": verdict.get("Answer", verdict.get("answer", "")),
+                        "Explanation": verdict.get("Explanation", verdict.get("rationale", "")),
+                        "Confidence": verdict.get("Confidence", verdict.get("confidence", 1.0))
+                    }
+                    # Internal code uses lowercase answer/rationale/confidence, let's keep that but support capitalized from LLM
+                    final_verdict = {
+                        "answer": normalized["Answer"],
+                        "rationale": normalized["Explanation"],
+                        "confidence": normalized["Confidence"]
+                    }
+                    return final_verdict
+                return verdict
+            except json.JSONDecodeError:
+                pass
+        
+        if not is_mcq:
+            # For Open-ended, if JSON parsing fails, it's likely intentional Markdown output (baseline style)
+            # We don't retry for Open-ended if it looks like a valid text response
+            logger.info("[Judge] Open-ended response received as text (Baseline style)")
+            return {"answer": raw, "rationale": "Synthesized from debate.", "confidence": 1.0, "citations": []}
+
+        retry_count += 1
+        logger.warning(f"[Judge] MCQ response not valid JSON (attempt {retry_count}/{max_retries}). Retrying...")
+
+    # Final fallback if all retries fail
+    if is_mcq:
+        logger.error("[Judge] Failed to generate valid MCQ JSON after all retries.")
+        raise ValueError("MCQ Judge failed to produce valid JSON. Aborting to prevent data corruption.")
+        
+    logger.warning("[Judge] All retries failed — wrapping raw response as answer")
+    return {"answer": raw, "rationale": "Fallback after failed JSON parsing.", "confidence": 0.0, "citations": []}
 
 
 # ---------------------------------------------------------------------------
@@ -338,6 +419,7 @@ async def run_debate(
     role_cfgs: dict = ROLE_CONFIGS,
     is_mcq: bool = False,
     forced_hypotheses: list[dict] | None = None,
+    wo_reference: bool = True,
 ) -> tuple[dict, DebateState]:
     """
     Run the full EBR-RAG debate pipeline.
@@ -353,6 +435,11 @@ async def run_debate(
         hypotheses = forced_hypotheses
     else:
         hypotheses = await _generate_hypotheses(query, state.evidence, llm_client, cfg, role_cfgs)
+        
+        # Ablation: Single hypothesis mode
+        if getattr(cfg, "single_hypothesis", False) and len(hypotheses) > 1:
+            logger.info(f"[Debate] Ablation: Single hypothesis mode. Truncating {len(hypotheses)} -> 1")
+            hypotheses = hypotheses[:1]
     
     state.transcript.append({
         "role": "system",
@@ -388,7 +475,7 @@ async def run_debate(
         })
 
     # --- Stage 4: Judge ---
-    verdict = await _run_judge(query, state, llm_client, cfg, role_cfgs, is_mcq)
+    verdict = await _run_judge(query, state, llm_client, cfg, role_cfgs, is_mcq, wo_reference)
 
     # --- Citation validation ---
     raw_citations = verdict.get("citations", [])

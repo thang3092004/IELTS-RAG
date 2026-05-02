@@ -30,10 +30,19 @@ def always_get_an_event_loop() -> asyncio.AbstractEventLoop:
 
 
 def locate_json_string_body_from_string(content: str) -> Union[str, None]:
-    """Locate the JSON string body from a string"""
-    maybe_json_str = re.search(r"{.*}", content, re.DOTALL)
+    """Locate the JSON string body from a string (object only: {...})"""
+    maybe_json_str = re.search(r"\{.*\}", content, re.DOTALL)
     if maybe_json_str is not None:
         return maybe_json_str.group(0)
+    else:
+        return None
+
+
+def locate_json_array_from_string(content: str) -> Union[str, None]:
+    """Locate a JSON array body from a string: [...] """
+    maybe_json_arr = re.search(r"\[.*\]", content, re.DOTALL)
+    if maybe_json_arr is not None:
+        return maybe_json_arr.group(0)
     else:
         return None
 

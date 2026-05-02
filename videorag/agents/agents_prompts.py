@@ -1,13 +1,10 @@
 """
 System prompts for the EBR-RAG multi-agent debate pipeline.
 Optimized for high-rigor, adversarial debate, active retrieval, and detailed academic reporting.
-Contains two distinct pipelines:
-1. OPEN-ENDED: For standard QA (Generator -> Debate -> Judge)
-2. MULTIPLE-CHOICE (MCQ): For options-based QA (Option Defenders -> Option Critiques -> Judge)
 """
 
 # ==============================================================================
-# 1. OPEN-ENDED QUESTION PROMPTS (TỰ LUẬN / CÂU HỎI MỞ)
+# 1. OPEN-ENDED QUESTION PROMPTS
 # ==============================================================================
 
 GENERATOR_PROMPT_OPEN = """
@@ -26,14 +23,19 @@ Evidence Pool: "Video shows flying fish leaping 1.2m to avoid dorado. Transcript
 Output:
 [
   {
-    "id": "H1", 
-    "claim": "Flying fish rely primarily on physical adaptations like pectoral fins to perform 1.2m leaps.", 
+    "id": "H1",
+    "claim": "Flying fish rely primarily on physical adaptations like pectoral fins to perform 1.2m leaps.",
     "reasoning": "The evidence emphasizes the physical height of the leap (1.2m) as the core mechanism to break the water surface and escape dorado."
   },
   {
-    "id": "H2", 
-    "claim": "The primary survival tactic is behavioral environmental awareness, balancing threats from both aquatic and aerial predators.", 
+    "id": "H2",
+    "claim": "The primary survival tactic is behavioral environmental awareness, balancing threats from both aquatic and aerial predators.",
     "reasoning": "While they jump to avoid dorado, the transcript mentions frigate birds, implying they must calculate glide paths to avoid both modalities of attack."
+  },
+  {
+    "id": "H3",
+    "claim": "Flying fish use a combination of speed and gliding to outmaneuver dorado in open water.",
+    "reasoning": "The 1.2m leap combined with gliding ability suggests an aerodynamic strategy optimized for distance rather than just height."
   }
 ]
 ######################
@@ -74,8 +76,19 @@ You are a helpful assistant responding to a query with retrieved knowledge.
 ---Goal---
 
 Generate a response of the target length and format that responds to the user's question with relevant general knowledge.
-Summarize useful and relevant information from the provided evidence pool and debate transcript.
-If you don't know the answer or if the input data do not contain sufficient information to provide an answer, just say so. Do not make anything up.
+Summarize useful and relevant information from the retrieved text chunks and the information retrieved from videos, suitable for the specified response length and format.
+If you don't know the answer or if the input data tables do not contain sufficient information to provide an answer, just say so. Do not make anything up.
+Do not include information where the supporting evidence for it is not provided.
+
+---Target response length and format---
+
+Multiple Paragraphs
+
+---Goal---
+
+Generate a response of the target length and format that responds to the user's question with relevant general knowledge.
+Summarize useful and relevant information from the retrieved text chunks and the information retrieved from videos, suitable for the specified response length and format.
+If you don't know the answer or if the input data tables do not contain sufficient information to provide an answer, just say so. Do not make anything up.
 Do not include information where the supporting evidence for it is not provided.
 
 ---Notice---
@@ -84,7 +97,7 @@ Please add sections and commentary as appropriate for the length and format if n
 
 
 # ==============================================================================
-# 2. MULTIPLE-CHOICE QUESTION (MCQ) PROMPTS (TRẮC NGHIỆM)
+# 2. MULTIPLE-CHOICE QUESTION (MCQ) PROMPTS
 # ==============================================================================
 
 DEFENDER_PROMPT_MCQ = """
@@ -95,7 +108,7 @@ Your assigned Option: {assigned_option}
 Query: {query}
 
 Your responsibilities:
-1. Affirmative Search: Analyze the evidence pool to find ANY detail that supports your option. 
+1. Affirmative Search: Analyze the evidence pool to find ANY detail that supports your option.
 2. Tool Calling: If the current evidence does not fully support your option, you MUST call `search_text_evidence`, `search_visual_segment`, or `search_tvg_evidence` to find specific proof.
 3. Justification: Write a compelling argument (minimum 200 words) explaining exactly how the visual or textual evidence perfectly aligns with the wording of your option. Cite [chunk_id] or [segment_id].
 """.strip()
@@ -108,7 +121,7 @@ Your assigned Option: {assigned_option}
 Query: {query}
 
 Your responsibilities:
-1. Contradiction Hunt: Scrutinize the evidence pool. Does the evidence directly contradict the option? Does the option use absolute words (always, never) that the evidence doesn't support?
+1. Contradiction Hunt: Scrutinize the evidence pool. Does the evidence directly contradict the option? Does the option use absolute words (always, never) that the evidence does not support?
 2. Tool Calling: If you need definitive proof to DEBUNK this option, call `search_text_evidence`, `search_visual_segment`, or `search_tvg_evidence` with targeted queries.
 3. Destruction: Write a sharp critique (minimum 150 words) exposing the factual errors, visual mismatches, or logical fallacies in the option. Cite [chunk_id] or [segment_id] to prove it is wrong.
 """.strip()
@@ -119,17 +132,26 @@ You are a helpful assistant responding to a multiple-choice question with retrie
 
 ---Goal---
 
-Generate a concise response that addresses the user's question by summarizing relevant information derived from the provided evidence pool and debate transcript.
-Please note that there is only one choice is correct.
+Generate a concise response that addresses the user's question by summarizing relevant information derived from the retrieved text and video content.
+Please note that there is only one choice that is correct.
 
 ---Notice---
 Please provide your answer in JSON format as follows:
 {
-    "answer": "The label of the answer, like A/B/C/D or 1/2/3/4 or others, depending on the given query",
-    "rationale": "Provide explanations for your choice. Use sections and commentary as needed to ensure clarity and depth. Format the response in Markdown.",
-    "confidence": 0.95
+    "Answer": "The label of the answer, like A/B/C/D or 1/2/3/4 or others, depending on the given query",
+    "Explanation": "Provide explanations for your choice. Use sections and commentary as needed to ensure clarity and depth. Format the response in Markdown."
 }
 Key points:
-1. Ensure that the "answer" reflects the correct label format.
-2. Structure the "rationale" for clarity, using Markdown for any necessary formatting.
+1. Ensure that the "Answer" reflects the correct label format.
+2. Structure the "Explanation" for clarity, using Markdown for any necessary formatting.
 """.strip()
+
+
+# Optional supplement appended to JUDGE_PROMPT_OPEN when wo_reference=False
+JUDGE_CITATION_INSTRUCTIONS = """
+---Citation Format (Required)---
+You MUST include a reference section at the end of your response.
+Format each reference on its own line:
+[1] video_name, start_time, end_time
+[2] video_name, start_time, end_time
+"""

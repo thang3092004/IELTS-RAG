@@ -8,6 +8,10 @@ class DebateConfig:
     model: str = "gpt-4o-mini"
     max_rounds: int = 2
     tool_top_k: int = 6
+    # Ablation flags
+    critique_see_evidence: bool = False
+    defender_disable_tools: bool = False
+    single_hypothesis: bool = False
 
 
 @dataclass

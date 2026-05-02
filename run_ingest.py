@@ -4,6 +4,10 @@ import logging
 import warnings
 import multiprocessing
 import sys
+from dotenv import load_dotenv
+
+# Nạp các biến môi trường từ file .env
+load_dotenv()
 
 warnings.filterwarnings("ignore")
 logging.getLogger("httpx").setLevel(logging.WARNING)

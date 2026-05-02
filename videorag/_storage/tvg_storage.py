@@ -122,11 +122,17 @@ class TVGStorage(StorageNameSpace):
     async def query(
         self,
         query: str,
-        text_embedding_func: Any,
-        top_k: int = 8,
+        text_embedding_func: Optional[Any] = None,
+        top_k: int = 5,
         temporal_context_hops: int = 2,
         tan_embedding_func: Optional[Any] = None,
         visual_query: Optional[str] = None,
+        semantic_context_hops: int = 1,
+        disable_semantic: bool = False,
+        disable_tan: bool = False,
+        disable_cross_modal: bool = False,
+        disable_semantic_edges: bool = False,
+        disable_temporal: bool = False,
     ) -> TVGSubgraph:
         """Query the TVG and return a rich subgraph.
 
@@ -147,7 +153,13 @@ class TVGStorage(StorageNameSpace):
             tan_embedding_func=tan_embedding_func,
             top_k=top_k,
             temporal_context_hops=temporal_context_hops,
+            semantic_context_hops=semantic_context_hops,
             visual_query=visual_query,
+            disable_semantic=disable_semantic,
+            disable_tan=disable_tan,
+            disable_cross_modal=disable_cross_modal,
+            disable_semantic_edges=disable_semantic_edges,
+            disable_temporal=disable_temporal,
         )
 
     # ------------------------------------------------------------------
