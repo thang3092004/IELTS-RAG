@@ -55,7 +55,7 @@ def clean_toxic_json_chars(obj: Any) -> Any:
 @retry(
     stop=stop_after_attempt(12),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def _chat(
     llm_client,
@@ -98,13 +98,12 @@ def _format_evidence(evs: List[EvidenceItem], limit: int = 50) -> str:
     return "\n\n".join(rows)
 
 
-def _compact_transcript(transcript: list[dict], limit: int = 40, max_chars: int = 600) -> list[dict]:
+def _compact_transcript(transcript: list[dict], limit: int = 50) -> list[dict]:
+    """Keep the most recent rounds but do not truncate message content to ensure information integrity."""
     trimmed = transcript[-limit:]
     compact = []
     for msg in trimmed:
         content = msg.get("content") or ""
-        if isinstance(content, str) and len(content) > max_chars:
-            content = content[:max_chars] + "…"
         compact.append({k: v for k, v in msg.items() if k not in {"tool_calls"}} | {"content": content})
     return compact
 
@@ -133,57 +132,74 @@ def _validate_citations(citations: list[dict], evidence_pool: List[EvidenceItem]
 # Stage 2 — Generator
 # ---------------------------------------------------------------------------
 
-async def _generate_hypotheses(
+# ---------------------------------------------------------------------------
+# Stage 2 — Generator (Drafting)
+# ---------------------------------------------------------------------------
+
+async def _generate_draft(
     query: str,
     evidence: List[EvidenceItem],
     llm_client,
     cfg: DebateConfig,
     role_cfgs: dict = ROLE_CONFIGS,
-) -> list[dict]:
-    """Returns list of {id, claim, reasoning} dicts. Falls back gracefully on bad JSON."""
+    is_mcq: bool = False,
+) -> str:
+    """Returns a single comprehensive draft string."""
     r_cfg: RoleConfig = role_cfgs.get("generator", RoleConfig(model=cfg.model))
     ctx = _format_evidence(evidence)
+    prompt_base = agents_prompts.GENERATOR_PROMPT_MCQ if is_mcq else agents_prompts.GENERATOR_PROMPT_OPEN
     messages = [
-        {"role": "system", "content": agents_prompts.GENERATOR_PROMPT_OPEN},
-        {"role": "user", "content": f"Query: {query}\n\nEvidence Pool:\n{ctx}"},
+        {"role": "system", "content": prompt_base},
+        {"role": "user", "content": f"Query: {query}\n\nInitial Evidence Pool:\n{ctx}"},
     ]
-    max_retries = 3
-    retry_count = 0
-    
-    while retry_count < max_retries:
-        resp = await _chat(
-            llm_client, r_cfg.model, messages,
-            temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
-        )
-        raw = (resp.choices[0].message.content or "").strip()
-        
-        # Robust JSON extraction — Generator returns an array [...], not an object {...}
-        from .._utils import locate_json_array_from_string
-        json_body = locate_json_array_from_string(raw)
-        
-        if json_body:
-            try:
-                hypotheses = json.loads(json_body)
-                if isinstance(hypotheses, list) and hypotheses:
-                    return hypotheses
-            except json.JSONDecodeError:
-                pass
-        
-        retry_count += 1
-        logger.warning(f"[Generator] Could not parse JSON hypotheses (attempt {retry_count}/{max_retries}). Retrying...")
-
-    # If all retries fail, then we raise an error because the user wants "perfection" and no fallbacks
-    logger.error("[Generator] Failed to generate valid hypotheses after all retries.")
-    raise ValueError("Generator failed to produce valid JSON hypotheses. Check LLM connectivity or prompt clarity.")
+    resp = await _chat(
+        llm_client, r_cfg.model, messages,
+        temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
+    )
+    return (resp.choices[0].message.content or "").strip()
 
 
 # ---------------------------------------------------------------------------
-# Stage 3 — Single Defender coroutine (runs independently per hypothesis)
+# Stage 3 — Sequential Iterative Refinement (Critique & Defender)
 # ---------------------------------------------------------------------------
 
-async def _defend_hypothesis(
-    hypothesis: dict,
+async def _run_critique(
     query: str,
+    current_draft: str,
+    debate_history: list[dict],
+    llm_client,
+    cfg: DebateConfig,
+    role_cfgs: dict = ROLE_CONFIGS,
+    is_mcq: bool = False,
+) -> str:
+    """Blinded Critique: Attacks the latest draft based on logic and history."""
+    r_cfg: RoleConfig = role_cfgs.get("critique", RoleConfig(model=cfg.model))
+    
+    # We pass the history so the critique knows what was already addressed
+    history_str = json.dumps(_compact_transcript(debate_history, limit=10), ensure_ascii=False)
+    prompt_base = agents_prompts.CRITIQUE_PROMPT_MCQ if is_mcq else agents_prompts.CRITIQUE_PROMPT_OPEN
+    
+    local_msgs = [
+        {"role": "system", "content": prompt_base},
+        {"role": "user", "content": (
+            f"Query: {query}\n\n"
+            f"Current Draft/Analysis:\n{current_draft}\n\n"
+            f"Refinement History (last 10 messages):\n{history_str}\n\n"
+            "Analyze the draft for flaws, gaps, or hallucinations. Provide your list of flaws."
+        )},
+    ]
+    resp = await _chat(
+        llm_client, r_cfg.model, local_msgs,
+        tools=None, tool_choice=None,
+        temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
+    )
+    return (resp.choices[0].message.content or "").strip()
+
+
+async def _refine_draft(
+    query: str,
+    current_draft: str,
+    critique_feedback: str,
     state: DebateState,
     llm_client,
     tools: list[dict],
@@ -192,59 +208,44 @@ async def _defend_hypothesis(
     role_cfgs: dict = ROLE_CONFIGS,
     is_mcq: bool = False,
 ) -> str:
-    """
-    Defends one hypothesis in isolation. Has its own local message history.
-    Appends new evidence to state.evidence (append-only → asyncio-safe).
-    Returns a defence summary string to be added to the shared transcript.
-    """
+    """Tool-empowered Defender: Responds to critique and UPDATES the draft."""
     r_cfg: RoleConfig = role_cfgs.get("defender", RoleConfig(model=cfg.model))
-    prompt_tpl = agents_prompts.DEFENDER_PROMPT_MCQ if is_mcq else agents_prompts.DEFENDER_PROMPT_OPEN
-    system_prompt = prompt_tpl.format(
-        hypothesis_claim=hypothesis.get("claim", ""),
-        hypothesis_reasoning=hypothesis.get("reasoning", ""),
-        assigned_option=hypothesis.get("claim", ""),  # for MCQ
-        query=query                                 # for MCQ
-    )
-    # Local message history (never shared with parallel defenders)
+    prompt_base = agents_prompts.DEFENDER_PROMPT_MCQ if is_mcq else agents_prompts.DEFENDER_PROMPT_OPEN
+    
     local_msgs: list[dict] = [
-        {"role": "system", "content": system_prompt},
+        {"role": "system", "content": prompt_base},
         {"role": "user", "content": (
-            f"Query: {query}\n"
-            f"Your hypothesis {hypothesis.get('id')}: {hypothesis.get('claim')}\n"
-            f"Current evidence:\n{_format_evidence(state.evidence)}"
+            f"Query: {query}\n\n"
+            f"Current Draft/Analysis:\n{current_draft}\n\n"
+            f"Critique Feedback:\n{critique_feedback}\n\n"
+            f"Available Evidence Pool:\n{_format_evidence(state.evidence)}\n\n"
+            "Respond to the critique, use tools if needed to find new evidence, and provide an UPDATED DRAFT."
         )},
     ]
-    # Tool-call loop variables (must be declared before the early-return branch)
+
     max_calls = 3
     calls_made = 0
+    # Use the universal cap from config (default 52) to ensure fairness
+    evidence_cap = getattr(cfg, "universal_cap", 52)
 
-    # Ablation: Disable tool calling — make a single LLM call WITHOUT tools
-    if getattr(cfg, "defender_disable_tools", False):
-        resp = await _chat(
-            llm_client, r_cfg.model, local_msgs,
-            tools=None, tool_choice=None,
-            temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
-        )
-        return resp.choices[0].message.content or ""
-
-    while calls_made < max_calls and state.tool_calls_made < 25:  # Global limit 25
+    while calls_made < max_calls and state.tool_calls_made < 25 and len(state.evidence) < evidence_cap:
         resp = await _chat(
             llm_client, r_cfg.model, local_msgs,
             tools=tools, tool_choice="auto",
             temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
         )
         msg = resp.choices[0].message
-        local_msgs.append({
+        msg_to_append = {
             "role": "assistant",
             "content": msg.content,
-            "tool_calls": [tc.model_dump() for tc in msg.tool_calls] if msg.tool_calls else None,
-        })
+        }
+        if msg.tool_calls:
+            msg_to_append["tool_calls"] = [tc.model_dump() for tc in msg.tool_calls]
+        local_msgs.append(msg_to_append)
 
         if not msg.tool_calls:
-            # No more tool calls → defender is done
             return msg.content or ""
 
-        # Dispatch tool calls
         for call in msg.tool_calls:
             state.tool_calls_made += 1
             calls_made += 1
@@ -256,68 +257,10 @@ async def _defend_hypothesis(
                 "role": "tool",
                 "tool_call_id": call.id,
                 "name": call.function.name,
-                "content": json.dumps(
-                    {"evidence_added": len(new_evs), "ids": [e.id for e in new_evs]},
-                    ensure_ascii=False
-                ),
+                "content": json.dumps({"evidence_added": len(new_evs)}, ensure_ascii=False),
             })
 
-    if state.tool_calls_made >= 25:
-        logger.warning(f"[Defender] Reached global tool call limit (25) — finishing early")
-    elif calls_made >= max_calls:
-        logger.warning(f"[Defender] Reached max local tool calls ({max_calls}) — finishing early")
-
-    # Get the last assistant message (not user message)
-    for msg in reversed(local_msgs):
-        if msg.get("role") == "assistant" and msg.get("content"):
-            return msg["content"]
-    return "No response generated."
-
-
-# ---------------------------------------------------------------------------
-# Stage 3 — Critique coroutine
-# ---------------------------------------------------------------------------
-
-async def _run_critique(
-    query: str,
-    hypotheses: list[dict],
-    state: DebateState,
-    defender_summaries: list[str],
-    llm_client,
-    tools: list[dict],
-    dispatch_tool: Callable,
-    cfg: DebateConfig,
-    role_cfgs: dict = ROLE_CONFIGS,
-    is_mcq: bool = False,
-) -> str:
-    r_cfg: RoleConfig = role_cfgs.get("critique", RoleConfig(model=cfg.model))
-    hyp_summary = "\n".join(
-        f"{h.get('id')}: {h.get('claim')} — Defence: {s[:200]}"
-        for h, s in zip(hypotheses, defender_summaries)
-    )
-    prompt_base = agents_prompts.CRITIQUE_PROMPT_MCQ if is_mcq else agents_prompts.CRITIQUE_PROMPT_OPEN
-    # Critique is intentionally blinded from tools/evidence; single-shot critique.
-    # Ablation: Allow Critique to see the full evidence pool
-    evidence_ctx = ""
-    if getattr(cfg, "critique_see_evidence", False):
-        evidence_ctx = f"\n\nFull Evidence Pool:\n{_format_evidence(state.evidence, limit=50)}"
-
-    local_msgs: list[dict] = [
-        {"role": "system", "content": prompt_base},
-        {"role": "user", "content": (
-            f"Query: {query}\n\n"
-            f"Hypotheses & Defences:\n{hyp_summary}\n\n"
-            f"{'Note: Challenge the options for this MCQ.' if is_mcq else ''}"
-            f"{evidence_ctx}"
-        )},
-    ]
-    resp = await _chat(
-        llm_client, r_cfg.model, local_msgs,
-        tools=None, tool_choice=None,
-        temperature=r_cfg.temperature, max_tokens=r_cfg.max_tokens,
-    )
-    msg = resp.choices[0].message
-    return msg.content or ""
+    return local_msgs[-1]["content"]
 
 
 # ---------------------------------------------------------------------------
@@ -334,22 +277,15 @@ async def _run_judge(
     wo_reference: bool = True,
 ) -> dict:
     r_cfg: RoleConfig = role_cfgs.get("judge", RoleConfig(model=cfg.model))
-    compact_transcript = _compact_transcript(state.transcript, limit=50, max_chars=600)
+    compact_transcript = _compact_transcript(state.transcript, limit=50)
     
-    if is_mcq:
-        prompt_base = agents_prompts.JUDGE_PROMPT_MCQ
-    else:
-        prompt_base = agents_prompts.JUDGE_PROMPT_OPEN
-        if not wo_reference:
-            # Inject citation instructions if references are requested
-            prompt_base += "\n\n" + agents_prompts.JUDGE_CITATION_INSTRUCTIONS
-
+    prompt_base = agents_prompts.JUDGE_PROMPT_MCQ if is_mcq else agents_prompts.JUDGE_PROMPT_OPEN
     judge_msgs = [
         {"role": "system", "content": prompt_base},
         {"role": "user", "content": (
             f"Query: {query}\n\n"
-            f"Debate Transcript:\n{json.dumps(compact_transcript, ensure_ascii=False)}\n\n"
-            f"Full Evidence Pool:\n{_format_evidence(state.evidence, limit=50)}"
+            f"Full Refinement History:\n{json.dumps(compact_transcript, ensure_ascii=False)}\n\n"
+            f"Latest Evidence Pool:\n{_format_evidence(state.evidence, limit=50)}"
         )},
     ]
     max_retries = 3
@@ -362,51 +298,33 @@ async def _run_judge(
         )
         raw = (resp.choices[0].message.content or "").strip()
         
-        # Robust JSON extraction using baseline's regex logic
-        from .._utils import locate_json_string_body_from_string
-        json_body = locate_json_string_body_from_string(raw)
-        
-        if json_body:
-            try:
-                verdict = json.loads(json_body)
-                # Normalize keys to match EBR-RAG internal expectations
-                if is_mcq:
-                    normalized = {
-                        "Answer": verdict.get("Answer", verdict.get("answer", "")),
-                        "Explanation": verdict.get("Explanation", verdict.get("rationale", "")),
-                        "Confidence": verdict.get("Confidence", verdict.get("confidence", 1.0))
-                    }
-                    # Internal code uses lowercase answer/rationale/confidence, let's keep that but support capitalized from LLM
+        if is_mcq:
+            # Robust JSON extraction using baseline's regex logic
+            from .._utils import locate_json_string_body_from_string
+            json_body = locate_json_string_body_from_string(raw)
+            
+            if json_body:
+                try:
+                    verdict = json.loads(json_body)
+                    # Normalize keys
                     final_verdict = {
-                        "answer": normalized["Answer"],
-                        "rationale": normalized["Explanation"],
-                        "confidence": normalized["Confidence"]
+                        "answer": verdict.get("Answer", verdict.get("answer", "")),
+                        "rationale": verdict.get("Explanation", verdict.get("rationale", "")),
+                        "confidence": verdict.get("Confidence", 1.0)
                     }
                     return final_verdict
-                return verdict
-            except json.JSONDecodeError:
-                pass
-        
-        if not is_mcq:
-            # For Open-ended, if JSON parsing fails, it's likely intentional Markdown output (baseline style)
-            # We don't retry for Open-ended if it looks like a valid text response
-            logger.info("[Judge] Open-ended response received as text (Baseline style)")
-            return {"answer": raw, "rationale": "Synthesized from debate.", "confidence": 1.0, "citations": []}
+                except json.JSONDecodeError:
+                    pass
+            retry_count += 1
+            logger.warning(f"[Judge] MCQ response not valid JSON (attempt {retry_count}/{max_retries}).")
+        else:
+            return {"answer": raw, "rationale": "Synthesized from iterative refinement history.", "confidence": 1.0, "citations": []}
 
-        retry_count += 1
-        logger.warning(f"[Judge] MCQ response not valid JSON (attempt {retry_count}/{max_retries}). Retrying...")
-
-    # Final fallback if all retries fail
-    if is_mcq:
-        logger.error("[Judge] Failed to generate valid MCQ JSON after all retries.")
-        raise ValueError("MCQ Judge failed to produce valid JSON. Aborting to prevent data corruption.")
-        
-    logger.warning("[Judge] All retries failed — wrapping raw response as answer")
-    return {"answer": raw, "rationale": "Fallback after failed JSON parsing.", "confidence": 0.0, "citations": []}
+    return {"answer": raw, "rationale": "Fallback.", "confidence": 0.0}
 
 
 # ---------------------------------------------------------------------------
-# Top-level orchestrator
+# Top-level orchestrator (Refinement Architecture)
 # ---------------------------------------------------------------------------
 
 async def run_debate(
@@ -422,68 +340,51 @@ async def run_debate(
     wo_reference: bool = True,
 ) -> tuple[dict, DebateState]:
     """
-    Run the full EBR-RAG debate pipeline.
-
-    Returns:
-        (final_answer_dict, state)
-        final_answer_dict has keys: answer, rationale, confidence, citations (validated)
+    Sequential Iterative Refinement Pipeline.
     """
     state = DebateState(query=query, evidence=list(initial_evidence))
 
-    # --- Stage 2: Generate or use forced hypotheses ---
-    if is_mcq and forced_hypotheses:
-        hypotheses = forced_hypotheses
-    else:
-        hypotheses = await _generate_hypotheses(query, state.evidence, llm_client, cfg, role_cfgs)
-        
-        # Ablation: Single hypothesis mode
-        if getattr(cfg, "single_hypothesis", False) and len(hypotheses) > 1:
-            logger.info(f"[Debate] Ablation: Single hypothesis mode. Truncating {len(hypotheses)} -> 1")
-            hypotheses = hypotheses[:1]
-    
+    # --- Stage 1: Initial Draft ---
+    current_draft = await _generate_draft(query, state.evidence, llm_client, cfg, role_cfgs, is_mcq)
     state.transcript.append({
-        "role": "system",
-        "content": f"[Generator/MCQ] Using {len(hypotheses)} candidates:\n" +
-                   "\n".join(f"  {h.get('id')}: {h.get('claim')}" for h in hypotheses),
+        "role": "assistant",
+        "content": f"[Generator] Initial Draft:\n{current_draft}"
     })
 
-    # --- Stage 3: Debate rounds (defend concurrently → critique sequentially) ---
+    # --- Stage 2: Iterative Refinement Rounds ---
     for round_num in range(cfg.max_rounds):
         state.rounds_run += 1
+        logger.info(f"[Refinement] Starting Round {round_num + 1}/{cfg.max_rounds}")
 
-        # Run all defenders CONCURRENTLY — each coroutine has its own local message history
-        defender_summaries: list[str] = await asyncio.gather(*[
-            _defend_hypothesis(h, query, state, llm_client, tools, dispatch_tool, cfg, role_cfgs, is_mcq)
-            for h in hypotheses
-        ])
-
-        # Append defender summaries to shared transcript
-        for h, summary in zip(hypotheses, defender_summaries):
-            state.transcript.append({
-                "role": "assistant",
-                "content": f"[{'Advocate' if is_mcq else 'Defender'} {h.get('id')}] {summary}",
-            })
-
-        # Run critique
-        critique_summary = await _run_critique(
-            query, hypotheses, state, defender_summaries,
-            llm_client, tools, dispatch_tool, cfg, role_cfgs, is_mcq
+        # 1. Critique attacks the current draft
+        critique_feedback = await _run_critique(
+            query, current_draft, state.transcript, llm_client, cfg, role_cfgs, is_mcq
         )
         state.transcript.append({
             "role": "assistant",
-            "content": f"[{'Prosecutor' if is_mcq else 'Critique'} Round {round_num + 1}] {critique_summary}",
+            "content": f"[Critique Round {round_num + 1}] {critique_feedback}"
         })
 
-    # --- Stage 4: Judge ---
+        # 2. Defender refines the draft based on feedback
+        refiner_output = await _refine_draft(
+            query, current_draft, critique_feedback, state, llm_client, tools, dispatch_tool, cfg, role_cfgs, is_mcq
+        )
+        
+        # Defender output is expected to have "Updated Draft" section
+        # We try to extract the new draft for the next round
+        if "Updated Draft" in refiner_output:
+            try:
+                new_draft = refiner_output.split("Updated Draft")[-1].strip(": \n")
+                if len(new_draft) > 50: # Sanity check
+                    current_draft = new_draft
+            except:
+                pass
+        
+        state.transcript.append({
+            "role": "assistant",
+            "content": f"[Defender Round {round_num + 1}] {refiner_output}"
+        })
+
+    # --- Stage 3: Judge Finalizes ---
     verdict = await _run_judge(query, state, llm_client, cfg, role_cfgs, is_mcq, wo_reference)
-
-    # --- Citation validation ---
-    raw_citations = verdict.get("citations", [])
-    verdict["citations"] = _validate_citations(raw_citations, state.evidence)
-
-    invalid = [c for c in verdict["citations"] if not c.get("validated")]
-    if invalid:
-        logger.warning(f"[Judge] {len(invalid)} citation(s) not found in evidence pool: "
-                       f"{[c.get('evidence_id') for c in invalid]}")
-
     return verdict, state

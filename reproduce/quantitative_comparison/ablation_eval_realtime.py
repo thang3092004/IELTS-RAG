@@ -112,6 +112,23 @@ async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--concurrency", type=int, default=10)
     parser.add_argument("--output", type=str, default="ablation_realtime_results.json")
+    parser.add_argument("--collections", nargs='+', type=str, default=['0','13','17'],
+                        help="Collection IDs to evaluate (e.g. 6 11 19)")
+    parser.add_argument("--evaluation-dirs", nargs='+', type=str,
+                        default=[
+                            'full_framework',
+                            'no_semantic_nodes',
+                            'no_tan_nodes',
+                            'no_semantic_edges',
+                            'no_temporal_edges',
+                            'no_cross_modal_edges',
+                            'no_debate',
+                            'critique_with_evidence',
+                            'defender_no_tools',
+                        ],
+                        help="List of evaluation answer directories in all_answers/<id>-<name>/")
+    parser.add_argument("--baseline-dir", type=str, default='answers-naiverag',
+                        help="Baseline answer directory name")
     args = parser.parse_args()
 
     client = AsyncOpenAI()
@@ -125,15 +142,10 @@ async def main():
     with open(dataset_path, 'r') as f:
         questions_dataset = json.load(f)
 
-    # We only processed these collection IDs
-    processed_ids = ['0', '13', '17']
-    evaluation_answer_dirs = [
-        'answers-EBR-RAG',      # Full
-        'answers-no_graph',       # Ablation 1
-        'answers-no_chunks',      # Ablation 2
-        'answers-no_visual',      # Ablation 3
-    ]
-    baseline_answer_dir = 'answers-naiverag'
+    # Collection IDs to process (can be passed via --collections)
+    processed_ids = args.collections
+    evaluation_answer_dirs = args.evaluation_dirs
+    baseline_answer_dir = args.baseline_dir
     
     evaluation_pairs = []
 
@@ -231,10 +243,15 @@ async def main():
     
     # Map dir names to friendly names
     name_map = {
-        "answers-EBR-RAG": "Full Framework",
-        "answers-no_graph": "w/o Knowledge Graph",
-        "answers-no_chunks": "w/o Segment Chunks",
-        "answers-no_visual": "w/o Visual Features"
+        "full_framework": "Full Framework",
+        "no_semantic_nodes": "w/o Semantic Nodes",
+        "no_tan_nodes": "w/o TAN Nodes",
+        "no_semantic_edges": "w/o Semantic Edges",
+        "no_temporal_edges": "w/o Temporal Edges",
+        "no_cross_modal_edges": "w/o Cross-Modal Edges",
+        "no_debate": "w/o Debate",
+        "critique_with_evidence": "Critique with Evidence",
+        "defender_no_tools": "Defender No Tools",
     }
 
     for eval_dir in evaluation_answer_dirs:

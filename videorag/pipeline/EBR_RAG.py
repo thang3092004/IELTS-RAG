@@ -109,10 +109,10 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
     
     # 1. Base initial budget
     # Calculate a mathematically perfectly fair evidence budget.
-    # A typical 3-round debate across 3 hypotheses generates roughly 36 items 
-    # (3 agents * 2 calls/round * 2 items/call * 3 rounds).
+    # In Sequential Refinement, 3 rounds with 1 Defender making 3 tool calls 
+    # (2 items/call) generates exactly 18 items (1 agent * 3 calls/round * 2 items/call * 3 rounds).
     base_top_k: int = getattr(param, "ebr_top_k", 2)
-    debate_bonus = 36 
+    debate_bonus = 18 
     
     if max_rounds == 0:
         # No-Debate: we pull the "debate bonus" up front.

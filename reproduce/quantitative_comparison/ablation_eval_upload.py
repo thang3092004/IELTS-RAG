@@ -6,12 +6,22 @@ import argparse
 import jsonlines
 import tiktoken
 import itertools
+from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import Literal
 from tqdm import tqdm
 from openai import OpenAI
 from openai.lib._pydantic import to_strict_json_schema
 from openai.lib._parsing._completions import type_to_response_format_param
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+repo_root = Path(__file__).resolve().parent.parent.parent
+if load_dotenv is not None:
+    load_dotenv(repo_root / ".env")
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 if OPENAI_API_KEY:
@@ -106,19 +116,27 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Submit EBR-RAG and Ablation evaluation batches")
     parser.add_argument("--run-time", type=int, default=5, help="Number of repeated runs (paper uses 5)")
     parser.add_argument("--max-enqueued-tokens", type=int, default=1800000, help="Approx token budget per batch file")
+    parser.add_argument("--collections", type=str, nargs="+", default=["6", "11", "19"], help="Collection IDs to include")
+    parser.add_argument("--submit-run", type=int, default=None, help="Submit only one run index")
+    parser.add_argument("--submit-part", type=int, default=None, help="Submit only one batch part index")
     parser.add_argument("--only-generate", action="store_true", help="Only generate request json files, do not submit")
     args = parser.parse_args()
 
-    with open('../../longervideos/dataset.json', 'r') as f:
+    with open(repo_root / 'longervideos/dataset.json', 'r', encoding='utf-8') as f:
         questions = json.load(f)
 
     baseline_answer_dir = 'answers-naiverag'
-    base_dir = 'ablation_comparison'
+    base_dir = 'ablation_comparison_6_11_19'
     evaluation_answer_dirs = [
-        'answers-EBR-RAG',      # Full pipeline
-        'answers-no_graph',       # Ablation 1
-        'answers-no_chunks',      # Ablation 2
-        'answers-no_visual',      # Ablation 3
+        'full_framework',
+        'no_semantic_nodes',
+        'no_tan_nodes',
+        'no_semantic_edges',
+        'no_temporal_edges',
+        'no_cross_modal_edges',
+        'no_debate',
+        'critique_with_evidence',
+        'defender_no_tools',
     ]
 
     requests = []
@@ -126,7 +144,7 @@ if __name__ == "__main__":
     total_token_count = 0
     skipped = 0
 
-    col_filter = ["0", "13", "17"]  # The subset from run_all_pipeline
+    col_filter = set(args.collections)
 
     for _id in questions:
         if _id not in col_filter:
@@ -134,24 +152,24 @@ if __name__ == "__main__":
             
         video_list_name = questions[_id][0]['description']
         video_querys = questions[_id][0]['questions']
-        data_path = f"../all_answers/{_id}-{video_list_name}"
+        data_path = repo_root / f"reproduce/all_answers/{_id}-{video_list_name}"
 
         for _evaluation_answer_dir in evaluation_answer_dirs:
-            baseline_work_dir = os.path.join(data_path, baseline_answer_dir)
-            evaluation_work_dir = os.path.join(data_path, _evaluation_answer_dir)
+            baseline_work_dir = data_path / baseline_answer_dir
+            evaluation_work_dir = data_path / _evaluation_answer_dir
 
             for i in range(len(video_querys)):
                 query_id = video_querys[i]["id"]
                 query = video_querys[i]["question"]
 
-                baseline_path = os.path.join(baseline_work_dir, f'answer_{query_id}.md')
-                evaluation_path = os.path.join(evaluation_work_dir, f'answer_{query_id}.md')
+                baseline_path = baseline_work_dir / f'answer_{query_id}.md'
+                evaluation_path = evaluation_work_dir / f'answer_{query_id}.md'
 
-                if not os.path.exists(baseline_path):
+                if not baseline_path.exists():
                     print(f"[SKIP] Missing baseline: {baseline_path}")
                     skipped += 1
                     continue
-                if not os.path.exists(evaluation_path):
+                if not evaluation_path.exists():
                     print(f"[SKIP] Missing evaluation: {evaluation_path}")
                     skipped += 1
                     continue
@@ -208,7 +226,11 @@ if __name__ == "__main__":
 
     submitted_count = 0
     for k in range(args.run_time):
+        if args.submit_run is not None and k != args.submit_run:
+            continue
         for part_idx, (request_chunk, token_chunk) in enumerate(zip(request_chunks, token_chunks)):
+            if args.submit_part is not None and part_idx != args.submit_part:
+                continue
             request_json_file_path = f'batch_requests/{base_dir}/{int(time.time())}_run{k}_part{part_idx}.json'
             with jsonlines.open(request_json_file_path, mode="w") as writer:
                 for request in request_chunk:

@@ -92,7 +92,7 @@ class LLMConfig:
 @retry(
     stop=stop_after_attempt(12),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def openai_complete_if_cache(
     model, prompt, system_prompt=None, history_messages=[], **kwargs
@@ -151,7 +151,7 @@ async def gpt_4o_mini_complete(
 @retry(
     stop=stop_after_attempt(12),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def openai_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     openai_async_client = get_openai_async_client_instance()
@@ -170,8 +170,8 @@ openai_config = LLMConfig(
     query_better_than_threshold = 0.2,
 
     # LLM        
-    best_model_func_raw = gpt_4o_complete,
-    best_model_name = "gpt-4o",    
+    best_model_func_raw = gpt_4o_mini_complete,
+    best_model_name = "gpt-4o-mini",    
     best_model_max_token_size = 32768,
     best_model_max_async = 16,
         
@@ -206,7 +206,7 @@ openai_4o_mini_config = LLMConfig(
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def azure_openai_complete_if_cache(
     deployment_name, prompt, system_prompt=None, history_messages=[], **kwargs
@@ -292,8 +292,8 @@ azure_openai_config = LLMConfig(
     embedding_func_max_async = 16,
     query_better_than_threshold = 0.2,
 
-    best_model_func_raw = azure_gpt_4o_complete,
-    best_model_name = "gpt-4o",    
+    best_model_func_raw = azure_gpt_4o_mini_complete,
+    best_model_name = "gpt-4o-mini",    
     best_model_max_token_size = 32768,
     best_model_max_async = 16,
 
@@ -367,7 +367,7 @@ async def ollama_mini_complete(model_name, prompt, system_prompt=None, history_m
 @retry(
     stop=stop_after_attempt(12),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def ollama_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     # Initialize the Ollama client
@@ -405,7 +405,7 @@ ollama_config = LLMConfig(
 @retry(
     stop=stop_after_attempt(12),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def deepseek_complete_if_cache(
     model, prompt, system_prompt=None, history_messages=[], **kwargs
@@ -468,7 +468,7 @@ async def deepseek_complete(model_name, prompt, system_prompt=None, history_mess
 @retry(
     stop=stop_after_attempt(12),
     wait=wait_exponential(multiplier=1, min=4, max=60),
-    retry=retry_if_exception_type((RateLimitError, APIConnectionError, BadRequestError)),
+    retry=retry_if_exception_type((RateLimitError, APIConnectionError)),
 )
 async def bge_m3_embedding(model_name: str, texts: list[str]) -> np.ndarray:
     # 使用硅基流动的BAAI/bge-m3嵌入模型
