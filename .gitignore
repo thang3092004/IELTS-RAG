@@ -45,3 +45,6 @@ judge_output.json
 .DS_Store
 Thumb.db
 error_log_videorag.txt
+failed_payloads.txt
+scratch/
+run_ingest_tm.py

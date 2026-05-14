@@ -950,3 +950,308 @@ async def videorag_query_multiple_choice(
                 use_cache=False,
             )
     
+
+from .prompt import TM_PROMPT_ADDITIONS
+
+async def extract_entities_tm(
+    chunks: dict[str, TextChunkSchema],
+    knowledge_graph_inst: BaseGraphStorage,
+    entity_vdb: BaseVectorStorage,
+    global_config: dict,
+) -> Union[BaseGraphStorage, None]:
+    use_llm_func: callable = global_config["llm"]["best_model_func"]
+    embedding_func: callable = global_config["llm"]["embedding_func"]
+    entity_extract_max_gleaning = global_config["entity_extract_max_gleaning"]
+    
+    ordered_chunks = sorted(list(chunks.items()), key=lambda x: x[1].get("chunk_order_index", 0))
+
+    entity_extract_prompt = TM_PROMPT_ADDITIONS["entity_extraction"]
+    context_base = dict(
+        tuple_delimiter=PROMPTS["DEFAULT_TUPLE_DELIMITER"],
+        record_delimiter=PROMPTS["DEFAULT_RECORD_DELIMITER"],
+        completion_delimiter=PROMPTS["DEFAULT_COMPLETION_DELIMITER"],
+        entity_types=",".join(PROMPTS["DEFAULT_ENTITY_TYPES"]),
+    )
+    continue_prompt = PROMPTS["entiti_continue_extraction"]
+    if_loop_prompt = PROMPTS["entiti_if_loop_extraction"]
+
+    logger.info("Extracting and resolving entities batch-sequentially using Short-Term Memory...")
+    use_cheap_model = global_config["llm"]["cheap_model_func"]
+    
+    short_term_memory = {} # resolved_name -> { "description": str, "last_seen": int }
+    max_memory_nodes = 50
+    current_time = 0
+    batch_size = 10
+    
+    resolved_nodes = defaultdict(list)
+    resolved_edges = defaultdict(list)
+
+    async def _extract_wrapper(chunk_key, chunk_dp, memory_context):
+        content = clean_toxic_json_chars(chunk_dp["content"])
+        hint_prompt = entity_extract_prompt.format(
+            **context_base, 
+            input_text=content, 
+            memory_context=memory_context
+        )
+        try:
+            final_result = await use_llm_func(hint_prompt)
+        except Exception as e:
+            logger.error(f"Failed to extract entities for chunk {chunk_key}. Error: {e}")
+            with open("failed_payloads.txt", "a", encoding="utf-8") as f:
+                f.write(f"--- Chunk: {chunk_key} ---\n{content}\n")
+            raise e
+
+        history = pack_user_ass_to_openai_messages(hint_prompt, clean_toxic_json_chars(final_result))
+        for now_glean_index in range(entity_extract_max_gleaning):
+            glean_result = await use_llm_func(continue_prompt, history_messages=history)
+            glean_result = clean_toxic_json_chars(glean_result)
+
+            history += pack_user_ass_to_openai_messages(continue_prompt, glean_result)
+            final_result += glean_result
+            if now_glean_index == entity_extract_max_gleaning - 1:
+                break
+
+            if_loop_result: str = await use_llm_func(
+                if_loop_prompt, history_messages=history
+            )
+            if_loop_result = if_loop_result.strip().strip('"').strip("'").lower()
+            if if_loop_result != "yes":
+                break
+
+        records = split_string_by_multi_markers(
+            final_result,
+            [context_base["record_delimiter"], context_base["completion_delimiter"]],
+        )
+
+        chunk_nodes = defaultdict(list)
+        chunk_edges = defaultdict(list)
+        for record in records:
+            record = re.search(r"\((.*)\)", record)
+            if record is None:
+                continue
+            record = record.group(1)
+            record_attributes = split_string_by_multi_markers(
+                record, [context_base["tuple_delimiter"]]
+            )
+            if_entities = await _handle_single_entity_extraction(
+                record_attributes, chunk_key
+            )
+            if if_entities is not None:
+                chunk_nodes[if_entities["entity_name"]].append(if_entities)
+                continue
+
+            if_relation = await _handle_single_relationship_extraction(
+                record_attributes, chunk_key
+            )
+            if if_relation is not None:
+                chunk_edges[(if_relation["src_id"], if_relation["tgt_id"])].append(
+                    if_relation
+                )
+        return chunk_nodes, chunk_edges
+
+    for i in range(0, len(ordered_chunks), batch_size):
+        batch_chunks = ordered_chunks[i:i+batch_size]
+        current_time += 1
+        
+        # 1. Prepare Memory Context for the whole batch
+        memory_context = "--- Short-Term Memory (Recently seen entities) ---\n"
+        if not short_term_memory:
+            memory_context += "Memory is empty. This is the first segment.\n"
+        else:
+            memory_context += "Entities:\n"
+            for n, d in short_term_memory.items():
+                # OPTIMIZATION 3: Memory Compression (Limit description to 150 chars to save tokens)
+                desc = d['description'][:150] + "..." if len(d['description']) > 150 else d['description']
+                memory_context += f"- {n}: {desc}\n"
+        
+        # 2. Extract in parallel for the batch
+        batch_results = await asyncio.gather(
+            *[_extract_wrapper(k, v, memory_context) for k, v in batch_chunks]
+        )
+        
+        # Combine extracted nodes for resolution
+        batch_maybe_nodes = defaultdict(list)
+        batch_maybe_edges = defaultdict(list)
+        for c_nodes, c_edges in batch_results:
+            for k, v in c_nodes.items():
+                batch_maybe_nodes[k].extend(v)
+            for k, v in c_edges.items():
+                batch_maybe_edges[tuple(sorted(k))].extend(v)
+                
+        # 3. Entity Resolution for this batch
+        async def _resolve_node(raw_name, node_list, current_stm):
+            rep_node = node_list[0]
+            rep_desc = rep_node.get("description", "")
+            query_str = f"{raw_name}: {rep_desc}"
+            
+            # OPTIMIZATION 2: Rule-based Normalization
+            import re
+            def normalize_name(name):
+                name = name.lower().strip()
+                name = re.sub(r'^(the|a|an|mr\.|dr\.)\s+', '', name)
+                name = re.sub(r'\s+(inc\.|llc\.|corp\.?)$', '', name)
+                return name
+                
+            norm_raw_name = normalize_name(raw_name)
+            
+            # Exact or Normalized match in STM
+            for stm_name in current_stm:
+                if norm_raw_name == normalize_name(stm_name):
+                    return raw_name, stm_name, node_list
+            
+            candidates = {} # name -> description
+            
+            # Add candidates from STM
+            for c_name, c_data in current_stm.items():
+                candidates[c_name] = c_data["description"]
+                
+            # Add candidates from Global VDB (for cross-video or evicted nodes)
+            if entity_vdb is not None:
+                try:
+                    db_results = await entity_vdb.query(query_str, top_k=3)
+                    for res in db_results:
+                        c_name = res["entity_name"]
+                        if c_name not in candidates:
+                            c_node = await knowledge_graph_inst.get_node(c_name)
+                            if c_node:
+                                candidates[c_name] = c_node.get("description", "")
+                except Exception:
+                    pass
+            
+            if candidates:
+                # OPTIMIZATION 1: True Cosine Similarity Retrieval
+                import numpy as np
+                q_vecs = await embedding_func([query_str])
+                q_vec = q_vecs[0]
+                
+                def calc_cosine_sim(c_name, c_desc):
+                    c_data = current_stm.get(c_name, {})
+                    if "vector" not in c_data:
+                        return 0.0
+                    c_vec = c_data["vector"]
+                    norm_q = np.linalg.norm(q_vec)
+                    norm_c = np.linalg.norm(c_vec)
+                    if norm_q == 0 or norm_c == 0:
+                        return 0.0
+                    return np.dot(q_vec, c_vec) / (norm_q * norm_c)
+                
+                scored_candidates = [
+                    (c_name, calc_cosine_sim(c_name, c_desc))
+                    for c_name, c_desc in candidates.items()
+                ]
+                ranked_candidates = sorted(
+                    scored_candidates,
+                    key=lambda x: x[1],
+                    reverse=True
+                )
+                
+                # Keep only top 5 candidates to save tokens
+                top_k_candidates = {name: candidates[name] for name, score in ranked_candidates[:5]}
+                
+                # OPTIMIZATION 1: Confidence Thresholding
+                top_candidate_name, top_score = ranked_candidates[0] if ranked_candidates else (None, 0.0)
+                
+                if top_score > 0.85:
+                    logger.info(f"Auto-merged '{raw_name}' -> '{top_candidate_name}' (Score: {top_score:.2f})")
+                    return raw_name, top_candidate_name, node_list
+                elif top_score < 0.5:
+                    return raw_name, raw_name, node_list
+                
+                candidate_texts = []
+                valid_candidates = []
+                for c_name, c_desc in top_k_candidates.items():
+                    candidate_texts.append(f"Candidate:\nName: {c_name}\nDescription: {c_desc}\n")
+                    valid_candidates.append(c_name)
+                    
+                candidate_str = "\n".join(candidate_texts)
+                resolution_prompt = TM_PROMPT_ADDITIONS["entity_resolution"].format(
+                    new_entity_name=raw_name,
+                    new_entity_type=rep_node.get("entity_type", ""),
+                    new_entity_description=rep_desc,
+                    candidate_entities=candidate_str
+                )
+                try:
+                    llm_result = await use_cheap_model(resolution_prompt)
+                    llm_result = llm_result.strip()
+                    if llm_result != "NONE" and llm_result in valid_candidates:
+                        logger.info(f"Resolved '{raw_name}' -> '{llm_result}'")
+                        return raw_name, llm_result, node_list
+                except Exception:
+                    pass
+            
+            return raw_name, raw_name, node_list
+
+        batch_res = await asyncio.gather(
+            *[_resolve_node(k, v, short_term_memory) for k, v in batch_maybe_nodes.items()]
+        )
+        
+        # 4. Update STM with new last_seen
+        stm_updates_to_embed = []
+        batch_resolved_mapping = {}
+        for raw_name, resolved_name, node_list in batch_res:
+            batch_resolved_mapping[raw_name] = resolved_name
+            resolved_nodes[resolved_name].extend(node_list)
+            
+            desc = node_list[0].get("description", "")
+            if resolved_name not in short_term_memory:
+                short_term_memory[resolved_name] = {
+                    "description": desc,
+                    "last_seen": current_time
+                }
+                stm_updates_to_embed.append(resolved_name)
+            else:
+                short_term_memory[resolved_name]["last_seen"] = current_time
+                if "vector" not in short_term_memory[resolved_name]:
+                    stm_updates_to_embed.append(resolved_name)
+        
+        # Batch Embed new STM entities
+        if stm_updates_to_embed:
+            texts_to_embed = [f"{n}: {short_term_memory[n]['description']}" for n in stm_updates_to_embed]
+            try:
+                vecs = await embedding_func(texts_to_embed)
+                for name, vec in zip(stm_updates_to_embed, vecs):
+                    short_term_memory[name]["vector"] = vec
+            except Exception as e:
+                logger.error(f"Error embedding new STM entities: {e}")
+                
+        # 5. Evict oldest from STM if exceeded max_memory_nodes
+        if len(short_term_memory) > max_memory_nodes:
+            sorted_stm = sorted(short_term_memory.items(), key=lambda x: x[1]["last_seen"])
+            num_to_remove = len(short_term_memory) - max_memory_nodes
+            for k, _ in sorted_stm[:num_to_remove]:
+                del short_term_memory[k]
+                
+        # 6. Resolve edges for this batch
+        for (src, tgt), edge_list in batch_maybe_edges.items():
+            resolved_src = batch_resolved_mapping.get(src, src)
+            resolved_tgt = batch_resolved_mapping.get(tgt, tgt)
+            if resolved_src == resolved_tgt:
+                continue
+            resolved_edges[tuple(sorted([resolved_src, resolved_tgt]))].extend(edge_list)
+
+    # Final upsert to Graph and VDB
+    all_entities_data = await asyncio.gather(
+        *[
+            _merge_nodes_then_upsert(k, v, knowledge_graph_inst, global_config)
+            for k, v in resolved_nodes.items()
+        ]
+    )
+    all_edges_data = await asyncio.gather(
+        *[
+            _merge_edges_then_upsert(k[0], k[1], v, knowledge_graph_inst, global_config)
+            for k, v in resolved_edges.items()
+        ]
+    )
+    if not len(all_entities_data):
+        logger.error("Didn't extract any entities, maybe your LLM is not working")
+        raise RuntimeError("Entity Extraction failed completely. Halting ingestion to prevent corrupt/fake data state.")
+    if entity_vdb is not None:
+        data_for_vdb = {
+            compute_mdhash_id(dp["entity_name"], prefix="ent-"): {
+                "content": dp["entity_name"] + dp["description"],
+                "entity_name": dp["entity_name"],
+            }
+            for dp in all_entities_data
+        }
+        await entity_vdb.upsert(data_for_vdb)
+    return knowledge_graph_inst, all_entities_data, all_edges_data

@@ -159,12 +159,12 @@ def clean_str(input: Any) -> str:
 
 
 # Utils types -----------------------------------------------------------------------
-@dataclass
 class EmbeddingFunc:
-    embedding_dim: int
-    max_token_size: int
-    model_name: str
-    func: callable
+    def __init__(self, embedding_dim: int, max_token_size: int, model_name: str, func: callable):
+        self.embedding_dim = embedding_dim
+        self.max_token_size = max_token_size
+        self.model_name = model_name
+        self.func = func
 
     async def __call__(self, *args, **kwargs) -> np.ndarray:
         # Had to fix this as the embedding function took only one named argument put it's passed in

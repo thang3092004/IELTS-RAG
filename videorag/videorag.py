@@ -115,7 +115,8 @@ class VideoRAG:
     vector_db_storage_cls_kwargs: dict = field(default_factory=dict)
     graph_storage_cls: Type[BaseGraphStorage] = NetworkXStorage
     enable_llm_cache: bool = True
-    enable_tvg: bool = True  # Set to False to disable TVG ingest
+    enable_tvg: bool = False  # Set to False to disable TVG ingest/loading
+    use_tm_graph: bool = False # Ablation flag for TM Graph RAG
 
     # extension
     always_create_working_dir: bool = True
@@ -151,20 +152,22 @@ class VideoRAG:
             namespace="video_segments", global_config=asdict(self)
         )
 
+        ns_suffix = "_tm" if self.use_tm_graph else ""
+
         self.text_chunks = self.key_string_value_json_storage_cls(
-            namespace="text_chunks", global_config=asdict(self)
+            namespace=f"text_chunks{ns_suffix}", global_config=asdict(self)
         )
 
         self.llm_response_cache = (
             self.key_string_value_json_storage_cls(
-                namespace="llm_response_cache", global_config=asdict(self)
+                namespace=f"llm_response_cache{ns_suffix}", global_config=asdict(self)
             )
             if self.enable_llm_cache
             else None
         )
 
         self.chunk_entity_relation_graph = self.graph_storage_cls(
-            namespace="chunk_entity_relation", global_config=asdict(self)
+            namespace=f"chunk_entity_relation{ns_suffix}", global_config=asdict(self)
         )
 
         self.embedding_func = limit_async_func_call(self.llm.embedding_func_max_async)(wrap_embedding_func_with_attrs(
@@ -173,7 +176,7 @@ class VideoRAG:
                 model_name = self.llm.embedding_model_name)(self.llm.embedding_func))
         self.entities_vdb = (
             self.vector_db_storage_cls(
-                namespace="entities",
+                namespace=f"entities{ns_suffix}",
                 global_config=asdict(self),
                 embedding_func=self.embedding_func,
                 meta_fields={"entity_name"},
@@ -183,7 +186,7 @@ class VideoRAG:
         )
         self.chunks_vdb = (
             self.vector_db_storage_cls(
-                namespace="chunks",
+                namespace=f"chunks{ns_suffix}",
                 global_config=asdict(self),
                 embedding_func=self.embedding_func,
             )
@@ -220,6 +223,10 @@ class VideoRAG:
         self.llm.cheap_model_func = limit_async_func_call(self.llm.cheap_model_max_async)(
             partial(self.llm.cheap_model_func, hashing_kv=self.llm_response_cache)
         )
+        
+        if self.use_tm_graph:
+            from ._op import extract_entities_tm
+            self.entity_extraction_func = extract_entities_tm
 
     def insert_video(self, video_path_list=None):
         loop = always_get_an_event_loop()

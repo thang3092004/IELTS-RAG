@@ -439,4 +439,64 @@ Please provide your answer in JSON format as follows:
 Key points:
 1. Ensure that the "Answer" reflects the correct label format.
 2. Structure the "Explanation" for clarity, using Markdown for any necessary formatting.
+"""# This is an add-on to PROMPTS in prompt.py for TM Graph RAG
+# Prompt for TM-GraphRAG (Temporal Memory GraphRAG)
+
+TM_PROMPT_ADDITIONS = {
+    "entity_extraction": """-Goal-
+Given a text document that is potentially relevant to this activity, a list of entity types, and a "Short-Term Memory" of recently extracted entities and relationships from the preceding parts of this video/document, identify all entities and relationships from the text.
+You MUST prioritize linking back to the exact entities listed in the Short-Term Memory if you encounter them again in the text.
+
+-Steps-
+1. Review the Short-Term Memory list provided below. This represents the immediate context leading up to this segment.
+2. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: One of the following types: [{entity_types}]
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity" {tuple_delimiter} <entity_name> {tuple_delimiter} <entity_type> {tuple_delimiter} <entity_description>)
+
+3. Identify all relationships between entities. For each related pair, extract the following information:
+- source_entity: name of the source entity, as identified in step 2
+- target_entity: name of the target entity, as identified in step 2
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
+- relationship_keywords: one or more high-level key words that summarize the overarching nature of the relationship, focusing on concepts or themes rather than specific details
+Format each relationship as ("relationship" {tuple_delimiter} <source_entity> {tuple_delimiter} <target_entity> {tuple_delimiter} <relationship_description> {tuple_delimiter} <relationship_keywords> {tuple_delimiter} <relationship_strength>)
+
+4. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+
+5. When finished, output {completion_delimiter}
+
+######################
+-Examples-
+######################
+...
+
+#############################
+-Real Data-
+######################
+Entity_types: [{entity_types}]
+Text: {input_text}
+{memory_context}
+######################
+Output:""",
+    "entity_resolution": """-Goal-
+You are a master at Entity Resolution in a Knowledge Graph. Your task is to look at a newly extracted entity and compare it to a list of Candidate Entities from the system's Short-Term Memory and Global Graph.
+If the new entity is the EXACT SAME character/object/concept as one of the Candidate Entities, you must return the Name of that Candidate Entity.
+If the new entity is completely new and does not match any of the candidates, you must return "NONE".
+
+-Rules-
+1. Focus on semantic equivalence. "Alex" and "Alex (Student)" are likely the same.
+2. Return ONLY the exact name of the matched Candidate Entity, or "NONE". Do not return any other text or explanation.
+
+-New Entity-
+Name: {new_entity_name}
+Type: {new_entity_type}
+Description: {new_entity_description}
+
+-Candidate Entities-
+{candidate_entities}
+
+-Output-
 """
+}

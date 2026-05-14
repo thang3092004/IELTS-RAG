@@ -21,7 +21,7 @@ from openai import AsyncOpenAI
 
 from ..tools.text_tools import search_text_evidence
 from ..tools.vision_tools import search_visual_segment
-from ..tools.tvg_tools import search_tvg_evidence
+from ..tools.graph_tools import search_graph_evidence
 from ..tools.schemas import ALL_TOOLS
 from ..debate.debate_manager import run_debate
 from ..debate.state import DebateConfig, DebateState
@@ -70,6 +70,9 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         {answer, rationale, confidence, citations, transcript,
          evidence, rounds_run, tool_calls_made}
     """
+    # global_config is the full asdict(vrag) dict — contains LLM functions, retrieval params
+    global_config: dict = asdict(vrag) if hasattr(vrag, "__dataclass_fields__") else {}
+
     # --- Build store handles & config ---
     stores: dict[str, Any] = {
         "chunks_vdb":               getattr(vrag, "chunks_vdb", None),
@@ -78,113 +81,101 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         "knowledge_graph":          getattr(vrag, "chunk_entity_relation_graph", None),
         "video_segment_feature_vdb": getattr(vrag, "video_segment_feature_vdb", None),
         "video_segments":           getattr(vrag, "video_segments", None),
-        # TVG stores (present only when TVG ingest has been run)
-        "tvg_storage":              getattr(vrag, "tvg_storage", None),
-        # Embedding func exposed so tvg_tools can embed the query
+        "video_path_db":            getattr(vrag, "video_path_db", None),
+        # VLM for re-captioning
+        "caption_model":            getattr(vrag, "caption_model", None),
+        "caption_tokenizer":        getattr(vrag, "caption_tokenizer", None),
+        # Embedding func exposed so tools can embed the query if needed
         "text_embedding_func":      getattr(getattr(vrag, "embedding_func", None), "func", None)
                                     or getattr(vrag, "embedding_func", None),
     }
 
-    # Helper for lazy ImageBind instantiation for TVG direct visual search
-    def _tan_embed(q: str):
-        from .._videoutil import encode_string_query
-        from imagebind.models import imagebind_model
-        import torch
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        embedder = imagebind_model.imagebind_huge(pretrained=True).to(device)
-        embedder.eval()
-        return encode_string_query(q, embedder)[0].numpy()
+    # -------------------------------------------------------------------------
+    # RE-CAPTIONING HELPER (Query-Aware Refinement)
+    # -------------------------------------------------------------------------
+    async def refine_segment_evidence(evidence_list: List[EvidenceItem]) -> List[EvidenceItem]:
+        """Performs query-aware re-captioning for visual segments (Matching Baseline)."""
+        # Filter for unrefined segments
+        target_evs = [ev for ev in evidence_list if ev.type == "segment" and not ev.metadata.get("refined")]
+        if not target_evs:
+            return evidence_list
         
-    stores["tan_embedding_func"] = _tan_embed
+        c_model = stores.get("caption_model")
+        c_tok = stores.get("caption_tokenizer")
+        if not c_model or not c_tok:
+            return evidence_list
 
-    # global_config is the full asdict(vrag) dict — contains LLM functions, retrieval params
-    global_config: dict = asdict(vrag) if hasattr(vrag, "__dataclass_fields__") else {}
+        from .._videoutil.caption import retrieved_segment_caption
+        from .._op import _extract_keywords_query
+        
+        id_map = {ev.id: ev for ev in target_evs}
+        clean_ids = list(id_map.keys())
+
+        # Extract keywords for query-aware focus
+        keywords = await _extract_keywords_query(query, param, global_config)
+        logger.info(f"[EBR_RAG] Refining {len(clean_ids)} segments with keywords: {keywords!r}")
+        
+        try:
+            refined = retrieved_segment_caption(
+                c_model, c_tok, keywords, clean_ids,
+                stores["video_path_db"], stores["video_segments"],
+                num_sampled_frames=global_config.get('fine_num_frames_per_segment', 15)
+            )
+            for cid, caption_content in refined.items():
+                if cid in id_map:
+                    id_map[cid].snippet = caption_content
+                    id_map[cid].metadata["refined"] = True
+        except Exception as e:
+            logger.error(f"[EBR_RAG] Refinement failed: {e}")
+            
+        return evidence_list
 
     # -------------------------------------------------------------------------
-    # FAIRNESS ABLATION CONTROLLER (Evidence Budgeting)
+    # UNIFIED EVIDENCE BUDGETING (Matching Baseline + Debate Bonus)
     # -------------------------------------------------------------------------
     max_rounds: int = getattr(param, "max_rounds", 3)
-    use_tvg_only = getattr(param, "ebr_use_tvg_only", False)
-    use_text_only = getattr(param, "ebr_use_text_only", False)
+    base_top_k: int = 8  # Unified Top-K matching baseline
     
-    # 1. Base initial budget
-    # Calculate a mathematically perfectly fair evidence budget.
-    # In Sequential Refinement, 3 rounds with 1 Defender making 3 tool calls 
-    # (2 items/call) generates exactly 18 items (1 agent * 3 calls/round * 2 items/call * 3 rounds).
-    base_top_k: int = getattr(param, "ebr_top_k", 2)
-    debate_bonus = 18 
-    
-    if max_rounds == 0:
-        # No-Debate: we pull the "debate bonus" up front.
-        total_init_budget = base_top_k + (debate_bonus // 2)
-        logger.info(f"[EBR_RAG] No-Debate Ablation. Boosting initial budget to {total_init_budget} to match debate capacity.")
-    else:
-        # Debate: we pull base items up front, agents retrieve the rest.
-        total_init_budget = base_top_k
-        
-    # 2. Module Allocation
-    # Distribute the total_init_budget across active retrieval modules
-    if use_tvg_only:
-        text_k, tvg_k = 0, total_init_budget * 2  # Give TVG everything
-    elif use_text_only:
-        text_k, tvg_k = total_init_budget * 2, 0  # Give Text everything
-    else:
-        text_k, tvg_k = total_init_budget, total_init_budget
-
+    # Stage 1 Retrieval Targets
+    text_k, graph_k, visual_k = base_top_k, base_top_k, base_top_k
     global_config["retrieval_topk_chunks"] = text_k
-    # -------------------------------------------------------------------------
 
-    # --- Stage 1: Dual retrieval (skimming & scanning) ---
+    # --- Stage 1: Initial retrieval ---
     init_evidence = []
     
     # Text evidence
-    text_ev = []
-    if text_k > 0:
-        logger.info(f"[EBR_RAG] Stage 1a — Text retrieval top_k={text_k}")
-        text_ev = await search_text_evidence(query, stores, top_k=text_k, entity_boost=True,
-                                             global_config=global_config, query_param=param)
+    logger.info(f"[EBR_RAG] Stage 1a — Text retrieval top_k={text_k}")
+    text_ev = await search_text_evidence(query, stores, top_k=text_k, entity_boost=True,
+                                         global_config=global_config, query_param=param)
     
-    # Visual evidence (Baseline)
-    visual_ev = []
-    if stores.get("tvg_storage") is None and not use_tvg_only and not use_text_only:
-        v_k = min(4, text_k) if text_k > 0 else 4
-        logger.info(f"[EBR_RAG] Stage 1b — Visual retrieval (Baseline) top_k={v_k}")
-        visual_ev = await search_visual_segment(query, stores, top_k=v_k,
-                                               global_config=global_config, query_param=param)
-    else:
-        logger.info("[EBR_RAG] Stage 1b — Skipping Baseline Visual (TVG active or ablated)")
+    # Graph evidence
+    logger.info(f"[EBR_RAG] Stage 1b — Graph retrieval top_k={graph_k}")
+    graph_ev = await search_graph_evidence(query, stores, top_k=graph_k, 
+                                          global_config=global_config, query_param=param)
 
-    init_evidence = _dedup_evidence(text_ev + visual_ev)
+    # Visual evidence (Baseline ImageBind)
+    logger.info(f"[EBR_RAG] Stage 1c — Visual retrieval (Baseline) top_k={visual_k}")
+    visual_ev = await search_visual_segment(query, stores, top_k=visual_k,
+                                           global_config=global_config, query_param=param)
 
-    # TVG evidence
-    if stores.get("tvg_storage") is not None and tvg_k > 0:
-        logger.info(f"[EBR_RAG] Stage 1c — TVG evidence top_k={tvg_k}")
-        try:
-            tvg_ev = await search_tvg_evidence(
-                query, stores, top_k=tvg_k,
-                temporal_context_hops=getattr(param, "tvg_temporal_hops", 2),
-                global_config=global_config,
-                query_param=param,
-            )
-            init_evidence = _dedup_evidence(init_evidence + tvg_ev)
-            logger.info(
-                f"[EBR_RAG] After TVG: evidence pool = {len(init_evidence)} items "
-                f"(+{len(tvg_ev)} tvg)"
-            )
-        except Exception as _tvg_exc:
-            logger.warning(f"[EBR_RAG] TVG evidence step failed (non-fatal): {_tvg_exc}")
+    init_evidence = _dedup_evidence(text_ev + graph_ev + visual_ev)
 
-    # -------------------------------------------------------------------------
-    # STRICT GLOBAL FAIRNESS CAP
-    # -------------------------------------------------------------------------
-    # Regardless of graph expansion or debate retrieval, limit the LLM context 
-    # to the exact theoretical max capacity of a Debate run.
-    universal_cap = (base_top_k * 2) + debate_bonus
+    # --- INITIAL TRUNCATION (Pre-Refinement Optimization) ---
+    # We limit to the initial budget (24) BEFORE calling the expensive VLM
+    initial_budget_limit = text_k + graph_k + visual_k # 24
+    if len(init_evidence) > initial_budget_limit:
+        logger.info(f"[EBR_RAG] Truncating pool {len(init_evidence)} -> {initial_budget_limit} BEFORE refinement.")
+        init_evidence = init_evidence[:initial_budget_limit]
+
+    # --- REFINEMENT (Stage 1) ---
+    # Only re-caption the items that actually made the cut
+    init_evidence = await refine_segment_evidence(init_evidence)
+
+    # --- FINAL UNIVERSAL CAP ---
+    # 24 (Initial) + 9 (Debate: 3 rounds * 3 items) = 33
+    universal_cap = initial_budget_limit + (max_rounds * 3)
     if len(init_evidence) > universal_cap:
-        logger.info(f"[EBR_RAG] Fairness Universal Cap: Truncating {len(init_evidence)} -> {universal_cap}")
         init_evidence = init_evidence[:universal_cap]
-    else:
-        logger.info(f"[EBR_RAG] Final initial evidence pool: {len(init_evidence)} items (cap is {universal_cap})")
 
     # --- Build LLM client ---
     model_name: str = getattr(getattr(vrag, "llm", None), "best_model_name", "gpt-4o-mini")
@@ -199,60 +190,37 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
     debate_cfg = DebateConfig(
         model=model_name,
         max_rounds=max_rounds,
-        tool_top_k=base_top_k,
+        tool_top_k=1, # Defender retrieves 1 item per call
         critique_see_evidence=getattr(param, "debate_critique_see_evidence", False),
         defender_disable_tools=getattr(param, "debate_defender_disable_tools", False),
         single_hypothesis=getattr(param, "debate_single_hypothesis", False),
     )
 
-    # --- Tool dispatcher (bridges debate loop → retrieval functions) ---
+    # --- Tool dispatcher ---
     async def dispatch_tool(name: str, args: dict, evidence_pool: list[EvidenceItem]) -> dict:
         q: str = args.get("query", query)
-        tk: int = int(args.get("top_k", base_top_k))
+        # Unified limit: 1 item per call during debate
+        tk = 1
         
-        # Ablation: Hard limit per tool call
-        tk = min(tk, 2)
-        
-        # Ablation: Ensure graph entity expansion in this tool call is also hard-limited
         call_config = dict(global_config)
         call_config["retrieval_topk_chunks"] = tk
-
-        use_tvg_only = getattr(param, "ebr_use_tvg_only", False)
+        evs = []
 
         if name == "search_text_evidence":
-            # Enabled in both modes as requested (1 text, 2 tvg)
-            evs = await search_text_evidence(
-                q, stores,
-                top_k=tk,
-                entity_boost=bool(args.get("entity_boost", True)),
-                global_config=call_config,
-                query_param=param,
-            )
-            return {"evidence": evs}
+            evs = await search_text_evidence(q, stores, top_k=tk, global_config=call_config, query_param=param)
 
-        if name == "search_visual_segment":
-            if stores.get("tvg_storage") is not None or use_tvg_only:
-                return {"error": "Baseline visual search is disabled when TVG is active. Use search_tvg_evidence instead."}
-            evs = await search_visual_segment(
-                q, stores,
-                top_k=min(tk, 2), # Ablation limit to 2
-                global_config=call_config,
-                query_param=param,
-            )
-            return {"evidence": evs}
+        elif name == "search_visual_segment":
+            evs = await search_visual_segment(q, stores, top_k=tk, global_config=call_config, query_param=param)
 
-        if name == "search_tvg_evidence":
-            evs = await search_tvg_evidence(
-                q, stores,
-                top_k=tk,
-                temporal_context_hops=int(args.get("temporal_hops", getattr(param, "tvg_temporal_hops", 2))),
-                global_config=call_config,
-                query_param=param,
-            )
-            return {"evidence": evs}
+        elif name == "search_graph_evidence":
+            evs = await search_graph_evidence(q, stores, top_k=tk, global_config=call_config, query_param=param)
 
-        logger.warning(f"[EBR_RAG] Unknown tool requested: {name!r}")
-        return {"error": f"unknown tool: {name}"}
+        else:
+            return {"error": f"unknown tool: {name}"}
+
+        # Refine only the newly found segment
+        evs = await refine_segment_evidence(evs)
+        return {"evidence": evs}
 
     # --- Detect MCQ ---
     mcq_options = _extract_mcq_options(query)
@@ -261,7 +229,7 @@ async def EBR_RAG_answer(vrag, query: str, param) -> dict:
         logger.info(f"[EBR_RAG] MCQ detected with {len(mcq_options)} options")
 
     # --- Stage 2-4: Multi-agent debate ---
-    logger.info(f"[EBR_RAG] Starting debate: max_rounds={max_rounds}, model={model_name}, mode={'MCQ' if is_mcq else 'Open'}")
+    logger.info(f"[EBR_RAG] Starting debate: max_rounds={max_rounds}, budget={len(init_evidence)} initial, cap={universal_cap}")
     verdict, state = await run_debate(
         query=query,
         initial_evidence=init_evidence,

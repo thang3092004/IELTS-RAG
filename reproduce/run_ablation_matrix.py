@@ -20,15 +20,14 @@ from videorag._utils import logger
 # ABLATION MATRIX DEFINITION
 # ==============================================================================
 ABLATION_MATRIX = {
-    "full_framework": {},
-    "no_semantic_nodes": {"tvg_disable_semantic": True},
-    "no_tan_nodes": {"tvg_disable_tan": True},
-    "no_semantic_edges": {"tvg_disable_semantic_edges": True},
-    "no_temporal_edges": {"tvg_disable_temporal": True},
-    "no_cross_modal_edges": {"tvg_disable_cross_modal": True},
-    "no_debate": {"max_rounds": 0},
-    "critique_with_evidence": {"debate_critique_see_evidence": True},
-    "defender_no_tools": {"debate_defender_disable_tools": True},
+    # 1. Test TM Graph
+    "full_framework": {"use_tm_graph": True},
+    "baseline_with_debate": {"use_tm_graph": False}, 
+    
+    # 2. Test Debate (all using TM Graph)
+    "no_debate": {"use_tm_graph": True, "max_rounds": 0},
+    "critique_with_evidence": {"use_tm_graph": True, "debate_critique_see_evidence": True},
+    "defender_no_tools": {"use_tm_graph": True, "debate_defender_disable_tools": True},
 }
 
 
@@ -55,7 +54,14 @@ async def run_scenario(vrag, query, scenario_name, scenario_params, query_id, ou
     }
     # scenario_params override base (e.g. no_debate sets max_rounds=0)
     merged = {**base_params, **scenario_params}
-    param = QueryParam(**merged)
+    
+    # Filter out internal control flags that are NOT part of QueryParam dataclass
+    query_param_keys = ["mode", "ebr_top_k", "max_rounds", "return_detailed", 
+                        "debate_critique_see_evidence", "debate_defender_disable_tools",
+                        "debate_single_hypothesis", "wo_reference"]
+    qp_dict = {k: v for k, v in merged.items() if k in query_param_keys}
+    
+    param = QueryParam(**qp_dict)
 
     # --- Execute pipeline ---
     response = await vrag.aquery(query, param=param)
@@ -132,11 +138,24 @@ async def main():
                 pbar.update(len(questions) * len(scenarios_to_run))
                 continue
 
-            vrag = VideoRAG(working_dir=str(work_dir))
+            # vrag_tm = VideoRAG(working_dir=str(work_dir), use_tm_graph=True)
+            # vrag_base = VideoRAG(working_dir=str(work_dir), use_tm_graph=False)
+            vrag = None
+            current_tm_mode = None
+
             output_root = Path(root_path) / "reproduce/all_answers" / sub_category
 
             for scenario_name in scenarios_to_run:
                 params = ABLATION_MATRIX[scenario_name]
+                use_tm = params.get("use_tm_graph", False)
+
+                # Re-initialize VideoRAG if TM mode changes
+                if vrag is None or current_tm_mode != use_tm:
+                    logger.info(f"Initializing VideoRAG (use_tm_graph={use_tm}) for {sub_category}")
+                    vrag = VideoRAG(working_dir=str(work_dir), use_tm_graph=use_tm)
+                    # For debate re-captioning, we need the caption model
+                    vrag.load_caption_model()
+                    current_tm_mode = use_tm
 
                 for q in questions:
                     q_id = q["id"]
